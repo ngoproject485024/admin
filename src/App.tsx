@@ -19,6 +19,21 @@ import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
 
+import ContentHome from "./pages/Content/ContentHome";
+import ContentAboutUs from "./pages/Content/ContentAboutUs";
+import ContentContactUs from "./pages/Content/ContentContactUs";
+import ContentNgo from "./pages/Content/ContentNgo";
+import ContentNgosRegistration from "./pages/Content/ContentNgosRegistration";
+import ContentStatistics from "./pages/Content/ContentStatistics";
+import ContentEducation from "./pages/Content/ContentEducation";
+import ContentEvents from "./pages/Content/ContentEvents";
+import ContentProjects from "./pages/Content/ContentProjects";
+import ContentGoodPractice from "./pages/Content/ContentGoodPractice";
+import ContentOngoingProjects from "./pages/Content/ContentOngoingProjects";
+import ContentCompletedProjects from "./pages/Content/ContentCompletedProjects";
+import ContentCollaborationOpportunities from "./pages/Content/ContentCollaborationOpportunities";
+import ContentDataArchive from "./pages/Content/ContentDataArchive";
+
 export default function App() {
   return (
     <>
@@ -28,6 +43,66 @@ export default function App() {
           {/* Dashboard Layout */}
           <Route element={<AppLayout />}>
             <Route index path="/" element={<Home />} />
+
+            {/* Content */}
+            <Route index path="/content/home" element={<ContentHome />} />
+            <Route
+              index
+              path="/content/about-us"
+              element={<ContentAboutUs />}
+            />
+            <Route
+              index
+              path="/content/contact-us"
+              element={<ContentContactUs />}
+            />
+            <Route index path="/content/ngo" element={<ContentNgo />} />
+            <Route
+              index
+              path="/content/ngos-registration"
+              element={<ContentNgosRegistration />}
+            />
+            <Route
+              index
+              path="/content/statistics"
+              element={<ContentStatistics />}
+            />
+            <Route
+              index
+              path="/content/education"
+              element={<ContentEducation />}
+            />
+            <Route index path="/content/events" element={<ContentEvents />} />
+            <Route
+              index
+              path="/content/projects"
+              element={<ContentProjects />}
+            />
+            <Route
+              index
+              path="/content/good-practice"
+              element={<ContentGoodPractice />}
+            />
+            <Route
+              index
+              path="/content/ongoing-projects"
+              element={<ContentOngoingProjects />}
+            />
+            <Route
+              index
+              path="/content/completed-projects"
+              element={<ContentCompletedProjects />}
+            />
+            <Route
+              index
+              path="/content/collaboration-opportunities"
+              element={<ContentCollaborationOpportunities />}
+            />
+            <Route
+              index
+              path="/content/data-archive"
+              element={<ContentDataArchive />}
+            />
 
             {/* Others Page */}
             <Route path="/profile" element={<UserProfiles />} />

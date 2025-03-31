@@ -1,5 +1,6 @@
 import { ReactComponent as PlusIcon } from "./plus.svg?react";
 import { ReactComponent as CloseIcon } from "./close.svg?react";
+import { ReactComponent as ContentIcon } from "./content.svg?react";
 import { ReactComponent as BoxIcon } from "./box.svg?react";
 import { ReactComponent as CheckCircleIcon } from "./check-circle.svg?react";
 import { ReactComponent as AlertIcon } from "./alert.svg?react";
@@ -66,6 +67,7 @@ export {
   PlusIcon,
   BoxIcon,
   CloseIcon,
+  ContentIcon,
   CheckCircleIcon,
   AlertIcon,
   InfoIcon,

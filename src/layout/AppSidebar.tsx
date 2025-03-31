@@ -6,6 +6,7 @@ import {
   BoxCubeIcon,
   CalenderIcon,
   ChevronDownIcon,
+  ContentIcon,
   GridIcon,
   HorizontaLDots,
   ListIcon,
@@ -29,7 +30,37 @@ const navItems: NavItem[] = [
   {
     icon: <GridIcon />,
     name: "داشبورد",
-    subItems: [{ name: "Ecommerce", path: "/", pro: false }],
+    path: "/",
+    // subItems: [{ name: "Ecommerce", path: "/", pro: false }],
+  },
+  {
+    icon: <ContentIcon />,
+    name: "محتوا",
+    path: "/content",
+    subItems: [
+      { name: "خانه", path: "/content/home", pro: false },
+      { name: "درباره ما", path: "/content/about-us", pro: false },
+      { name: "تماس با ما", path: "/content/contact-us", pro: false },
+      { name: "سمن", path: "/content/ngo", pro: false },
+      { name: "ثبت نام سمن", path: "/content/ngos-registration", pro: false },
+      { name: "آمار", path: "/content/statistics", pro: false },
+      { name: "آموزش و پرورش", path: "/content/education", pro: false },
+      { name: "رویداد ها", path: "/content/events", pro: false },
+      { name: "پروژه ها", path: "/content/projects", pro: false },
+      { name: "ابتکارات مشترک", path: "/content/good-practice", pro: false },
+      { name: "پروژه های فعال", path: "/content/ongoing-projects", pro: false },
+      {
+        name: "پروژه های تکمیل شده",
+        path: "/content/completed-projects",
+        pro: false,
+      },
+      {
+        name: "فرصت های همکاری",
+        path: "/content/collaboration-opportunities",
+        pro: false,
+      },
+      { name: "آرشیو دیجیتال", path: "/content/data-archive", pro: false },
+    ],
   },
   {
     icon: <CalenderIcon />,
@@ -93,7 +124,7 @@ const othersItems: NavItem[] = [
 ];
 
 const AppSidebar: React.FC = () => {
-  const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
+  const { isExpanded, isMobileOpen } = useSidebar();
   const location = useLocation();
 
   const [openSubmenu, setOpenSubmenu] = useState<{
@@ -172,9 +203,7 @@ const AppSidebar: React.FC = () => {
                   ? "menu-item-active"
                   : "menu-item-inactive"
               } cursor-pointer ${
-                !isExpanded && !isHovered
-                  ? "lg:justify-center"
-                  : "lg:justify-start"
+                !isExpanded ? "lg:justify-center" : "lg:justify-start"
               }`}
             >
               <span
@@ -186,10 +215,10 @@ const AppSidebar: React.FC = () => {
               >
                 {nav.icon}
               </span>
-              {(isExpanded || isHovered || isMobileOpen) && (
+              {(isExpanded || isMobileOpen) && (
                 <span className="menu-item-text">{nav.name}</span>
               )}
-              {(isExpanded || isHovered || isMobileOpen) && (
+              {(isExpanded || isMobileOpen) && (
                 <ChevronDownIcon
                   className={`ml-auto w-5 h-5 transition-transform duration-200 ${
                     openSubmenu?.type === menuType &&
@@ -217,13 +246,13 @@ const AppSidebar: React.FC = () => {
                 >
                   {nav.icon}
                 </span>
-                {(isExpanded || isHovered || isMobileOpen) && (
+                {(isExpanded || isMobileOpen) && (
                   <span className="menu-item-text">{nav.name}</span>
                 )}
               </Link>
             )
           )}
-          {nav.subItems && (isExpanded || isHovered || isMobileOpen) && (
+          {nav.subItems && (isExpanded || isMobileOpen) && (
             <div
               ref={(el) => {
                 subMenuRefs.current[`${menuType}-${index}`] = el;
@@ -247,30 +276,8 @@ const AppSidebar: React.FC = () => {
                           : "menu-dropdown-item-inactive"
                       }`}
                     >
-                      {subItem.name}
-                      <span className="flex items-center gap-1 ml-auto">
-                        {subItem.new && (
-                          <span
-                            className={`ml-auto ${
-                              isActive(subItem.path)
-                                ? "menu-dropdown-badge-active"
-                                : "menu-dropdown-badge-inactive"
-                            } menu-dropdown-badge`}
-                          >
-                            new
-                          </span>
-                        )}
-                        {subItem.pro && (
-                          <span
-                            className={`ml-auto ${
-                              isActive(subItem.path)
-                                ? "menu-dropdown-badge-active"
-                                : "menu-dropdown-badge-inactive"
-                            } menu-dropdown-badge`}
-                          >
-                            pro
-                          </span>
-                        )}
+                      <span className="flex items-center gap-1 mr-4">
+                        {subItem.name}
                       </span>
                     </Link>
                   </li>
@@ -286,36 +293,28 @@ const AppSidebar: React.FC = () => {
   return (
     <aside
       className={`fixed mt-16 flex flex-col lg:mt-0 top-0 px-5 right-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-50 border-r border-gray-200 
-        ${
-          isExpanded || isMobileOpen
-            ? "w-[290px]"
-            : isHovered
-            ? "w-[290px]"
-            : "w-[90px]"
-        }
+        ${isExpanded || isMobileOpen ? "w-[290px]" : "w-[90px]"}
         ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
         lg:translate-x-0`}
-      onMouseEnter={() => !isExpanded && setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div
         className={`py-8 flex ${
-          !isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
+          !isExpanded ? "lg:justify-center" : "justify-center"
         }`}
       >
         <Link to="/">
-          {isExpanded || isHovered || isMobileOpen ? (
+          {isExpanded || isMobileOpen ? (
             <>
               <img
                 className="dark:hidden"
-                src="/images/logo/logo.svg"
+                src="/images/logo/logo.jpg"
                 alt="Logo"
                 width={150}
                 height={40}
               />
               <img
                 className="hidden dark:block"
-                src="/images/logo/logo-dark.svg"
+                src="/images/logo/logo.jpg"
                 alt="Logo"
                 width={150}
                 height={40}
@@ -323,10 +322,10 @@ const AppSidebar: React.FC = () => {
             </>
           ) : (
             <img
-              src="/images/logo/logo-icon.svg"
+              src="/images/logo/logo.jpg"
               alt="Logo"
-              width={32}
-              height={32}
+              width={80}
+              height={50}
             />
           )}
         </Link>
@@ -337,13 +336,11 @@ const AppSidebar: React.FC = () => {
             <div>
               <h2
                 className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
-                  !isExpanded && !isHovered
-                    ? "lg:justify-center"
-                    : "justify-start"
+                  !isExpanded ? "lg:justify-center" : "justify-start"
                 }`}
               >
-                {isExpanded || isHovered || isMobileOpen ? (
-                  "Menu"
+                {isExpanded || isMobileOpen ? (
+                  "منو"
                 ) : (
                   <HorizontaLDots className="size-6" />
                 )}
@@ -353,22 +350,16 @@ const AppSidebar: React.FC = () => {
             <div className="">
               <h2
                 className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
-                  !isExpanded && !isHovered
-                    ? "lg:justify-center"
-                    : "justify-start"
+                  !isExpanded ? "lg:justify-center" : "justify-start"
                 }`}
               >
-                {isExpanded || isHovered || isMobileOpen ? (
-                  "Others"
-                ) : (
-                  <HorizontaLDots />
-                )}
+                {isExpanded || isMobileOpen ? "Others" : <HorizontaLDots />}
               </h2>
               {renderMenuItems(othersItems, "others")}
             </div>
           </div>
         </nav>
-        {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null}
+        {isExpanded || isMobileOpen ? <SidebarWidget /> : null}
       </div>
     </aside>
   );
