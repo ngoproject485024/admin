@@ -1,11 +1,27 @@
+import { useState } from "react";
 import ComponentCard from "../../common/ComponentCard";
 import { useDropzone } from "react-dropzone";
-// import Dropzone from "react-dropzone";
 
-const DropzoneComponent: React.FC = () => {
+interface IDropZoneComponent {
+  title: string | undefined;
+  multiple: boolean;
+}
+
+const DropzoneComponent: React.FC<IDropZoneComponent> = ({
+  title,
+  multiple,
+}) => {
+  const [thumbImage, setThumbImage] = useState<string[]>([]);
+
   const onDrop = (acceptedFiles: File[]) => {
     console.log("Files dropped:", acceptedFiles);
     // Handle file uploads here
+    const paths: string[] = acceptedFiles.map((file: File) => {
+      const path = URL.createObjectURL(file);
+      return path;
+    });
+
+    setThumbImage(paths);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -16,9 +32,10 @@ const DropzoneComponent: React.FC = () => {
       "image/webp": [],
       "image/svg+xml": [],
     },
+    multiple: multiple,
   });
   return (
-    <ComponentCard title="Dropzone">
+    <ComponentCard title={title ? title : ""}>
       <div className="transition border border-gray-300 border-dashed cursor-pointer dark:hover:border-brand-500 dark:border-gray-700 rounded-xl hover:border-brand-500">
         <form
           {...getRootProps()}
@@ -56,18 +73,37 @@ const DropzoneComponent: React.FC = () => {
 
             {/* Text Content */}
             <h4 className="mb-3 font-semibold text-gray-800 text-theme-xl dark:text-white/90">
-              {isDragActive ? "Drop Files Here" : "Drag & Drop Files Here"}
+              {isDragActive
+                ? "اینجا رها کنید"
+                : "تصویر را بکشید و اینجا رها کنید"}
             </h4>
 
             <span className=" text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
-              Drag and drop your PNG, JPG, WebP, SVG images here or browse
+              تصاویر PNG, JPG, WebP, SVG خود را اینجا بکشید و رها کنید و یا
+              انتخاب کنید
             </span>
 
             <span className="font-medium underline text-theme-sm text-brand-500">
-              Browse File
+              انتخاب تصویر
             </span>
           </div>
         </form>
+        {thumbImage && (
+          <div className="flex items-center justify-center mb-3 w-full gap-5 flex-wrap">
+            {thumbImage?.map((image) => (
+              <div
+                key={image}
+                className="flex items-center justify-center mb-3"
+              >
+                <img
+                  src={image}
+                  alt="uploaded image"
+                  className="w-[150px] h-[150px]"
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </ComponentCard>
   );

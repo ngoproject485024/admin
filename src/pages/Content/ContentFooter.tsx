@@ -6,17 +6,21 @@ import TextArea from "../../components/form/input/TextArea";
 import Label from "../../components/form/Label";
 import Button from "../../components/ui/button/Button";
 
-function ContentContactUs() {
+const ContentFooter = () => {
   return (
     <div>
-      <PageMeta
-        title="محتوا | ارتباط با ما"
-        description="محتوای صفحه ارتباط با ما"
-      />
-      <PageBreadcrumb pageTitle="محتوا" subMenu="ارتباط با ما" />
+      <PageMeta title="محتوا | فوتر" description="محتوای صفحه فوتر" />
+      <PageBreadcrumb pageTitle="محتوا" subMenu="فوتر" />
       <div className="flex flex-col gap-2">
-        <ComponentCard title="محتوای ارتباط با ما">
-          {/* <TextAreaInput title="توضیحات سرتیتر" /> */}
+        <ComponentCard title="اطلاعات فوتر">
+          <div>
+            <Label>توضیحات</Label>
+            <TextArea
+              // value={message}
+              // onChange={(value) => setMessage(value)}
+              rows={6}
+            />
+          </div>
           <div>
             <Label htmlFor="input">ایمیل</Label>
             <Input type="text" id="input" />
@@ -41,24 +45,6 @@ function ContentContactUs() {
             <Label htmlFor="input">فیس بوک</Label>
             <Input type="text" id="input" />
           </div>
-          {/* <AreaIn */}
-          <div>
-            <Label>آدرس</Label>
-            <TextArea
-              // value={message}
-              // onChange={(value) => setMessage(value)}
-              rows={6}
-              placeholder="آدرس را وارد کنید"
-            />
-          </div>
-          <div>
-            <Label>توضیحات</Label>
-            <TextArea
-              // value={message}
-              // onChange={(value) => setMessage(value)}
-              rows={6}
-            />
-          </div>
         </ComponentCard>
         <div className="flex gap-2 mt-2">
           <Button>ثبت</Button>
@@ -67,6 +53,6 @@ function ContentContactUs() {
       </div>
     </div>
   );
-}
+};
 
-export default ContentContactUs;
+export default ContentFooter;

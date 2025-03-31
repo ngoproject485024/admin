@@ -33,6 +33,7 @@ import ContentOngoingProjects from "./pages/Content/ContentOngoingProjects";
 import ContentCompletedProjects from "./pages/Content/ContentCompletedProjects";
 import ContentCollaborationOpportunities from "./pages/Content/ContentCollaborationOpportunities";
 import ContentDataArchive from "./pages/Content/ContentDataArchive";
+import ContentFooter from "./pages/Content/ContentFooter";
 
 export default function App() {
   return (
@@ -103,6 +104,7 @@ export default function App() {
               path="/content/data-archive"
               element={<ContentDataArchive />}
             />
+            <Route index path="/content/footer" element={<ContentFooter />} />
 
             {/* Others Page */}
             <Route path="/profile" element={<UserProfiles />} />
