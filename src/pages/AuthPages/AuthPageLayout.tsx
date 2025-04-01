@@ -21,12 +21,13 @@ export default function AuthLayout({
                 <img
                   width={231}
                   height={48}
-                  src="/images/logo/auth-logo.svg"
+                  src="/images/logo/logo.jpg"
                   alt="Logo"
                 />
               </Link>
               <p className="text-center text-gray-400 dark:text-white/60">
-                Free and Open-Source Tailwind CSS Admin Dashboard Template
+                سامانه مدیریت سایت مرکز مطالعات منطقه ای پاسداری از میراث فرهنگی
+                ناملموس در آسیای غربی و مرکزی تحت نظارت یونسکو
               </p>
             </div>
           </div>
