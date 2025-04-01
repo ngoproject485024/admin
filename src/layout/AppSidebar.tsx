@@ -8,6 +8,7 @@ import {
   ChevronDownIcon,
   ContentIcon,
   EducationIcon,
+  EventsIcon,
   GridIcon,
   HorizontaLDots,
   ListIcon,
@@ -37,7 +38,11 @@ const navItems: NavItem[] = [
     icon: <EducationIcon />,
     name: "آموزش و پرورش",
     path: "/education",
-    // subItems: [{ name: "Ecommerce", path: "/", pro: false }],
+  },
+  {
+    icon: <EventsIcon />,
+    name: "رویدادها",
+    path: "/events",
   },
   {
     icon: <ContentIcon />,

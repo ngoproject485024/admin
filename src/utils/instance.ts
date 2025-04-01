@@ -53,6 +53,7 @@ instance.interceptors.response.use(
           return Promise.reject(notFoundError);
         }
         case 400: {
+          console.log("vvvvvv", error);
           const errorSource = new Error("400");
           console.log(errorSource);
 

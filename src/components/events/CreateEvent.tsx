@@ -12,10 +12,10 @@ import DropzoneVideoComponent from "../form/form-elements/DropZoneVideo";
 import { uploadFiles } from "../../server/uploadFiles";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
-import { createEducation } from "../../server/education";
-import { educationSchema } from "../../utils/validation";
+import { createEvent } from "../../server/events";
+import { eventsSchema } from "../../utils/validation";
 
-function CreateEducation({ refetch }: { refetch: () => void }) {
+function CreateEvent({ refetch }: { refetch: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -30,16 +30,22 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
   const handleClose = () => setIsOpen(false);
 
   const mutation = useMutation({
-    mutationKey: ["createEducation"],
-    mutationFn: createEducation,
+    mutationKey: ["createEvent"],
+    mutationFn: createEvent,
     onSuccess: (data) => {
       if (data.success) {
-        toast.success("آموزش با موفقیت ایجاد شد");
+        toast.success("رویداد با موفقیت ایجاد شد");
         handleClose();
-        refetch()
+        refetch();
         formik.resetForm();
+        setPeImageFiles([]);
+        entEnImageFiles([]);
+        ruRuImageFiles([]);
+        setPeVideoFiles([]);
+        setEnVideoFiles([]);
+        setRuVideoFiles([]);
       } else {
-        toast.error("آموزش ایجاد نشد ، لطفا دوباره امتحان کنید");
+        toast.error("رویداد ایجاد نشد ، لطفا دوباره امتحان کنید");
         handleClose();
         formik.resetForm();
       }
@@ -53,9 +59,9 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
     peDescription: string;
     enDescription: string;
     ruDescription: string;
-    peEducationBody: string;
-    enEducationBody: string;
-    ruEducationBody: string;
+    peEventsBody: string;
+    enEventsBody: string;
+    ruEventsBody: string;
     pePictures: [];
     enPictures: [];
     ruPictures: [];
@@ -70,9 +76,9 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
       peDescription: "",
       enDescription: "",
       ruDescription: "",
-      peEducationBody: "",
-      enEducationBody: "",
-      ruEducationBody: "",
+      peEventsBody: "",
+      enEventsBody: "",
+      ruEventsBody: "",
       pePictures: [],
       enPictures: [],
       ruPictures: [],
@@ -80,7 +86,7 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
       enVideo: [],
       ruVideo: [],
     },
-    validationSchema: educationSchema,
+    validationSchema: eventsSchema,
     onSubmit: async (values) => {
       setIsLoading(true);
       if (peImageFiles.length) {
@@ -91,9 +97,9 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
 
         if (response.success) {
           values.pePictures = response.data;
-          toast.success("تصاویر آموزش فارسی با موفقیت آپلود شد");
+          toast.success("تصاویر رویداد فارسی با موفقیت آپلود شد");
         } else {
-          toast.error("تصاویر آموزش فارسی آپلود نشد");
+          toast.error("تصاویر رویداد فارسی آپلود نشد");
         }
       }
       if (enImageFiles.length) {
@@ -104,9 +110,9 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
 
         if (response.success) {
           values.enPictures = response.data;
-          toast.success("تصاویر آموزش انگلیسی با موفقیت آپلود شد");
+          toast.success("تصاویر رویداد انگلیسی با موفقیت آپلود شد");
         } else {
-          toast.error("تصاویر آموزش انگلیسی آپلود نشد");
+          toast.error("تصاویر رویداد انگلیسی آپلود نشد");
         }
       }
       if (ruImageFiles.length) {
@@ -117,9 +123,9 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
 
         if (response.success) {
           values.ruPictures = response.data;
-          toast.success("تصاویر آموزش روسی با موفقیت آپلود شد");
+          toast.success("تصاویر رویداد روسی با موفقیت آپلود شد");
         } else {
-          toast.error("تصاویر آموزش روسی آپلود نشد");
+          toast.error("تصاویر رویداد روسی آپلود نشد");
         }
       }
 
@@ -131,9 +137,9 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
 
         if (response.success) {
           values.peVideo = response.data;
-          toast.success("ویدیو آموزش فارسی با موفقیت آپلود شد");
+          toast.success("ویدیو رویداد فارسی با موفقیت آپلود شد");
         } else {
-          toast.error("ویدیو آموزش فارسی آپلود نشد");
+          toast.error("ویدیو رویداد فارسی آپلود نشد");
         }
       }
 
@@ -145,9 +151,9 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
 
         if (response.success) {
           values.enVideo = response.data;
-          toast.success("ویدیو آموزش انگلیسی با موفقیت آپلود شد");
+          toast.success("ویدیو رویداد انگلیسی با موفقیت آپلود شد");
         } else {
-          toast.error("ویدیو آموزش انگلیسی آپلود نشد");
+          toast.error("ویدیو رویداد انگلیسی آپلود نشد");
         }
       }
 
@@ -159,9 +165,9 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
 
         if (response.success) {
           values.ruVideo = response.data;
-          toast.success("ویدیو آموزش روسی با موفقیت آپلود شد");
+          toast.success("ویدیو رویداد روسی با موفقیت آپلود شد");
         } else {
-          toast.error("ویدیو آموزش روسی آپلود نشد");
+          toast.error("ویدیو رویداد روسی آپلود نشد");
         }
       }
 
@@ -173,15 +179,15 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
   return (
     <>
       <Button endIcon={<PlusIcon />} size="sm" onClick={() => setIsOpen(true)}>
-        افزودن آموزش
+        افزودن رویداد
       </Button>
       <Modal isOpen={isOpen} onClose={handleClose}>
         <h1 className="font-bold text-lg text-center w-full mb-8">
-          افزودن آموزش جدید
+          افزودن رویداد جدید
         </h1>
 
         <form onSubmit={formik.handleSubmit}>
-          <ComponentCard title="عنوان آموزش">
+          <ComponentCard title="عنوان رویداد">
             <div className="flex gap-4">
               <div>
                 <Label htmlFor="pe-input">عنوان فارسی</Label>
@@ -236,7 +242,6 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
               <TextArea
                 placeholder="توضیحات فارسی را وارد کنید"
                 error={formik.errors.peDescription ? true : false}
-                // {...formik.getFieldProps("peDescription")}
                 name="peDescription"
                 formik={formik}
               />
@@ -278,79 +283,76 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
               <Label htmlFor="ru-input">توضیحات تکمیلی فارسی</Label>
               <TextArea
                 placeholder="توضیحات تکمیلی فارسی را وارد کنید"
-                error={formik.errors.peEducationBody ? true : false}
+                error={formik.errors.peEventsBody ? true : false}
                 formik={formik}
-                name="peEducationBody"
+                name="peEventsBody"
               />
-              {formik.errors.peEducationBody &&
-                formik.touched.peEducationBody && (
-                  <span className="text-sm text-error-500">
-                    {formik.errors.peEducationBody}
-                  </span>
-                )}
+              {formik.errors.peEventsBody && formik.touched.peEventsBody && (
+                <span className="text-sm text-error-500">
+                  {formik.errors.peEventsBody}
+                </span>
+              )}
             </div>
             <div>
               <Label htmlFor="ru-input">توضیحات تکمیلی انگلیسی</Label>
               <TextArea
                 placeholder="توضیحات تکمیلی انگلیسی را وارد کنید"
-                error={formik.errors.enEducationBody ? true : false}
+                error={formik.errors.enEventsBody ? true : false}
                 formik={formik}
-                name="enEducationBody"
+                name="enEventsBody"
               />
-              {formik.errors.enEducationBody &&
-                formik.touched.enEducationBody && (
-                  <span className="text-sm text-error-500">
-                    {formik.errors.enEducationBody}
-                  </span>
-                )}
+              {formik.errors.enEventsBody && formik.touched.enEventsBody && (
+                <span className="text-sm text-error-500">
+                  {formik.errors.enEventsBody}
+                </span>
+              )}
             </div>
             <div>
               <Label htmlFor="ru-input">توضیحات تکمیلی روسی</Label>
               <TextArea
                 placeholder="توضیحات تکمیلی روسی را وارد کنید"
-                error={formik.errors.ruEducationBody ? true : false}
+                error={formik.errors.ruEventsBody ? true : false}
                 formik={formik}
-                name="ruEducationBody"
+                name="ruEventsBody"
               />
-              {formik.errors.ruEducationBody &&
-                formik.touched.ruEducationBody && (
-                  <span className="text-sm text-error-500">
-                    {formik.errors.ruEducationBody}
-                  </span>
-                )}
+              {formik.errors.ruEventsBody && formik.touched.ruEventsBody && (
+                <span className="text-sm text-error-500">
+                  {formik.errors.ruEventsBody}
+                </span>
+              )}
             </div>
           </ComponentCard>
-          <ComponentCard title="تصاویر آموزش">
+          <ComponentCard title="تصاویر رویداد">
             <DropzoneComponent
               multiple
-              title="تصاویر آموزش فارسی"
+              title="تصاویر رویداد فارسی"
               onFiles={setPeImageFiles}
             />
             <DropzoneComponent
               multiple
-              title="تصاویر آموزش انگلیسی"
+              title="تصاویر رویداد انگلیسی"
               onFiles={entEnImageFiles}
             />
             <DropzoneComponent
               multiple
-              title="تصاویر آموزش روسی"
+              title="تصاویر رویداد روسی"
               onFiles={ruRuImageFiles}
             />
           </ComponentCard>
-          <ComponentCard title="ویدیو آموزش">
+          <ComponentCard title="ویدیو رویداد">
             <DropzoneVideoComponent
               multiple
-              title="ویدیو آموزش فارسی"
+              title="ویدیو رویداد فارسی"
               onFiles={setPeVideoFiles}
             />
             <DropzoneVideoComponent
               multiple
-              title="ویدیو آموزش انگلیسی"
+              title="ویدیو رویداد انگلیسی"
               onFiles={setEnVideoFiles}
             />
             <DropzoneVideoComponent
               multiple
-              title="ویدیو آموزش روسی"
+              title="ویدیو رویداد روسی"
               onFiles={setRuVideoFiles}
             />
           </ComponentCard>
@@ -375,4 +377,4 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
   );
 }
 
-export default CreateEducation;
+export default CreateEvent;

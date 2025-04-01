@@ -1,0 +1,121 @@
+import { useCallback, useRef, useState } from "react";
+import { AgGridReact } from "ag-grid-react";
+import { AG_GRID_LOCALE_IR } from "@ag-grid-community/locale";
+import {
+  ColDef,
+  ModuleRegistry,
+  AllCommunityModule,
+  themeAlpine,
+  colorSchemeDarkBlue,
+  colorSchemeLight,
+} from "ag-grid-community";
+import { useQuery } from "@tanstack/react-query";
+
+import Input from "../form/input/InputField";
+import { useTheme } from "../../context/ThemeContext";
+import Button from "../ui/button/Button";
+import { TrashBinIcon } from "../../icons";
+import CreateEvent from "./CreateEvent";
+import { getEvents } from "../../server/events";
+
+ModuleRegistry.registerModules([AllCommunityModule]);
+
+interface IRow {
+  peTitle: string;
+  enTitle: string;
+  ruTitle: string;
+  peDescription: string;
+  enDescription: string;
+  ruDescription: string;
+  peEventsBody: string;
+  enEventsBody: string;
+  ruEventsBody: string;
+  actions: string;
+}
+
+const themeDark = themeAlpine.withPart(colorSchemeDarkBlue);
+const themeLight = themeAlpine.withPart(colorSchemeLight);
+
+function EventsList() {
+  const { data, refetch } = useQuery({
+    queryKey: ["getEvents"],
+    queryFn: getEvents,
+  });
+
+  const [colDefs] = useState<ColDef<IRow>[]>([
+    { field: "peTitle", headerName: "عنوان فارسی" },
+    { field: "enTitle", headerName: "عنوان انگلیسی" },
+    { field: "ruTitle", headerName: "عنوان روسی" },
+    { field: "peDescription", headerName: "توضیحات فارسی" },
+    { field: "enDescription", headerName: "توضیحات انگلیسی" },
+    { field: "ruDescription", headerName: "توضیحات روسی" },
+    { field: "peEventsBody", headerName: "توضیحات تکمیلی فارسی" },
+    { field: "enEventsBody", headerName: "توضیحات تکمیلی انگلیسی" },
+    { field: "ruEventsBody", headerName: "توضیحات تکمیلی روسی" },
+    {
+      field: "actions",
+      headerName: "عملیات",
+      cellRenderer: () => (
+        <Button
+          variant="primary"
+          className="bg-rose-500 hover:bg-rose-800"
+          size="sm"
+          startIcon={<TrashBinIcon />}
+        >
+          حذف
+        </Button>
+      ),
+    },
+  ]);
+
+  const defaultColDef: ColDef = {
+    cellStyle: {
+      diplay: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    headerStyle: {
+      textAlign: "center",
+    },
+    headerClass: "header-cell",
+  };
+
+  const gridRef = useRef<AgGridReact>(null);
+
+  const onFilterTextBoxChanged = useCallback(() => {
+    gridRef.current!.api.setGridOption(
+      "quickFilterText",
+      (document.getElementById("filter-text-box") as HTMLInputElement).value
+    );
+  }, []);
+
+  const { theme } = useTheme();
+
+  return (
+    <>
+      <div className="my-4 flex gap-4">
+        <Input
+          type="text"
+          id="filter-text-box"
+          placeholder="جستجو..."
+          onInput={onFilterTextBoxChanged}
+        />
+        <CreateEvent refetch={refetch} />
+      </div>
+      <div style={{ width: "100%", height: "400px" }}>
+        <AgGridReact
+          ref={gridRef}
+          theme={theme === "dark" ? themeDark : themeLight}
+          enableRtl
+          pagination
+          localeText={AG_GRID_LOCALE_IR}
+          rowData={data && data.data}
+          columnDefs={colDefs}
+          defaultColDef={defaultColDef}
+        />
+      </div>
+    </>
+  );
+}
+
+export default EventsList;

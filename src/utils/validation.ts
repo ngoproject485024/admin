@@ -23,3 +23,20 @@ export const educationSchema = Yup.object().shape({
     .min(150, "توضیحات تکمیلی نباید کوتاه در از 200 کاراکتر باشد")
     .required(" توضیحات تکلمیلی روسی الزامی است"),
 });
+export const eventsSchema = Yup.object().shape({
+  peTitle: Yup.string().required("عنوان فارسی الزامی است"),
+  enTitle: Yup.string().required("عنوان انگلیسی الزامی است"),
+  ruTitle: Yup.string().required("عنوان روسی الزامی است"),
+  peDescription: Yup.string().required("توضیحات فارسی الزامی است"),
+  enDescription: Yup.string().required("توضیحات انگلیسی الزامی است"),
+  ruDescription: Yup.string().required("توضیحات روسی الزامی است"),
+  peEventsBody: Yup.string()
+    .min(150, "توضیحات تکمیلی نباید کوتاه در از 200 کاراکتر باشد")
+    .required(" توضیحات تکلمیلی فارسی الزامی است"),
+  enEventsBody: Yup.string()
+    .min(150, "توضیحات تکمیلی نباید کوتاه در از 200 کاراکتر باشد")
+    .required(" توضیحات تکلمیلی انگلیسی الزامی است"),
+  ruEventsBody: Yup.string()
+    .min(150, "توضیحات تکمیلی نباید کوتاه در از 200 کاراکتر باشد")
+    .required(" توضیحات تکلمیلی روسی الزامی است"),
+});

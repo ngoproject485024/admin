@@ -33,7 +33,7 @@ export default function SignInForm() {
       userName: "",
       password: "",
     },
-    validationSchema: singInSchema,
+    // validationSchema: singInSchema,
     onSubmit: (values) => {
       console.log("Form submitted:", values);
       mutation.mutate(values);
@@ -169,6 +169,7 @@ export default function SignInForm() {
                     className="w-full"
                     size="sm"
                     isLoading={mutation.isPending}
+                    type="submit"
                   >
                     ورود
                   </Button>

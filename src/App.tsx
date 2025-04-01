@@ -35,6 +35,7 @@ import ContentCollaborationOpportunities from "./pages/Content/ContentCollaborat
 import ContentDataArchive from "./pages/Content/ContentDataArchive";
 import ContentFooter from "./pages/Content/ContentFooter";
 import EducationPage from "./pages/Education";
+import EventsPage from "./pages/Events";
 
 export default function App() {
   return (
@@ -46,6 +47,7 @@ export default function App() {
           <Route element={<AppLayout />}>
             <Route index path="/" element={<Home />} />
             <Route index path="/education" element={<EducationPage />} />
+            <Route index path="/events" element={<EventsPage />} />
 
             {/* Content */}
             <Route index path="/content/home" element={<ContentHome />} />
