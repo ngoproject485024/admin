@@ -5,35 +5,30 @@ import { useDropzone } from "react-dropzone";
 interface IDropZoneComponent {
   title: string | undefined;
   multiple: boolean;
-  onFiles?: (files: File[]) => void;
+  onFiles: (file: File[]) => void;
 }
 
-const DropzoneComponent: React.FC<IDropZoneComponent> = ({
+const DropzoneVideoComponent: React.FC<IDropZoneComponent> = ({
   title,
   multiple,
   onFiles,
 }) => {
-  const [thumbImage, setThumbImage] = useState<string[]>([]);
+  const [thumbVideo, setThumbVideo] = useState<string[]>([]);
 
   const onDrop = (acceptedFiles: File[]) => {
-    console.log("Files dropped:", acceptedFiles);
-    // Handle file uploads here
     const paths: string[] = acceptedFiles.map((file: File) => {
       const path = URL.createObjectURL(file);
       return path;
     });
 
-    onFiles?.(acceptedFiles);
-    setThumbImage(paths);
+    onFiles(acceptedFiles);
+    setThumbVideo(paths);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      "image/png": [],
-      "image/jpeg": [],
-      "image/webp": [],
-      "image/svg+xml": [],
+      "video/*": [],
     },
     multiple: multiple,
     maxFiles: 5,
@@ -79,34 +74,30 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
             <h4 className="mb-3 font-semibold text-gray-800 text-theme-xl dark:text-white/90">
               {isDragActive
                 ? "اینجا رها کنید"
-                : "تصویر را بکشید و اینجا رها کنید"}
+                : "ویدیو را بکشید و اینجا رها کنید"}
             </h4>
 
             <span className=" text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
-              تصاویر PNG, JPG, WebP, SVG خود را اینجا بکشید و رها کنید و یا
+              ویدیو های MP4 , AVI , MOV , MPG خود را اینجا بکشید و رها کنید و یا
               انتخاب کنید
             </span>
             <span className=" text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
-              حداکثر 5
+              حداکثر 5 فایل
             </span>
 
             <span className="font-medium underline text-theme-sm text-brand-500">
-              انتخاب تصویر
+              انتخاب ویدیو
             </span>
           </div>
         </form>
-        {thumbImage && (
+        {thumbVideo && (
           <div className="flex items-center justify-center mb-3 w-full gap-5 flex-wrap">
-            {thumbImage?.map((image) => (
+            {thumbVideo?.map((video) => (
               <div
-                key={image}
+                key={video}
                 className="flex items-center justify-center mb-3"
               >
-                <img
-                  src={image}
-                  alt="uploaded image"
-                  className="w-[150px] h-[150px]"
-                />
+                <video src={video} className="w-[150px] h-[150px]" />
               </div>
             ))}
           </div>
@@ -116,4 +107,4 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
   );
 };
 
-export default DropzoneComponent;
+export default DropzoneVideoComponent;

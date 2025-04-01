@@ -5,7 +5,7 @@ const cookies = new Cookies(null, { path: "/" });
 export const setCookie = (name: string, value: object, days: number) => {
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + days);
-  cookies.set(name, value, { expires: expirationDate });
+  cookies.set(name, value, { expires: expirationDate, secure: true });
 };
 
 export const getCookie = (name: string) => {

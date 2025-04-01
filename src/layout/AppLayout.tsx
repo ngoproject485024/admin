@@ -1,11 +1,31 @@
 import { SidebarProvider, useSidebar } from "../context/SidebarContext";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import AppHeader from "./AppHeader";
 import Backdrop from "./Backdrop";
 import AppSidebar from "./AppSidebar";
+import { getCookie } from "../utils/cookie";
+import { useEffect, useState } from "react";
+import Loading from "../components/loading";
 
 const LayoutContent: React.FC = () => {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
+  const [isDisplay, setIsDisplay] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const cookie = getCookie("admin-miras-token");
+
+    if (cookie) {
+      navigate("/", { replace: true });
+    } else {
+      navigate("/signin", { replace: true });
+    }
+    setIsDisplay(true);
+  }, []);
+
+  if (!isDisplay) {
+    return <Loading />;
+  }
 
   return (
     <div className="min-h-screen xl:flex">

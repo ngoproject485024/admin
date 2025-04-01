@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getCookie } from "./cookie";
 
-const token = async () => {
+const token = () => {
   const token: string | undefined = getCookie("admin-miras-token");
 
   if (token) {
@@ -19,8 +19,8 @@ const instance = axios.create({
 
 // Request interceptor
 instance.interceptors.request.use(
-  async (config) => {
-    const getToken = await token();
+  (config) => {
+    const getToken = token();
 
     config.headers.Authorization = `Bearer ${getToken}`;
 
@@ -53,7 +53,6 @@ instance.interceptors.response.use(
           return Promise.reject(notFoundError);
         }
         case 400: {
-          console.log("eeeee", error);
           const errorSource = new Error("400");
           console.log(errorSource);
 

@@ -1,3 +1,4 @@
+import { FormikProps } from "formik";
 import React from "react";
 
 interface TextareaProps {
@@ -9,6 +10,8 @@ interface TextareaProps {
   disabled?: boolean; // Disabled state
   error?: boolean; // Error state
   hint?: string; // Hint text to display
+  name: string;
+  formik: any;
 }
 
 const TextArea: React.FC<TextareaProps> = ({
@@ -20,13 +23,9 @@ const TextArea: React.FC<TextareaProps> = ({
   disabled = false, // Disabled state
   error = false, // Error state
   hint = "", // Default hint text
+  name,
+  formik,
 }) => {
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (onChange) {
-      onChange(e.target.value);
-    }
-  };
-
   let textareaClasses = `w-full rounded-lg border px-4 py-2.5 text-sm shadow-theme-xs focus:outline-hidden ${className} `;
 
   if (disabled) {
@@ -42,10 +41,9 @@ const TextArea: React.FC<TextareaProps> = ({
       <textarea
         placeholder={placeholder}
         rows={rows}
-        value={value}
-        onChange={handleChange}
         disabled={disabled}
         className={textareaClasses}
+        {...formik.getFieldProps(name)}
       />
       {hint && (
         <p

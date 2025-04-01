@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import GridShape from "../../components/common/GridShape";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import ThemeTogglerTwo from "../../components/common/ThemeTogglerTwo";
+import { getCookie } from "../../utils/cookie";
+import Loading from "../../components/loading";
 
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [isDisplay, setIsDisplay] = React.useState<boolean>(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const cookie = getCookie("admin-miras-token");
+
+    if (cookie) {
+      navigate("/", { replace: true });
+    } else {
+      setIsDisplay(true);
+    }
+  }, []);
+
+  if (!isDisplay) {
+    return <Loading />;
+  }
+
   return (
     <div className="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0">
       <div className="relative flex flex-col justify-center w-full h-screen lg:flex-row dark:bg-gray-900 sm:p-0">

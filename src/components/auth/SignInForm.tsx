@@ -21,7 +21,6 @@ export default function SignInForm() {
     mutationKey: ["loginRequest"],
     mutationFn: loginRequest,
     onSuccess: (data) => {
-      console.log("dddd", data);
       if (data.success) {
         setCookie("admin-miras-token", data.data.token, 7);
         navigate("/", { replace: true });

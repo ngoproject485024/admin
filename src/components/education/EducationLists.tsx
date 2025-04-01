@@ -1,5 +1,6 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
+import { AG_GRID_LOCALE_IR } from "@ag-grid-community/locale";
 import {
   ColDef,
   ModuleRegistry,
@@ -10,39 +11,74 @@ import {
 } from "ag-grid-community";
 import Input from "../form/input/InputField";
 import { useTheme } from "../../context/ThemeContext";
+import CreateEducation from "./CreateEducation";
+import { useQuery } from "@tanstack/react-query";
+import { getEducations } from "../../server/education";
+import Button from "../ui/button/Button";
+import { TrashBinIcon } from "../../icons";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 interface IRow {
-  make: string;
-  model: string;
-  price: number;
-  electric: boolean;
+  peTitle: string;
+  enTitle: string;
+  ruTitle: string;
+  peDescription: string;
+  enDescription: string;
+  ruDescription: string;
+  peEducationBody: string;
+  enEducationBody: string;
+  ruEducationBody: string;
+  actions: string;
 }
 
 const themeDark = themeAlpine.withPart(colorSchemeDarkBlue);
 const themeLight = themeAlpine.withPart(colorSchemeLight);
 
 function EducationList() {
-  const [rowData, setRowData] = useState<IRow[]>([
-    { make: "Tesla", model: "Model Y", price: 64950, electric: true },
-    { make: "Ford", model: "F-Series", price: 33850, electric: false },
-    { make: "Toyota", model: "Corolla", price: 29600, electric: false },
-    { make: "Mercedes", model: "EQA", price: 48890, electric: true },
-    { make: "Fiat", model: "500", price: 15774, electric: false },
-    { make: "Nissan", model: "Juke", price: 20675, electric: false },
-  ]);
+  const { data, refetch } = useQuery({
+    queryKey: ["getEducations"],
+    queryFn: getEducations,
+  });
 
-  // Column Definitions: Defines & controls grid columns.
-  const [colDefs, setColDefs] = useState<ColDef<IRow>[]>([
-    { field: "make" },
-    { field: "model" },
-    { field: "price" },
-    { field: "electric" },
+  console.log(data);
+
+  const [colDefs] = useState<ColDef<IRow>[]>([
+    { field: "peTitle", headerName: "عنوان فارسی" },
+    { field: "enTitle", headerName: "عنوان انگلیسی" },
+    { field: "ruTitle", headerName: "عنوان روسی" },
+    { field: "peDescription", headerName: "توضیحات فارسی" },
+    { field: "enDescription", headerName: "توضیحات انگلیسی" },
+    { field: "ruDescription", headerName: "توضیحات روسی" },
+    { field: "peEducationBody", headerName: "توضیحات تکمیلی فارسی" },
+    { field: "enEducationBody", headerName: "توضیحات تکمیلی انگلیسی" },
+    { field: "ruEducationBody", headerName: "توضیحات تکمیلی روسی" },
+    {
+      field: "actions",
+      headerName: "عملیات",
+      cellRenderer: () => (
+        <Button
+          variant="primary"
+          className="bg-rose-500 hover:bg-rose-800"
+          size="sm"
+          startIcon={<TrashBinIcon />}
+        >
+          حذف
+        </Button>
+      ),
+    },
   ]);
 
   const defaultColDef: ColDef = {
-    flex: 1,
+    cellStyle: {
+      diplay: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    headerStyle: {
+      textAlign: "center",
+    },
+    headerClass: "header-cell",
   };
 
   const gridRef = useRef<AgGridReact>(null);
@@ -56,31 +92,25 @@ function EducationList() {
 
   const { theme } = useTheme();
 
-  //   const gridTheme = useMemo(() => {
-  //     if (theme === "dark") {
-  //       return theme.withPart(colorSchemeDark);
-  //     }
-  //     if (colorScheme.value) {
-  //     }
-
-  //     return theme;
-  //   }, [theme]);
-
   return (
     <>
-      <div className="my-4">
+      <div className="my-4 flex gap-4">
         <Input
           type="text"
           id="filter-text-box"
           placeholder="جستجو..."
           onInput={onFilterTextBoxChanged}
         />
+        <CreateEducation refetch={refetch} />
       </div>
       <div style={{ width: "100%", height: "400px" }}>
         <AgGridReact
           ref={gridRef}
           theme={theme === "dark" ? themeDark : themeLight}
-          rowData={rowData}
+          enableRtl
+          pagination
+          localeText={AG_GRID_LOCALE_IR}
+          rowData={data && data.data}
           columnDefs={colDefs}
           defaultColDef={defaultColDef}
         />

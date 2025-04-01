@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { useSidebar } from "../context/SidebarContext";
 import { ThemeToggleButton } from "../components/common/ThemeToggleButton";
+import { removeCookie } from "../utils/cookie";
 // import NotificationDropdown from "../components/header/NotificationDropdown";
 // import UserDropdown from "../components/header/UserDropdown";
 
@@ -167,6 +168,7 @@ const AppHeader: React.FC = () => {
             <Link
               to="/signin"
               className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-rose-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+              onClick={() => removeCookie("admin-miras-token")}
             >
               <svg
                 className="fill-gray-500 group-hover:fill-rose-700 dark:group-hover:fill-gray-300"
@@ -183,7 +185,7 @@ const AppHeader: React.FC = () => {
                   fill=""
                 />
               </svg>
-              Sign out
+              خروج
             </Link>
           </div>
         </div>
