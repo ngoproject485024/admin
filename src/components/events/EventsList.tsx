@@ -9,14 +9,16 @@ import {
   colorSchemeDarkBlue,
   colorSchemeLight,
 } from "ag-grid-community";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 import Input from "../form/input/InputField";
 import { useTheme } from "../../context/ThemeContext";
 import Button from "../ui/button/Button";
 import { TrashBinIcon } from "../../icons";
 import CreateEvent from "./CreateEvent";
-import { getEvents } from "../../server/events";
+import { deleteEvent, getEvents } from "../../server/events";
+import Confirm from "../confirm";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -37,6 +39,25 @@ const themeDark = themeAlpine.withPart(colorSchemeDarkBlue);
 const themeLight = themeAlpine.withPart(colorSchemeLight);
 
 function EventsList() {
+  const [isOpenDel, setIsOpenDel] = useState<string>("");
+
+  const handleCloseConfirm = () => setIsOpenDel("");
+
+  const mutation = useMutation({
+    mutationKey: ["deleteEvent"],
+    mutationFn: deleteEvent,
+    onSuccess: (data) => {
+      if (data.success) {
+        toast.success("رویداد با موفقیت حذف شد");
+        refetch();
+        handleCloseConfirm();
+      } else {
+        toast.error("رویداد حذف نشد ، لطفا دوباره امتحان کنید");
+        handleCloseConfirm();
+      }
+    },
+  });
+
   const { data, refetch } = useQuery({
     queryKey: ["getEvents"],
     queryFn: getEvents,
@@ -55,12 +76,15 @@ function EventsList() {
     {
       field: "actions",
       headerName: "عملیات",
-      cellRenderer: () => (
+      cellRenderer: (params: any) => (
         <Button
           variant="primary"
           className="bg-rose-500 hover:bg-rose-800"
           size="sm"
           startIcon={<TrashBinIcon />}
+          onClick={() => {
+            setIsOpenDel(params.data._id);
+          }}
         >
           حذف
         </Button>
@@ -114,6 +138,14 @@ function EventsList() {
           defaultColDef={defaultColDef}
         />
       </div>
+
+      <Confirm
+        isOpen={!!isOpenDel}
+        onClose={handleCloseConfirm}
+        isLoading={mutation.isPending}
+        onSubmit={() => mutation.mutate(isOpenDel)}
+        message="آیا میخواهید آموزش را حذف کنید؟"
+      />
     </>
   );
 }

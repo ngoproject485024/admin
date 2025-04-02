@@ -42,3 +42,16 @@ export const createEvent = async (values: EventValues) => {
     return false;
   }
 };
+
+export const deleteEvent = async (id: string) => {
+  try {
+    const { data } = await instance.post(
+      `events-educations/event/delete/${id}`
+    );
+
+    return data;
+  } catch (err) {
+    console.error("Error fetching events:", err);
+    return false;
+  }
+};

@@ -12,10 +12,12 @@ import {
 import Input from "../form/input/InputField";
 import { useTheme } from "../../context/ThemeContext";
 import CreateEducation from "./CreateEducation";
-import { useQuery } from "@tanstack/react-query";
-import { getEducations } from "../../server/education";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { deleteEducation, getEducations } from "../../server/education";
 import Button from "../ui/button/Button";
 import { TrashBinIcon } from "../../icons";
+import Confirm from "../confirm";
+import toast from "react-hot-toast";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -36,12 +38,29 @@ const themeDark = themeAlpine.withPart(colorSchemeDarkBlue);
 const themeLight = themeAlpine.withPart(colorSchemeLight);
 
 function EducationList() {
+  const [isOpenDel, setIsOpenDel] = useState<string>("");
+
+  const handleCloseConfirm = () => setIsOpenDel("");
+
+  const mutation = useMutation({
+    mutationKey: ["deleteEducation"],
+    mutationFn: deleteEducation,
+    onSuccess: (data) => {
+      if (data.success) {
+        toast.success("آموزش با موفقیت حذف شد");
+        refetch();
+        handleCloseConfirm();
+      } else {
+        toast.error("آموزش حذف نشد ، لطفا دوباره امتحان کنید");
+        handleCloseConfirm();
+      }
+    },
+  });
+
   const { data, refetch } = useQuery({
     queryKey: ["getEducations"],
     queryFn: getEducations,
   });
-
-  console.log(data);
 
   const [colDefs] = useState<ColDef<IRow>[]>([
     { field: "peTitle", headerName: "عنوان فارسی" },
@@ -56,12 +75,15 @@ function EducationList() {
     {
       field: "actions",
       headerName: "عملیات",
-      cellRenderer: () => (
+      cellRenderer: (params: any) => (
         <Button
           variant="primary"
           className="bg-rose-500 hover:bg-rose-800"
           size="sm"
           startIcon={<TrashBinIcon />}
+          onClick={() => {
+            setIsOpenDel(params.data._id);
+          }}
         >
           حذف
         </Button>
@@ -115,6 +137,13 @@ function EducationList() {
           defaultColDef={defaultColDef}
         />
       </div>
+      <Confirm
+        isOpen={!!isOpenDel}
+        onClose={handleCloseConfirm}
+        isLoading={mutation.isPending}
+        onSubmit={() => mutation.mutate(isOpenDel)}
+        message="آیا میخواهید آموزش را حذف کنید؟"
+      />
     </>
   );
 }

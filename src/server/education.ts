@@ -42,3 +42,16 @@ export const createEducation = async (values: EducationValues) => {
     return err;
   }
 };
+
+export const deleteEducation = async (id : string) => {
+  try {
+    const { data } = await instance.post(
+      `/events-educations/education/delete/${id}`
+    );
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
