@@ -1,3 +1,4 @@
+import { IEducation } from "../types/education-types";
 import instance from "../utils/instance";
 
 export const getEducations = async () => {
@@ -11,25 +12,7 @@ export const getEducations = async () => {
   }
 };
 
-interface EducationValues {
-  peTitle: string;
-  enTitle: string;
-  ruTitle: string;
-  peDescription: string;
-  enDescription: string;
-  ruDescription: string;
-  peEducationBody: string;
-  enEducationBody: string;
-  ruEducationBody: string;
-  pePictures: [];
-  enPictures: [];
-  ruPictures: [];
-  peVideo: [];
-  enVideo: [];
-  ruVideo: [];
-}
-
-export const createEducation = async (values: EducationValues) => {
+export const createEducation = async (values: IEducation) => {
   try {
     const { data } = await instance.post(
       "/events-educations/education/create",
@@ -43,10 +26,24 @@ export const createEducation = async (values: EducationValues) => {
   }
 };
 
-export const deleteEducation = async (id : string) => {
+export const deleteEducation = async (id: string) => {
   try {
     const { data } = await instance.post(
       `/events-educations/education/delete/${id}`
+    );
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
+
+export const updateEducation = async (id: string, values: any) => {
+  try {
+    const { data } = await instance.post(
+      `/events-educations/education/update/${id}`,
+      values
     );
 
     return data;

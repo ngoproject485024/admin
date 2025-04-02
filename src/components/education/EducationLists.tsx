@@ -15,9 +15,10 @@ import CreateEducation from "./CreateEducation";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { deleteEducation, getEducations } from "../../server/education";
 import Button from "../ui/button/Button";
-import { TrashBinIcon } from "../../icons";
+import { TrashBinIcon, UpdateIcon } from "../../icons";
 import Confirm from "../confirm";
 import toast from "react-hot-toast";
+import UpdateEducation from "./UpdateEducation";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -39,13 +40,17 @@ const themeLight = themeAlpine.withPart(colorSchemeLight);
 
 function EducationList() {
   const [isOpenDel, setIsOpenDel] = useState<string>("");
+  const [isOpenUp, setIsOpenUp] = useState<string>("");
+  const [updateValues, setUpdateValues] = useState<any>({});
+  
 
   const handleCloseConfirm = () => setIsOpenDel("");
+  const handleCloseUp = () => setIsOpenUp("");
 
   const mutation = useMutation({
     mutationKey: ["deleteEducation"],
     mutationFn: deleteEducation,
-    onSuccess: (data) => {
+    onSuccess: (data: any) => {
       if (data.success) {
         toast.success("آموزش با موفقیت حذف شد");
         refetch();
@@ -76,17 +81,31 @@ function EducationList() {
       field: "actions",
       headerName: "عملیات",
       cellRenderer: (params: any) => (
-        <Button
-          variant="primary"
-          className="bg-rose-500 hover:bg-rose-800"
-          size="sm"
-          startIcon={<TrashBinIcon />}
-          onClick={() => {
-            setIsOpenDel(params.data._id);
-          }}
-        >
-          حذف
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="primary"
+            className="bg-rose-500 hover:bg-rose-800"
+            size="sm"
+            startIcon={<TrashBinIcon />}
+            onClick={() => {
+              setIsOpenDel(params.data._id);
+            }}
+          >
+            حذف
+          </Button>
+          <Button
+            variant="primary"
+            className="bg-yellow-400 hover:bg-yellow-500"
+            size="sm"
+            startIcon={<UpdateIcon />}
+            onClick={() => {
+              setIsOpenUp(params.data._id);
+              setUpdateValues(params.data);
+            }}
+          >
+            به روز رسانی
+          </Button>
+        </div>
       ),
     },
   ]);
@@ -143,6 +162,13 @@ function EducationList() {
         isLoading={mutation.isPending}
         onSubmit={() => mutation.mutate(isOpenDel)}
         message="آیا میخواهید آموزش را حذف کنید؟"
+      />
+
+      <UpdateEducation
+        isOpen={isOpenUp}
+        onClose={handleCloseUp}
+        refetch={refetch}
+        data={updateValues}
       />
     </>
   );

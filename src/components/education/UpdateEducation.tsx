@@ -1,22 +1,32 @@
 import { useState } from "react";
-import { PlusIcon } from "../../icons";
-import Button from "../ui/button/Button";
+import toast from "react-hot-toast";
+import { useFormik } from "formik";
+
+import { uploadFiles } from "../../server/uploadFiles";
+import { educationSchema } from "../../utils/validation";
+import { IEducation } from "../../types/education-types";
+import { useMutation } from "@tanstack/react-query";
+import { updateEducation } from "../../server/education";
 import { Modal } from "../ui/modal";
 import ComponentCard from "../common/ComponentCard";
-import Input from "../form/input/InputField";
 import Label from "../form/Label";
-import { useFormik } from "formik";
+import Input from "../form/input/InputField";
 import TextArea from "../form/input/TextArea";
 import DropzoneComponent from "../form/form-elements/DropZone";
 import DropzoneVideoComponent from "../form/form-elements/DropZoneVideo";
-import { uploadFiles } from "../../server/uploadFiles";
-import toast from "react-hot-toast";
-import { useMutation } from "@tanstack/react-query";
-import { createEducation } from "../../server/education";
-import { educationSchema } from "../../utils/validation";
+import Button from "../ui/button/Button";
 
-function CreateEducation({ refetch }: { refetch: () => void }) {
-  const [isOpen, setIsOpen] = useState(false);
+function UpdateEducation({
+  isOpen,
+  onClose,
+  refetch,
+  data,
+}: {
+  isOpen: string;
+  onClose: () => void;
+  refetch: () => void;
+  data: any;
+}) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [peImageFiles, setPeImageFiles] = useState<File[]>([]);
@@ -27,15 +37,28 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
   const [enVideoFiles, setEnVideoFiles] = useState<File[]>([]);
   const [ruVideoFiles, setRuVideoFiles] = useState<File[]>([]);
 
-  const handleClose = () => setIsOpen(false);
+  const handleDeleteFile = (url: string, name: string) => {
+    const cpValues: any = [...formik.values[name as keyof IEducation]];
 
-  const mutation = useMutation({
-    mutationKey: ["createEducation"],
-    mutationFn: createEducation,
-    onSuccess: (data) => {
+    const fileterd = cpValues.filter((f: string) => f !== url);
+
+    formik.setFieldValue(name, fileterd);
+
+    toast.success("تصویر با موفقیت حذف شد");
+  };
+
+  const mutation = useMutation<
+    unknown,
+    any,
+    { id: string; values: IEducation }
+  >({
+    mutationKey: ["updateEducation"],
+    mutationFn: ({ id, values }: { id: string; values: IEducation }) =>
+      updateEducation(id, values),
+    onSuccess: (data: any) => {
       if (data.success) {
-        toast.success("آموزش با موفقیت ایجاد شد");
-        handleClose();
+        toast.success("آموزش با موفقیت به روزرسانی شد");
+        onClose();
         refetch();
         formik.resetForm();
         setPeImageFiles([]);
@@ -45,8 +68,8 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
         setEnVideoFiles([]);
         setRuVideoFiles([]);
       } else {
-        toast.error("آموزش ایجاد نشد ، لطفا دوباره امتحان کنید");
-        handleClose();
+        toast.error("آموزش به روزرسانی نشد ، لطفا دوباره امتحان کنید");
+        onClose();
         formik.resetForm();
         setPeImageFiles([]);
         entEnImageFiles([]);
@@ -58,40 +81,25 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
     },
   });
 
-  const formik = useFormik<{
-    peTitle: string;
-    enTitle: string;
-    ruTitle: string;
-    peDescription: string;
-    enDescription: string;
-    ruDescription: string;
-    peEducationBody: string;
-    enEducationBody: string;
-    ruEducationBody: string;
-    pePictures: [];
-    enPictures: [];
-    ruPictures: [];
-    peVideo: [];
-    enVideo: [];
-    ruVideo: [];
-  }>({
+  const formik = useFormik<IEducation>({
     initialValues: {
-      peTitle: "",
-      enTitle: "",
-      ruTitle: "",
-      peDescription: "",
-      enDescription: "",
-      ruDescription: "",
-      peEducationBody: "",
-      enEducationBody: "",
-      ruEducationBody: "",
-      pePictures: [],
-      enPictures: [],
-      ruPictures: [],
-      peVideo: [],
-      enVideo: [],
-      ruVideo: [],
+      peTitle: data.peTitle,
+      enTitle: data.enTitle,
+      ruTitle: data.ruTitle,
+      peDescription: data.peDescription,
+      enDescription: data.enDescription,
+      ruDescription: data.ruDescription,
+      peEducationBody: data.peEducationBody,
+      enEducationBody: data.enEducationBody,
+      ruEducationBody: data.ruEducationBody,
+      pePictures: data.pePictures,
+      enPictures: data.enPictures,
+      ruPictures: data.ruPictures,
+      peVideo: data.peVideo,
+      enVideo: data.enVideo,
+      ruVideo: data.ruVideo,
     },
+    enableReinitialize: true,
     validationSchema: educationSchema,
     onSubmit: async (values) => {
       setIsLoading(true);
@@ -99,10 +107,11 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
         const formData = new FormData();
         peImageFiles.forEach((file) => formData.append("picture", file));
 
-        const response = await uploadFiles(formData);
+        const response: { data: string[]; success: boolean } =
+          await uploadFiles(formData);
 
         if (response.success) {
-          values.pePictures = response.data;
+          values.pePictures = values.pePictures.concat(response.data);
           toast.success("تصاویر آموزش فارسی با موفقیت آپلود شد");
         } else {
           toast.error("تصاویر آموزش فارسی آپلود نشد");
@@ -115,7 +124,7 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
         const response = await uploadFiles(formData);
 
         if (response.success) {
-          values.enPictures = response.data;
+          values.enPictures = values.enPictures.concat(response.data);
           toast.success("تصاویر آموزش انگلیسی با موفقیت آپلود شد");
         } else {
           toast.error("تصاویر آموزش انگلیسی آپلود نشد");
@@ -128,7 +137,7 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
         const response = await uploadFiles(formData);
 
         if (response.success) {
-          values.ruPictures = response.data;
+          values.ruPictures = values.ruPictures.concat(response.data);
           toast.success("تصاویر آموزش روسی با موفقیت آپلود شد");
         } else {
           toast.error("تصاویر آموزش روسی آپلود نشد");
@@ -142,7 +151,7 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
         const response = await uploadFiles(formData);
 
         if (response.success) {
-          values.peVideo = response.data;
+          values.peVideo = values.peVideo.concat(response.data);
           toast.success("ویدیو آموزش فارسی با موفقیت آپلود شد");
         } else {
           toast.error("ویدیو آموزش فارسی آپلود نشد");
@@ -156,7 +165,7 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
         const response = await uploadFiles(formData);
 
         if (response.success) {
-          values.enVideo = response.data;
+          values.enVideo = values.enVideo.concat(response.data);
           toast.success("ویدیو آموزش انگلیسی با موفقیت آپلود شد");
         } else {
           toast.error("ویدیو آموزش انگلیسی آپلود نشد");
@@ -170,7 +179,7 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
         const response = await uploadFiles(formData);
 
         if (response.success) {
-          values.ruVideo = response.data;
+          values.ruVideo = values.ruVideo.concat(response.data);
           toast.success("ویدیو آموزش روسی با موفقیت آپلود شد");
         } else {
           toast.error("ویدیو آموزش روسی آپلود نشد");
@@ -178,18 +187,17 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
       }
 
       setIsLoading(false);
-      mutation.mutate(values);
+      console.log(values);
+      console.log(data);
+      mutation.mutate({ id: data?._id, values });
     },
   });
 
   return (
     <>
-      <Button endIcon={<PlusIcon />} size="sm" onClick={() => setIsOpen(true)}>
-        افزودن آموزش
-      </Button>
-      <Modal isOpen={isOpen} onClose={handleClose}>
+      <Modal isOpen={!!isOpen} onClose={onClose}>
         <h1 className="font-bold text-lg text-center w-full mb-8">
-          افزودن آموزش جدید
+          به روز رسانی آموزش
         </h1>
 
         <form onSubmit={formik.handleSubmit}>
@@ -336,16 +344,25 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
               multiple
               title="تصاویر آموزش فارسی"
               onFiles={setPeImageFiles}
+              update="pePictures"
+              formik={formik}
+              onDelete={(url, name) => handleDeleteFile(url, name)}
             />
             <DropzoneComponent
               multiple
               title="تصاویر آموزش انگلیسی"
               onFiles={entEnImageFiles}
+              update="enPictures"
+              formik={formik}
+              onDelete={(url, name) => handleDeleteFile(url, name)}
             />
             <DropzoneComponent
               multiple
               title="تصاویر آموزش روسی"
               onFiles={ruRuImageFiles}
+              update="ruPictures"
+              formik={formik}
+              onDelete={(url, name) => handleDeleteFile(url, name)}
             />
           </ComponentCard>
           <ComponentCard title="ویدیو آموزش">
@@ -374,7 +391,7 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
               variant="outline"
               onClick={() => {
                 formik.resetForm();
-                handleClose();
+                onClose();
               }}
             >
               انصراف
@@ -382,8 +399,15 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
           </div>
         </form>
       </Modal>
+      {/* <Confirm
+        isOpen={!!isOpenConfirm.url}
+        onClose={handleCloseConfirm}
+        onSubmit={() => handleDeleteFile()}
+        isLoading={false}
+        message="آیا میخواهید این تصویر را حذف کنید؟"
+      /> */}
     </>
   );
 }
 
-export default CreateEducation;
+export default UpdateEducation;

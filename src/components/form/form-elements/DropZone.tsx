@@ -1,17 +1,24 @@
 import { useState } from "react";
 import ComponentCard from "../../common/ComponentCard";
 import { useDropzone } from "react-dropzone";
+import { TrashBinIcon } from "../../../icons";
 
 interface IDropZoneComponent {
   title: string | undefined;
   multiple: boolean;
   onFiles?: (files: File[]) => void;
+  update?: string;
+  formik?: any;
+  onDelete?: (url: string, name: string) => void;
 }
 
 const DropzoneComponent: React.FC<IDropZoneComponent> = ({
   title,
   multiple,
   onFiles,
+  update,
+  formik,
+  onDelete,
 }) => {
   const [thumbImage, setThumbImage] = useState<string[]>([]);
 
@@ -26,6 +33,9 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
     onFiles?.(acceptedFiles);
     setThumbImage(paths);
   };
+
+  const handleDelteFile = ({ url, name }: { url: string; name: string }) =>
+    onDelete && onDelete(url, name);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -100,16 +110,43 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
             {thumbImage?.map((image) => (
               <div
                 key={image}
-                className="flex items-center justify-center mb-3"
+                className="flex items-center justify-center mb-3 p-8"
               >
                 <img
                   src={image}
                   alt="uploaded image"
-                  className="w-[150px] h-[150px]"
+                  className=" object-contain"
                 />
               </div>
             ))}
           </div>
+        )}
+
+        {!!update && (
+          <>
+            {formik.values[update]?.map((image: string) => (
+              <div
+                key={image}
+                className="flex items-center justify-center mb-3 "
+              >
+                <div className="relative p-8">
+                  <img
+                    src={image}
+                    alt="uploaded image"
+                    className=" object-contain"
+                  />
+                  <button
+                    className="absolute top-0 z-10 bg-rose-500 p-1 rounded-full text-white"
+                    onClick={() =>
+                      handleDelteFile({ url: image, name: update })
+                    }
+                  >
+                    <TrashBinIcon fontSize={20} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </>
         )}
       </div>
     </ComponentCard>
