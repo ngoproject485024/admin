@@ -3,10 +3,8 @@ import toast from "react-hot-toast";
 import { useFormik } from "formik";
 
 import { uploadFiles } from "../../server/uploadFiles";
-import { educationSchema } from "../../utils/validation";
-import { IEducation } from "../../types/education-types";
+import { eventsSchema } from "../../utils/validation";
 import { useMutation } from "@tanstack/react-query";
-import { updateEducation } from "../../server/education";
 import { Modal } from "../ui/modal";
 import ComponentCard from "../common/ComponentCard";
 import Label from "../form/Label";
@@ -15,8 +13,10 @@ import TextArea from "../form/input/TextArea";
 import DropzoneComponent from "../form/form-elements/DropZone";
 import DropzoneVideoComponent from "../form/form-elements/DropZoneVideo";
 import Button from "../ui/button/Button";
+import { IEvents } from "../../types/events-types";
+import { updateEvent } from "../../server/events";
 
-function UpdateEducation({
+function UpdateEvent({
   isOpen,
   onClose,
   refetch,
@@ -38,7 +38,7 @@ function UpdateEducation({
   const [ruVideoFiles, setRuVideoFiles] = useState<File[]>([]);
 
   const handleDeleteFile = (url: string, name: string) => {
-    const cpValues: any = [...formik.values[name as keyof IEducation]];
+    const cpValues: any = [...formik.values[name as keyof IEvents]];
 
     const fileterd = cpValues.filter((f: string) => f !== url);
 
@@ -47,17 +47,13 @@ function UpdateEducation({
     toast.success("تصویر با موفقیت حذف شد");
   };
 
-  const mutation = useMutation<
-    unknown,
-    any,
-    { id: string; values: IEducation }
-  >({
-    mutationKey: ["updateEducation"],
-    mutationFn: ({ id, values }: { id: string; values: IEducation }) =>
-      updateEducation(id, values),
+  const mutation = useMutation<unknown, any, { id: string; values: IEvents }>({
+    mutationKey: ["updateEvent"],
+    mutationFn: ({ id, values }: { id: string; values: IEvents }) =>
+      updateEvent(id, values),
     onSuccess: (data: any) => {
       if (data.success) {
-        toast.success("آموزش با موفقیت به روزرسانی شد");
+        toast.success("رویداد با موفقیت به روزرسانی شد");
         onClose();
         refetch();
         formik.resetForm();
@@ -68,7 +64,7 @@ function UpdateEducation({
         setEnVideoFiles([]);
         setRuVideoFiles([]);
       } else {
-        toast.error("آموزش به روزرسانی نشد ، لطفا دوباره امتحان کنید");
+        toast.error("رویداد به روزرسانی نشد ، لطفا دوباره امتحان کنید");
         onClose();
         formik.resetForm();
         setPeImageFiles([]);
@@ -81,7 +77,7 @@ function UpdateEducation({
     },
   });
 
-  const formik = useFormik<IEducation>({
+  const formik = useFormik<IEvents>({
     initialValues: {
       peTitle: data.peTitle,
       enTitle: data.enTitle,
@@ -89,9 +85,9 @@ function UpdateEducation({
       peDescription: data.peDescription,
       enDescription: data.enDescription,
       ruDescription: data.ruDescription,
-      peEducationBody: data.peEducationBody,
-      enEducationBody: data.enEducationBody,
-      ruEducationBody: data.ruEducationBody,
+      peEventsBody: data.peEventsBody,
+      enEventsBody: data.enEventsBody,
+      ruEventsBody: data.ruEventsBody,
       pePictures: data.pePictures,
       enPictures: data.enPictures,
       ruPictures: data.ruPictures,
@@ -100,7 +96,7 @@ function UpdateEducation({
       ruVideo: data.ruVideo,
     },
     enableReinitialize: true,
-    validationSchema: educationSchema,
+    validationSchema: eventsSchema,
     onSubmit: async (values) => {
       setIsLoading(true);
       if (peImageFiles.length) {
@@ -112,9 +108,9 @@ function UpdateEducation({
 
         if (response.success) {
           values.pePictures = values.pePictures.concat(response.data);
-          toast.success("تصاویر آموزش فارسی با موفقیت آپلود شد");
+          toast.success("تصاویر رویداد فارسی با موفقیت آپلود شد");
         } else {
-          toast.error("تصاویر آموزش فارسی آپلود نشد");
+          toast.error("تصاویر رویداد فارسی آپلود نشد");
         }
       }
       if (enImageFiles.length) {
@@ -125,9 +121,9 @@ function UpdateEducation({
 
         if (response.success) {
           values.enPictures = values.enPictures.concat(response.data);
-          toast.success("تصاویر آموزش انگلیسی با موفقیت آپلود شد");
+          toast.success("تصاویر رویداد انگلیسی با موفقیت آپلود شد");
         } else {
-          toast.error("تصاویر آموزش انگلیسی آپلود نشد");
+          toast.error("تصاویر رویداد انگلیسی آپلود نشد");
         }
       }
       if (ruImageFiles.length) {
@@ -138,9 +134,9 @@ function UpdateEducation({
 
         if (response.success) {
           values.ruPictures = values.ruPictures.concat(response.data);
-          toast.success("تصاویر آموزش روسی با موفقیت آپلود شد");
+          toast.success("تصاویر رویداد روسی با موفقیت آپلود شد");
         } else {
-          toast.error("تصاویر آموزش روسی آپلود نشد");
+          toast.error("تصاویر رویداد روسی آپلود نشد");
         }
       }
 
@@ -152,9 +148,9 @@ function UpdateEducation({
 
         if (response.success) {
           values.peVideo = values.peVideo.concat(response.data);
-          toast.success("ویدیو آموزش فارسی با موفقیت آپلود شد");
+          toast.success("ویدیو رویداد فارسی با موفقیت آپلود شد");
         } else {
-          toast.error("ویدیو آموزش فارسی آپلود نشد");
+          toast.error("ویدیو رویداد فارسی آپلود نشد");
         }
       }
 
@@ -166,9 +162,9 @@ function UpdateEducation({
 
         if (response.success) {
           values.enVideo = values.enVideo.concat(response.data);
-          toast.success("ویدیو آموزش انگلیسی با موفقیت آپلود شد");
+          toast.success("ویدیو رویداد انگلیسی با موفقیت آپلود شد");
         } else {
-          toast.error("ویدیو آموزش انگلیسی آپلود نشد");
+          toast.error("ویدیو رویداد انگلیسی آپلود نشد");
         }
       }
 
@@ -180,9 +176,9 @@ function UpdateEducation({
 
         if (response.success) {
           values.ruVideo = values.ruVideo.concat(response.data);
-          toast.success("ویدیو آموزش روسی با موفقیت آپلود شد");
+          toast.success("ویدیو رویداد روسی با موفقیت آپلود شد");
         } else {
-          toast.error("ویدیو آموزش روسی آپلود نشد");
+          toast.error("ویدیو رویداد روسی آپلود نشد");
         }
       }
 
@@ -197,11 +193,11 @@ function UpdateEducation({
     <>
       <Modal isOpen={!!isOpen} onClose={onClose}>
         <h1 className="font-bold text-lg text-center w-full mb-8">
-          به روز رسانی آموزش
+          به روز رسانی رویداد
         </h1>
 
         <form onSubmit={formik.handleSubmit}>
-          <ComponentCard title="عنوان آموزش">
+          <ComponentCard title="عنوان رویداد">
             <div className="flex gap-4">
               <div>
                 <Label htmlFor="pe-input">عنوان فارسی</Label>
@@ -250,7 +246,7 @@ function UpdateEducation({
               </div>
             </div>
           </ComponentCard>
-          <ComponentCard title="توضیحات آموزش">
+          <ComponentCard title="توضیحات رویداد">
             <div>
               <Label htmlFor="ru-input">توضیحات فارسی</Label>
               <TextArea
@@ -297,52 +293,49 @@ function UpdateEducation({
               <Label htmlFor="ru-input">توضیحات تکمیلی فارسی</Label>
               <TextArea
                 placeholder="توضیحات تکمیلی فارسی را وارد کنید"
-                error={formik.errors.peEducationBody ? true : false}
+                error={formik.errors.peEventsBody ? true : false}
                 formik={formik}
-                name="peEducationBody"
+                name="peEventsBody"
               />
-              {formik.errors.peEducationBody &&
-                formik.touched.peEducationBody && (
-                  <span className="text-sm text-error-500">
-                    {formik.errors.peEducationBody}
-                  </span>
-                )}
+              {formik.errors.peEventsBody && formik.touched.peEventsBody && (
+                <span className="text-sm text-error-500">
+                  {formik.errors.peEventsBody}
+                </span>
+              )}
             </div>
             <div>
               <Label htmlFor="ru-input">توضیحات تکمیلی انگلیسی</Label>
               <TextArea
                 placeholder="توضیحات تکمیلی انگلیسی را وارد کنید"
-                error={formik.errors.enEducationBody ? true : false}
+                error={formik.errors.enEventsBody ? true : false}
                 formik={formik}
-                name="enEducationBody"
+                name="enEventsBody"
               />
-              {formik.errors.enEducationBody &&
-                formik.touched.enEducationBody && (
-                  <span className="text-sm text-error-500">
-                    {formik.errors.enEducationBody}
-                  </span>
-                )}
+              {formik.errors.enEventsBody && formik.touched.enEventsBody && (
+                <span className="text-sm text-error-500">
+                  {formik.errors.enEventsBody}
+                </span>
+              )}
             </div>
             <div>
               <Label htmlFor="ru-input">توضیحات تکمیلی روسی</Label>
               <TextArea
                 placeholder="توضیحات تکمیلی روسی را وارد کنید"
-                error={formik.errors.ruEducationBody ? true : false}
+                error={formik.errors.ruEventsBody ? true : false}
                 formik={formik}
-                name="ruEducationBody"
+                name="ruEventsBody"
               />
-              {formik.errors.ruEducationBody &&
-                formik.touched.ruEducationBody && (
-                  <span className="text-sm text-error-500">
-                    {formik.errors.ruEducationBody}
-                  </span>
-                )}
+              {formik.errors.ruEventsBody && formik.touched.ruEventsBody && (
+                <span className="text-sm text-error-500">
+                  {formik.errors.ruEventsBody}
+                </span>
+              )}
             </div>
           </ComponentCard>
-          <ComponentCard title="تصاویر آموزش">
+          <ComponentCard title="تصاویر رویداد">
             <DropzoneComponent
               multiple
-              title="تصاویر آموزش فارسی"
+              title="تصاویر رویداد فارسی"
               onFiles={setPeImageFiles}
               update="pePictures"
               formik={formik}
@@ -350,7 +343,7 @@ function UpdateEducation({
             />
             <DropzoneComponent
               multiple
-              title="تصاویر آموزش انگلیسی"
+              title="تصاویر رویداد انگلیسی"
               onFiles={entEnImageFiles}
               update="enPictures"
               formik={formik}
@@ -358,37 +351,28 @@ function UpdateEducation({
             />
             <DropzoneComponent
               multiple
-              title="تصاویر آموزش روسی"
+              title="تصاویر رویداد روسی"
               onFiles={ruRuImageFiles}
               update="ruPictures"
               formik={formik}
               onDelete={(url, name) => handleDeleteFile(url, name)}
             />
           </ComponentCard>
-          <ComponentCard title="ویدیو آموزش">
+          <ComponentCard title="ویدیو رویداد">
             <DropzoneVideoComponent
               multiple
-              title="ویدیو آموزش فارسی"
+              title="ویدیو رویداد فارسی"
               onFiles={setPeVideoFiles}
-              update="peVideo"
-              formik={formik}
-              onDelete={(url, name) => handleDeleteFile(url, name)}
             />
             <DropzoneVideoComponent
               multiple
-              title="ویدیو آموزش انگلیسی"
+              title="ویدیو رویداد انگلیسی"
               onFiles={setEnVideoFiles}
-              update="enVideo"
-              formik={formik}
-              onDelete={(url, name) => handleDeleteFile(url, name)}
             />
             <DropzoneVideoComponent
               multiple
-              title="ویدیو آموزش روسی"
+              title="ویدیو رویداد روسی"
               onFiles={setRuVideoFiles}
-              update="ruVideo"
-              formik={formik}
-              onDelete={(url, name) => handleDeleteFile(url, name)}
             />
           </ComponentCard>
 
@@ -419,4 +403,4 @@ function UpdateEducation({
   );
 }
 
-export default UpdateEducation;
+export default UpdateEvent;

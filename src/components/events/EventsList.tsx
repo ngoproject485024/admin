@@ -15,10 +15,11 @@ import toast from "react-hot-toast";
 import Input from "../form/input/InputField";
 import { useTheme } from "../../context/ThemeContext";
 import Button from "../ui/button/Button";
-import { TrashBinIcon } from "../../icons";
+import { TrashBinIcon, UpdateIcon } from "../../icons";
 import CreateEvent from "./CreateEvent";
 import { deleteEvent, getEvents } from "../../server/events";
 import Confirm from "../confirm";
+import UpdateEvent from "./UpdateEvent";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -40,8 +41,12 @@ const themeLight = themeAlpine.withPart(colorSchemeLight);
 
 function EventsList() {
   const [isOpenDel, setIsOpenDel] = useState<string>("");
+  const [isOpenUp, setIsOpenUp] = useState<string>("");
+  const [updateValues, setUpdateValues] = useState<any>({});
 
   const handleCloseConfirm = () => setIsOpenDel("");
+  const handleCloseUp = () => setIsOpenUp("");
+
 
   const mutation = useMutation({
     mutationKey: ["deleteEvent"],
@@ -77,17 +82,31 @@ function EventsList() {
       field: "actions",
       headerName: "عملیات",
       cellRenderer: (params: any) => (
-        <Button
-          variant="primary"
-          className="bg-rose-500 hover:bg-rose-800"
-          size="sm"
-          startIcon={<TrashBinIcon />}
-          onClick={() => {
-            setIsOpenDel(params.data._id);
-          }}
-        >
-          حذف
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="primary"
+            className="bg-rose-500 hover:bg-rose-800"
+            size="sm"
+            startIcon={<TrashBinIcon />}
+            onClick={() => {
+              setIsOpenDel(params.data._id);
+            }}
+          >
+            حذف
+          </Button>
+          <Button
+            variant="primary"
+            className="bg-yellow-400 hover:bg-yellow-500"
+            size="sm"
+            startIcon={<UpdateIcon />}
+            onClick={() => {
+              setIsOpenUp(params.data._id);
+              setUpdateValues(params.data);
+            }}
+          >
+            به روز رسانی
+          </Button>
+        </div>
       ),
     },
   ]);
@@ -145,6 +164,13 @@ function EventsList() {
         isLoading={mutation.isPending}
         onSubmit={() => mutation.mutate(isOpenDel)}
         message="آیا میخواهید آموزش را حذف کنید؟"
+      />
+
+      <UpdateEvent
+        isOpen={isOpenUp}
+        onClose={handleCloseUp}
+        refetch={refetch}
+        data={updateValues}
       />
     </>
   );

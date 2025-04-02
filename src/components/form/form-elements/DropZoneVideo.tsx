@@ -1,19 +1,29 @@
 import { useState } from "react";
 import ComponentCard from "../../common/ComponentCard";
 import { useDropzone } from "react-dropzone";
+import { TrashBinIcon } from "../../../icons";
 
 interface IDropZoneComponent {
   title: string | undefined;
   multiple: boolean;
   onFiles: (file: File[]) => void;
+  update?: string;
+  formik?: any;
+  onDelete?: (url: string, name: string) => void;
 }
 
 const DropzoneVideoComponent: React.FC<IDropZoneComponent> = ({
   title,
   multiple,
   onFiles,
+  update,
+  formik,
+  onDelete,
 }) => {
   const [thumbVideo, setThumbVideo] = useState<string[]>([]);
+
+  const handleDelteFile = ({ url, name }: { url: string; name: string }) =>
+    onDelete && onDelete(url, name);
 
   const onDrop = (acceptedFiles: File[]) => {
     const paths: string[] = acceptedFiles.map((file: File) => {
@@ -97,10 +107,33 @@ const DropzoneVideoComponent: React.FC<IDropZoneComponent> = ({
                 key={video}
                 className="flex items-center justify-center mb-3"
               >
-                <video src={video} className="w-[150px] h-[150px]" />
+                <video src={video} className="w-full" controls />
               </div>
             ))}
           </div>
+        )}
+
+        {!!update && (
+          <>
+            {formik.values[update]?.map((video: string) => (
+              <div
+                key={video}
+                className="flex items-center justify-center mb-3 "
+              >
+                <div className="relative p-8 w-full">
+                  <video src={video} className="w-full h-full" />
+                  <button
+                    className="absolute top-0 z-10 bg-rose-500 p-1 rounded-full text-white"
+                    onClick={() =>
+                      handleDelteFile({ url: video, name: update })
+                    }
+                  >
+                    <TrashBinIcon fontSize={20} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </>
         )}
       </div>
     </ComponentCard>

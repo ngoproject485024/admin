@@ -55,3 +55,17 @@ export const deleteEvent = async (id: string) => {
     return false;
   }
 };
+
+export const updateEvent = async (id: string, values: any) => {
+  try {
+    const { data } = await instance.post(
+      `/events-educations/event/update/${id}`,
+      values
+    );
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
