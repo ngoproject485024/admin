@@ -10,6 +10,8 @@ interface IDropZoneComponent {
   update?: string;
   formik?: any;
   onDelete?: (url: string, name: string) => void;
+  name?: string;
+  formikImages: string[];
 }
 
 const DropzoneComponent: React.FC<IDropZoneComponent> = ({
@@ -19,11 +21,12 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
   update,
   formik,
   onDelete,
+  name,
+  formikImages,
 }) => {
   const [thumbImage, setThumbImage] = useState<string[]>([]);
 
   const onDrop = (acceptedFiles: File[]) => {
-    console.log("Files dropped:", acceptedFiles);
     // Handle file uploads here
     const paths: string[] = acceptedFiles.map((file: File) => {
       const path = URL.createObjectURL(file);
@@ -32,6 +35,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
 
     onFiles?.(acceptedFiles);
     setThumbImage(paths);
+    formik.setFieldValue(name, []);
   };
 
   const handleDelteFile = ({ url, name }: { url: string; name: string }) =>
@@ -108,6 +112,22 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
         {thumbImage && (
           <div className="flex items-center justify-center mb-3 w-full gap-5 flex-wrap">
             {thumbImage?.map((image) => (
+              <div
+                key={image}
+                className="flex items-center justify-center mb-3 p-8"
+              >
+                <img
+                  src={image}
+                  alt="uploaded image"
+                  className=" object-contain"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+        {formikImages && (
+          <div className="flex items-center justify-center mb-3 w-full gap-5 flex-wrap">
+            {formikImages?.map((image: string) => (
               <div
                 key={image}
                 className="flex items-center justify-center mb-3 p-8"

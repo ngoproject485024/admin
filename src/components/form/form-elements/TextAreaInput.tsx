@@ -1,15 +1,26 @@
 import { useState } from "react";
+import { FormikProps } from "formik";
+
 import ComponentCard from "../../common/ComponentCard";
 import TextArea from "../input/TextArea";
 import Label from "../Label";
 
 interface ITextAreaInput {
   title?: string | undefined;
+  name: string;
+  formik: FormikProps<any>;
+  error?: boolean;
+  hint?: string;
 }
 
-export default function TextAreaInput({ title }: ITextAreaInput) {
+export default function TextAreaInput({
+  title,
+  name,
+  formik,
+  error,
+  hint,
+}: ITextAreaInput) {
   const [message, setMessage] = useState("");
-  const [messageTwo, setMessageTwo] = useState("");
 
   return (
     <ComponentCard title={title ? title : ""}>
@@ -18,9 +29,13 @@ export default function TextAreaInput({ title }: ITextAreaInput) {
         <div>
           <Label>توضیحات</Label>
           <TextArea
+            name={name}
+            formik={formik}
             value={message}
             onChange={(value) => setMessage(value)}
             rows={6}
+            error={error}
+            hint={hint}
           />
         </div>
 

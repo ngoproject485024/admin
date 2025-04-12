@@ -11,7 +11,7 @@ interface TextareaProps {
   error?: boolean; // Error state
   hint?: string; // Hint text to display
   name: string;
-  formik: any;
+  formik: FormikProps<any>;
 }
 
 const TextArea: React.FC<TextareaProps> = ({
