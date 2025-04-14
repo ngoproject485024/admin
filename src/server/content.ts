@@ -46,3 +46,78 @@ export const getCompletedProjects = async () => {
     return false;
   }
 };
+
+export const setOngoingProjects = async (values: any) => {
+  try {
+    const { data } = await instance.post(
+      "/page/project/ongoing/create",
+      values
+    );
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+
+export const getOngoingProjects = async () => {
+  try {
+    const { data } = await instance.get("/page/project/ongoing");
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+
+export const setGoodPracticeProjects = async (values: any) => {
+  try {
+    const { data } = await instance.post(
+      "/page/project/GoodPractice/create",
+      values
+    );
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+
+export const getGoodPracticeProjects = async () => {
+  try {
+    const { data } = await instance.get("/page/project/GoodPractice");
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+
+export const setCollaborationProjects = async (values: any) => {
+  try {
+    const { data } = await instance.post(
+      "/page/project/Collaboration/create",
+      values
+    );
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+
+export const getCollaborationProjects = async () => {
+  try {
+    const { data } = await instance.get("/page/project/Collaboration");
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
