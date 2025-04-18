@@ -27,7 +27,7 @@ export default function TextAreaInput({
       <div className="space-y-6">
         {/* Default TextArea */}
         <div>
-          <Label>توضیحات</Label>
+          <Label>{title?.split(" ")[0]}</Label>
           <TextArea
             name={name}
             formik={formik}

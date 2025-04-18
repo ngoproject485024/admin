@@ -37,8 +37,6 @@ function ContentEducation() {
     },
   });
 
-  console.log("ddd", data);
-
   const formik = useFormik({
     initialValues: {
       peDescription: data?.data?.peDescription,
