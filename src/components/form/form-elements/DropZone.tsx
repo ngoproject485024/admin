@@ -110,7 +110,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
           </div>
         </form>
         {thumbImage && (
-          <div className="flex items-center justify-center mb-3 w-full gap-5 flex-wrap">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center mb-3 w-full gap-5 flex-wrap">
             {thumbImage?.map((image) => (
               <div
                 key={image}
@@ -126,7 +126,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
           </div>
         )}
         {formikImages && (
-          <div className="flex items-center justify-center mb-3 w-full gap-5 flex-wrap">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center mb-3 w-full gap-5 flex-wrap">
             {formikImages?.map((image: string) => (
               <div
                 key={image}

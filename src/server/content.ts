@@ -121,3 +121,33 @@ export const getCollaborationProjects = async () => {
     return false;
   }
 };
+
+export const createDescriptionPage = async ({
+  description,
+  type,
+}: {
+  description: any;
+  type: string;
+}) => {
+  try {
+    const { data } = await instance.post("/page/description/create", {
+      description,
+      type,
+    });
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+export const getDescriptionPage = async (pageName: string) => {
+  try {
+    const { data } = await instance.get(`/page/description/${pageName}`);
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};

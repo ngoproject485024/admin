@@ -22,8 +22,6 @@ function ContentHome() {
     queryFn: getHomeData,
   });
 
-  console.log(data);
-
   const {
     mainImages,
     middleImages,
@@ -49,8 +47,10 @@ function ContentHome() {
     mutationFn: homePage,
     onSuccess: (data: any) => {
       if (data.success) {
-        formik.resetForm();
+        // formik.resetForm();
         toast.success("محتوای صفحه اصلی با موفقیت تغییر کرد");
+        setMainFile([]);
+        setMiddleFiles([]);
       } else {
         toast.error("محتوای صفحه اصلی تغییر نکرد ، لطفا دوباره امتحان کنید");
       }
@@ -132,15 +132,6 @@ function ContentHome() {
         mutation.mutate(values);
       } else {
         mutation.mutate(values);
-        // if (mainFile) {
-        //   toast.error("لطفا تصویر اصلی را وارد کنید ، این مورد الزامی است");
-        //   setIsLoading(false);
-        // }
-        // if (middleFiles) {
-        //   toast.error("لطفا تصاویر میانی را وارد کنید ، این مورد الزامی است");
-        //   setIsLoading(false);
-        // }
-        // return;
       }
     },
   });

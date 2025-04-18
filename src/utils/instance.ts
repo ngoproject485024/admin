@@ -44,7 +44,7 @@ instance.interceptors.response.use(
       switch (error.response.status) {
         case 401: {
           const UnauthorizedError = new Error("401");
-
+          window.location.replace("/signin");
           return Promise.reject(UnauthorizedError);
         }
         case 404: {
