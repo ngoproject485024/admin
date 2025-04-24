@@ -60,3 +60,27 @@ export const changeStatusDoc = async (id: string, state: number) => {
     return false;
   }
 };
+
+export const getNgosProjects = async () => {
+  try {
+    const { data } = await instance.get(`/ngo/admin/projects`);
+
+    return data;
+  } catch (err) {
+    console.error("Error fetching events:", err);
+
+    return false;
+  }
+};
+
+export const getSpecificProject = async (id: string) => {
+  try {
+    const { data } = await instance.get(`ngo/admin/projects/${id}`);
+
+    return data;
+  } catch (err) {
+    console.error("Error fetching events:", err);
+
+    return false;
+  }
+};

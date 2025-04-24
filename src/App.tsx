@@ -40,6 +40,7 @@ import ManageNgoPage from "./pages/Ngos/ManageNgos";
 import NgoDetailsPage from "./pages/Ngos/NgoDetails";
 import ManageDocsPage from "./pages/Ngos/ManageDocs";
 import ManageProjects from "./pages/Ngos/ManageProjects";
+import NgoProjectDetailsPage from "./pages/Ngos/NgoProjectDetails";
 
 export default function App() {
   return (
@@ -62,6 +63,11 @@ export default function App() {
               index
               path="/ngos/manage-projects"
               element={<ManageProjects />}
+            />
+            <Route
+              index
+              path="/ngos/manage-project/:id"
+              element={<NgoProjectDetailsPage />}
             />
             <Route
               index
