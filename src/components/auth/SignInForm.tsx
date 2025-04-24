@@ -10,6 +10,7 @@ import { singInSchema } from "../../utils/validation";
 import { useMutation } from "@tanstack/react-query";
 import { loginRequest } from "../../server/auth";
 import { setCookie } from "../../utils/cookie";
+import toast from "react-hot-toast";
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,6 +25,8 @@ export default function SignInForm() {
       if (data.success) {
         setCookie("admin-miras-token", data.data.token, 7);
         navigate("/", { replace: true });
+      } else {
+        toast.error(data?.error);
       }
     },
   });
@@ -33,9 +36,8 @@ export default function SignInForm() {
       userName: "",
       password: "",
     },
-    // validationSchema: singInSchema,
+    validationSchema: singInSchema,
     onSubmit: (values) => {
-      console.log("Form submitted:", values);
       mutation.mutate(values);
     },
   });

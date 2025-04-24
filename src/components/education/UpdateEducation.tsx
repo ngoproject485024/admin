@@ -201,7 +201,7 @@ function UpdateEducation({
         </h1>
 
         <form onSubmit={formik.handleSubmit}>
-          <ComponentCard title="عنوان آموزش">
+          <ComponentCard title="عنوان آموزش" className="my-2">
             <div className="flex gap-4">
               <div>
                 <Label htmlFor="pe-input">عنوان فارسی</Label>
@@ -250,7 +250,7 @@ function UpdateEducation({
               </div>
             </div>
           </ComponentCard>
-          <ComponentCard title="توضیحات آموزش">
+          <ComponentCard title="توضیحات آموزش" className="my-2">
             <div>
               <Label htmlFor="ru-input">توضیحات فارسی</Label>
               <TextArea
@@ -292,7 +292,7 @@ function UpdateEducation({
               )}
             </div>
           </ComponentCard>
-          <ComponentCard title="توضیحات تکمیلی">
+          <ComponentCard title="توضیحات تکمیلی" className="my-2">
             <div>
               <Label htmlFor="ru-input">توضیحات تکمیلی فارسی</Label>
               <TextArea
@@ -339,7 +339,7 @@ function UpdateEducation({
                 )}
             </div>
           </ComponentCard>
-          <ComponentCard title="تصاویر آموزش">
+          <ComponentCard title="تصاویر آموزش" className="my-2">
             <DropzoneComponent
               multiple
               title="تصاویر آموزش فارسی"
@@ -365,7 +365,7 @@ function UpdateEducation({
               onDelete={(url, name) => handleDeleteFile(url, name)}
             />
           </ComponentCard>
-          <ComponentCard title="ویدیو آموزش">
+          <ComponentCard title="ویدیو آموزش" className="my-2">
             <DropzoneVideoComponent
               multiple
               title="ویدیو آموزش فارسی"

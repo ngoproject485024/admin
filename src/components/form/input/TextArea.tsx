@@ -16,9 +16,7 @@ interface TextareaProps {
 
 const TextArea: React.FC<TextareaProps> = ({
   placeholder = "متن توضیحات را وارد کنید", // Default placeholder
-  rows = 3, // Default number of rows
-  value = "", // Default value
-  onChange, // Callback for changes
+  rows = 6, // Default number of rows
   className = "", // Additional custom styles
   disabled = false, // Disabled state
   error = false, // Error state

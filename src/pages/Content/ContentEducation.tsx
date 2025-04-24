@@ -73,7 +73,7 @@ function ContentEducation() {
         description="محتوای صفحه آموزش و پرورش"
       />
       <PageBreadcrumb pageTitle="محتوا" subMenu="آموزش و پرورش" />
-      <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
+      <form onSubmit={formik.handleSubmit} className="flex flex-col gap-">
         <ComponentCard title="توضیحات آموزش و پرورش">
           <div>
             <TextAreaInput

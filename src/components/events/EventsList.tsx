@@ -47,7 +47,6 @@ function EventsList() {
   const handleCloseConfirm = () => setIsOpenDel("");
   const handleCloseUp = () => setIsOpenUp("");
 
-
   const mutation = useMutation({
     mutationKey: ["deleteEvent"],
     mutationFn: deleteEvent,
@@ -113,7 +112,7 @@ function EventsList() {
 
   const defaultColDef: ColDef = {
     cellStyle: {
-      diplay: "flex",
+      display: "flex",
       justifyContent: "center",
       alignItems: "center",
     },
@@ -121,6 +120,10 @@ function EventsList() {
       textAlign: "center",
     },
     headerClass: "header-cell",
+    filter: true,
+    spanRows: true,
+    sortable: true,
+    resizable: true,
   };
 
   const gridRef = useRef<AgGridReact>(null);

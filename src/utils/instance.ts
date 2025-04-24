@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie } from "./cookie";
+import { getCookie, removeCookie } from "./cookie";
 
 const token = () => {
   const token: string | undefined = getCookie("admin-miras-token");
@@ -39,11 +39,13 @@ instance.interceptors.response.use(
   },
   (error) => {
     // Handle specific error cases
+    console.log(error);
     if (error.response) {
       // Server responded with a status code outside of 2xx
       switch (error.response.status) {
         case 401: {
           const UnauthorizedError = new Error("401");
+          removeCookie("admin-miras-token");
           window.location.replace("/signin");
           return Promise.reject(UnauthorizedError);
         }
@@ -53,7 +55,6 @@ instance.interceptors.response.use(
           return Promise.reject(notFoundError);
         }
         case 400: {
-          console.log("vvvvvv", error);
           const errorSource = new Error("400");
           console.log(errorSource);
 

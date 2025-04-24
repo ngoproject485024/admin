@@ -137,7 +137,11 @@ function ContentHome() {
   });
 
   if (isLoadingData) {
-    return <Loading />;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   return (

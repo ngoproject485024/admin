@@ -24,7 +24,7 @@ export default function TextAreaInput({
 
   return (
     <ComponentCard title={title ? title : ""}>
-      <div className="space-y-6">
+      <div className="space-y-6 mt-4">
         {/* Default TextArea */}
         <div>
           <Label>{title?.split(" ")[0]}</Label>
@@ -33,7 +33,7 @@ export default function TextAreaInput({
             formik={formik}
             value={message}
             onChange={(value) => setMessage(value)}
-            rows={6}
+            rows={12}
             error={error}
             hint={hint}
           />

@@ -36,6 +36,10 @@ import ContentDataArchive from "./pages/Content/ContentDataArchive";
 import ContentFooter from "./pages/Content/ContentFooter";
 import EducationPage from "./pages/Education";
 import EventsPage from "./pages/Events";
+import ManageNgoPage from "./pages/Ngos/ManageNgos";
+import NgoDetailsPage from "./pages/Ngos/NgoDetails";
+import ManageDocsPage from "./pages/Ngos/ManageDocs";
+import ManageProjects from "./pages/Ngos/ManageProjects";
 
 export default function App() {
   return (
@@ -48,6 +52,22 @@ export default function App() {
             <Route index path="/" element={<Home />} />
             <Route index path="/education" element={<EducationPage />} />
             <Route index path="/events" element={<EventsPage />} />
+            <Route index path="/ngos/manage-ngos" element={<ManageNgoPage />} />
+            <Route
+              index
+              path="/ngos/manage-ngos/:id"
+              element={<NgoDetailsPage />}
+            />
+            <Route
+              index
+              path="/ngos/manage-projects"
+              element={<ManageProjects />}
+            />
+            <Route
+              index
+              path="/ngos/manage-docs"
+              element={<ManageDocsPage />}
+            />
 
             {/* Content */}
             <Route index path="/content/home" element={<ContentHome />} />

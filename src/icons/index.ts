@@ -1,4 +1,7 @@
 import { ReactComponent as PlusIcon } from "./plus.svg?react";
+import { ReactComponent as AcceptIcon } from "./accept.svg?react";
+import { ReactComponent as TimesIcon } from "./times.svg?react";
+import { ReactComponent as ManageIcon } from "./manage.svg?react";
 import { ReactComponent as CloseIcon } from "./close.svg?react";
 import { ReactComponent as ContentIcon } from "./content.svg?react";
 import { ReactComponent as EducationIcon } from "./education.svg?react";
@@ -59,6 +62,9 @@ import { ReactComponent as UpdateIcon } from "./update.svg?react";
 
 export {
   UpdateIcon,
+  TimesIcon,
+  AcceptIcon,
+  ManageIcon,
   ErrorHexaIcon,
   AlertHexaIcon,
   EducationIcon,

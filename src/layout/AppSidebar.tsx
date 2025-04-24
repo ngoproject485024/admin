@@ -12,6 +12,7 @@ import {
   GridIcon,
   HorizontaLDots,
   ListIcon,
+  ManageIcon,
   PageIcon,
   PieChartIcon,
   PlugInIcon,
@@ -32,7 +33,6 @@ const navItems: NavItem[] = [
     icon: <GridIcon />,
     name: "داشبورد",
     path: "/",
-    // subItems: [{ name: "Ecommerce", path: "/", pro: false }],
   },
   {
     icon: <EducationIcon />,
@@ -43,6 +43,16 @@ const navItems: NavItem[] = [
     icon: <EventsIcon />,
     name: "رویدادها",
     path: "/events",
+  },
+  {
+    icon: <ManageIcon />,
+    name: "سمن ها",
+    path: "/ngos",
+    subItems: [
+      { name: "مدیریت سمن ها", path: "/ngos/manage-ngos", pro: false },
+      { name: "مدیریت مدارک ها", path: "/ngos/manage-docs", pro: false },
+      { name: "مدیریت پروژه ها", path: "/ngos/manage-projects", pro: false },
+    ],
   },
   {
     icon: <ContentIcon />,

@@ -42,7 +42,6 @@ function EducationList() {
   const [isOpenDel, setIsOpenDel] = useState<string>("");
   const [isOpenUp, setIsOpenUp] = useState<string>("");
   const [updateValues, setUpdateValues] = useState<any>({});
-  
 
   const handleCloseConfirm = () => setIsOpenDel("");
   const handleCloseUp = () => setIsOpenUp("");
@@ -120,6 +119,10 @@ function EducationList() {
       textAlign: "center",
     },
     headerClass: "header-cell",
+    filter: true,
+    spanRows: true,
+    sortable: true,
+    resizable: true,
   };
 
   const gridRef = useRef<AgGridReact>(null);

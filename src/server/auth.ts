@@ -8,8 +8,9 @@ export const loginRequest = async (value: {
     const { data } = await instance.post("/admin/login", value);
 
     return data;
-  } catch (err) {
+  } catch (err: any) {
     console.error(err);
-    return err;
+
+    return err?.response;
   }
 };

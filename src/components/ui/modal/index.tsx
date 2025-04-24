@@ -87,7 +87,7 @@ export const Modal: React.FC<ModalProps> = ({
             </svg>
           </button>
         )}
-        <div className="p-4 text-slate-800 dark:text-white max-h-[90vh] h-[90vh] overflow-y-auto">
+        <div className="p-4 text-slate-800 dark:text-white max-h-[90vh] h-max overflow-y-auto ">
           {children}
         </div>
       </div>

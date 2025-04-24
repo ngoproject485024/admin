@@ -22,7 +22,6 @@ function ContentAboutUs() {
     queryFn: () => getAboutUs(),
   });
 
-
   const mutation = useMutation({
     mutationKey: ["createAboutUs"],
     mutationFn: createAboutUs,
@@ -91,7 +90,6 @@ function ContentAboutUs() {
       ruMissionAndGoals: Yup.string().required(
         "لطفا توضیحات اهداف و دستاورد ها (روسی) را وارد کنید"
       ),
-
     }),
     enableReinitialize: true,
     onSubmit: async (values: any) => {
@@ -124,7 +122,11 @@ function ContentAboutUs() {
   });
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   return (

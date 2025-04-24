@@ -16,7 +16,7 @@ function Confirm({
 }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center h-min ">
         <h2 className="font-bold text-2xl mb-4">مطمئن هستید؟</h2>
         <p>{message ? message : "آیا میخواهید حذف کنید"}</p>
         <div className="flex gap-4 my-4">
