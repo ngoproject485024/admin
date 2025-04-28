@@ -72,3 +72,10 @@ export const homeDataSchema = Yup.object().shape({
   enNgoDescription: Yup.string().required("توضیحات سمن انگلیسی الزامی است"),
   ruNgoDescription: Yup.string().required("توضیحات سمن روسی الزامی است"),
 });
+
+export const adminSchema = Yup.object().shape({
+  userName: Yup.string().required("نام کاربری الزامی است"),
+  firstName: Yup.string().required("نام الزامی است"),
+  lastName: Yup.string().required("نام خانوادگی الزامی است"),
+  password: Yup.string().required("رمز عبور الزامی است"),
+});

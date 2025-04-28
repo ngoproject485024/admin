@@ -1,4 +1,5 @@
 import { ReactComponent as PlusIcon } from "./plus.svg?react";
+import { ReactComponent as AdminIcon } from "./admin.svg?react";
 import { ReactComponent as AcceptIcon } from "./accept.svg?react";
 import { ReactComponent as TimesIcon } from "./times.svg?react";
 import { ReactComponent as ManageIcon } from "./manage.svg?react";
@@ -62,6 +63,7 @@ import { ReactComponent as UpdateIcon } from "./update.svg?react";
 
 export {
   UpdateIcon,
+  AdminIcon,
   TimesIcon,
   AcceptIcon,
   ManageIcon,

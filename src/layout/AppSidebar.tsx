@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router";
 
 // Assume these icons are imported from an icon library
 import {
+  AdminIcon,
   ChevronDownIcon,
   ContentIcon,
   EducationIcon,
@@ -75,6 +76,11 @@ const navItems: NavItem[] = [
       { name: "آرشیو دیجیتال", path: "/content/data-archive", pro: false },
       { name: "فوتر", path: "/content/footer", pro: false },
     ],
+  },
+  {
+    icon: <AdminIcon />,
+    name: "ادمین",
+    path: "/admin",
   },
 ];
 
