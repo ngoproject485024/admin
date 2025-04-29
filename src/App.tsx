@@ -26,12 +26,10 @@ import ContentNgosRegistration from "./pages/Content/ContentNgosRegistration";
 import ContentStatistics from "./pages/Content/ContentStatistics";
 import ContentEducation from "./pages/Content/ContentEducation";
 import ContentEvents from "./pages/Content/ContentEvents";
-import ContentProjects from "./pages/Content/ContentProjects";
 import ContentGoodPractice from "./pages/Content/ContentGoodPractice";
 import ContentOngoingProjects from "./pages/Content/ContentOngoingProjects";
 import ContentCompletedProjects from "./pages/Content/ContentCompletedProjects";
 import ContentCollaborationOpportunities from "./pages/Content/ContentCollaborationOpportunities";
-import ContentDataArchive from "./pages/Content/ContentDataArchive";
 import ContentFooter from "./pages/Content/ContentFooter";
 import EducationPage from "./pages/Education";
 import EventsPage from "./pages/Events";
@@ -104,11 +102,7 @@ export default function App() {
               element={<ContentEducation />}
             />
             <Route index path="/content/events" element={<ContentEvents />} />
-            <Route
-              index
-              path="/content/projects"
-              element={<ContentProjects />}
-            />
+
             <Route
               index
               path="/content/good-practice"
@@ -129,11 +123,7 @@ export default function App() {
               path="/content/collaboration-opportunities"
               element={<ContentCollaborationOpportunities />}
             />
-            <Route
-              index
-              path="/content/data-archive"
-              element={<ContentDataArchive />}
-            />
+
             <Route index path="/content/footer" element={<ContentFooter />} />
 
             {/* Others Page */}

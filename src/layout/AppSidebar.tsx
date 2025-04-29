@@ -60,7 +60,6 @@ const navItems: NavItem[] = [
       { name: "آمار", path: "/content/statistics", pro: false },
       { name: "آموزش و پرورش", path: "/content/education", pro: false },
       { name: "رویداد ها", path: "/content/events", pro: false },
-      { name: "پروژه ها", path: "/content/projects", pro: false },
       { name: "ابتکارات مشترک", path: "/content/good-practice", pro: false },
       { name: "پروژه های فعال", path: "/content/ongoing-projects", pro: false },
       {
@@ -73,7 +72,6 @@ const navItems: NavItem[] = [
         path: "/content/collaboration-opportunities",
         pro: false,
       },
-      { name: "آرشیو دیجیتال", path: "/content/data-archive", pro: false },
       { name: "فوتر", path: "/content/footer", pro: false },
     ],
   },
