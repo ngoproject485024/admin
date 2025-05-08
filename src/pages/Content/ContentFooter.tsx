@@ -24,6 +24,8 @@ const ContentFooter = () => {
     queryFn: () => getFooter(),
   });
 
+  console.log("fadfafad", data);
+
   const mutation = useMutation({
     mutationKey: ["createFooter"],
     mutationFn: createFooter,
@@ -66,7 +68,7 @@ const ContentFooter = () => {
       phone: Yup.string().required("لطفا شماره تلفن را وارد کنید"),
       gmail: Yup.string().required("لطفا ایمیل را وارد کنید"),
       instaLink: Yup.string().required("لطفا لینک اینستاگرام را وارد کنید"),
-      xLink: data?.data?.xLink,
+      xLink: Yup.string().required("لطفا لینک ایکس  را وارد کنید"),
       linkedInLink: Yup.string().required("لطفا لینک لینکدین را وارد کنید"),
       faceBookLink: Yup.string().required("لطفا لینک فیسبوک را وارد کنید"),
     }),

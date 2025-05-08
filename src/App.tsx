@@ -39,6 +39,8 @@ import ManageDocsPage from "./pages/Ngos/ManageDocs";
 import ManageProjects from "./pages/Ngos/ManageProjects";
 import NgoProjectDetailsPage from "./pages/Ngos/NgoProjectDetails";
 import AdminPage from "./pages/Admin";
+import DynamicPages from "./pages/DynamicPages/DynamicPages";
+import CreateDynamicPage from "./pages/CreateDynamicPage";
 
 export default function App() {
   return (
@@ -125,6 +127,14 @@ export default function App() {
             />
 
             <Route index path="/content/footer" element={<ContentFooter />} />
+
+            {/* Dynamic Pages */}
+            <Route index path="/dynamic-pages" element={<DynamicPages />} />
+            <Route
+              index
+              path="/dynamic-pages/new-page"
+              element={<CreateDynamicPage />}
+            />
 
             {/* Others Page */}
             <Route path="/admin" element={<AdminPage />} />

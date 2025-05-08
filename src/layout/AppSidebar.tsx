@@ -6,6 +6,7 @@ import {
   AdminIcon,
   ChevronDownIcon,
   ContentIcon,
+  DynamicPageIcon,
   EducationIcon,
   EventsIcon,
   GridIcon,
@@ -47,6 +48,7 @@ const navItems: NavItem[] = [
       { name: "مدیریت پروژه ها", path: "/ngos/manage-projects", pro: false },
     ],
   },
+
   {
     icon: <ContentIcon />,
     name: "محتوا",
@@ -73,6 +75,14 @@ const navItems: NavItem[] = [
         pro: false,
       },
       { name: "فوتر", path: "/content/footer", pro: false },
+    ],
+  },
+  {
+    icon: <DynamicPageIcon />,
+    name: "صفحات داینامیک",
+    subItems: [
+      { name: "صفحات", path: "/dynamic-pages", pro: false },
+      { name: "صفحه جدید", path: "/dynamic-pages/new-page", pro: false },
     ],
   },
   {
