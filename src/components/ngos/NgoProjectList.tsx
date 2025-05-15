@@ -15,30 +15,41 @@ import { useTheme } from "../../context/ThemeContext";
 import Input from "../form/input/InputField";
 import { AG_GRID_LOCALE_IR } from "@ag-grid-community/locale";
 import Confirm from "../confirm";
-import { enableAndDisableNgo, getNgosProjects } from "../../server/ngos";
+import {
+  changeStatusProject,
+  enableAndDisableNgo,
+  getNgosProjects,
+} from "../../server/ngos";
 import { Link } from "react-router";
 import Button from "../ui/button/Button";
+import { AcceptIcon, TimesIcon } from "../../icons";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 interface IRow {
   name: string;
   ["ngo.name"]: string;
-  ["location.country"]: string;
   ["location.city"]: string;
+  projectManagerName: string;
   startDate: string;
   endDate: string;
   details: any;
+  actions: any;
+  state: number;
 }
 
 const themeDark = themeAlpine.withPart(colorSchemeDarkBlue);
 const themeLight = themeAlpine.withPart(colorSchemeLight);
 
 function NgoProjectsList() {
+  const [changeStatus, setChangeStatus] = useState<string>("");
+  const [status, setStatus] = useState<number>(0);
+
   const [isOpenDisableAndEnable, setIsOpenDisableAndEnable] =
     useState<string>("");
 
   const handleCloseConfirm = () => setIsOpenDisableAndEnable("");
+  const handleCloseChangeStatus = () => setChangeStatus("");
 
   const mutation = useMutation({
     mutationKey: ["enableAndDisableNgo"],
@@ -55,6 +66,20 @@ function NgoProjectsList() {
     },
   });
 
+  const mutationStatus = useMutation({
+    mutationKey: ["changeStatusProject"],
+    mutationFn: () => changeStatusProject(changeStatus, status),
+    onSuccess: (data) => {
+      if (data.success) {
+        toast.success(`پروژه با موفقیت ${status === 1 ? "تایید" : "رد"} شد`);
+        refetch();
+      } else {
+        toast.error("عملیات ناموفق ، لطفا دوباره امتحان کنید");
+      }
+      handleCloseChangeStatus();
+    },
+  });
+
   const { data, refetch } = useQuery({
     queryKey: ["getNgosProjects"],
     queryFn: getNgosProjects,
@@ -63,7 +88,7 @@ function NgoProjectsList() {
   const [colDefs] = useState<ColDef<IRow>[]>([
     { field: "name", headerName: "نام پروژه" },
     { field: "ngo.name", headerName: "نام سمن" },
-    { field: "location.country", headerName: "کشور" },
+    { field: "projectManagerName", headerName: "نام مدیر پروژه" },
     { field: "location.city", headerName: "شهر" },
     {
       field: "startDate",
@@ -78,6 +103,55 @@ function NgoProjectsList() {
       cellRenderer: (params: any) => (
         <span>{moment(params?.value).locale("fa").format("YYYY/MM/DD")}</span>
       ),
+    },
+    {
+      field: "state",
+      headerName: "وضعیت",
+      cellRenderer: (params: any) => {
+        return (
+          <>
+            {params?.value === 0 ? (
+              <span className="bg-amber-300 rounded-full text-sm p-1 text-gray-900">
+                در انتظار بررسی
+              </span>
+            ) : params?.value === 1 ? (
+              <span className="bg-green-400 rounded-full text-sm p-1 text-gray-900">
+                تایید شده
+              </span>
+            ) : (
+              <span className="bg-red-500 rounded-full text-sm p-1">
+                رد شده
+              </span>
+            )}
+          </>
+        );
+      },
+    },
+
+    {
+      field: "actions",
+      headerName: "اقدامات",
+      width: 100,
+      cellRenderer: (params: any) => {
+        return (
+          <div className="flex gap-2">
+            <AcceptIcon
+              className="text-2xl text-green-500 cursor-pointer"
+              onClick={() => {
+                setChangeStatus(params?.data?._id);
+                setStatus(1);
+              }}
+            />
+            <TimesIcon
+              className="text-2xl text-red-500 cursor-pointer"
+              onClick={() => {
+                setChangeStatus(params?.data?._id);
+                setStatus(2);
+              }}
+            />
+          </div>
+        );
+      },
     },
 
     {
@@ -153,6 +227,14 @@ function NgoProjectsList() {
         isLoading={mutation.isPending}
         onSubmit={() => mutation.mutate(isOpenDisableAndEnable)}
         message="آیا میخواهید این سمن را فعال/غیرفعال کنید؟"
+      />
+
+      <Confirm
+        isOpen={!!changeStatus}
+        onClose={handleCloseChangeStatus}
+        isLoading={mutationStatus.isPending}
+        onSubmit={() => mutationStatus.mutate()}
+        message={`آیا پروژه را ${status === 1 ? "تایید" : "رد"} می کنید؟`}
       />
     </>
   );

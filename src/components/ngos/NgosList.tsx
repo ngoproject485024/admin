@@ -14,9 +14,15 @@ import { useTheme } from "../../context/ThemeContext";
 import Input from "../form/input/InputField";
 import { AG_GRID_LOCALE_IR } from "@ag-grid-community/locale";
 import Confirm from "../confirm";
-import { enableAndDisableNgo, getNgos } from "../../server/ngos";
+import {
+  approveNgo,
+  enableAndDisableNgo,
+  getNgos,
+  rejectNgo,
+} from "../../server/ngos";
 import { Link } from "react-router";
 import Button from "../ui/button/Button";
+import { AcceptIcon, TimesIcon } from "../../icons";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -31,6 +37,7 @@ interface IRow {
   projects: [];
   website: string;
   disable: boolean;
+  approved: boolean;
   details: any;
 }
 
@@ -40,6 +47,14 @@ const themeLight = themeAlpine.withPart(colorSchemeLight);
 function NgosList() {
   const [isOpenDisableAndEnable, setIsOpenDisableAndEnable] =
     useState<string>("");
+
+  const [isOpenActions, setIsOpenActions] = useState<string>("");
+  const [id, setId] = useState<string>("");
+
+  const handleCloseActions = () => {
+    setIsOpenActions("");
+    setId("");
+  };
 
   const handleCloseConfirm = () => setIsOpenDisableAndEnable("");
 
@@ -55,6 +70,33 @@ function NgosList() {
         toast.error("عملیات ناموفق ، لطفا دوباره امتحان کنید");
         handleCloseConfirm();
       }
+    },
+  });
+
+  const approvedMutation = useMutation({
+    mutationKey: ["approveNgo"],
+    mutationFn: approveNgo,
+    onSuccess: (data) => {
+      if (data.success) {
+        toast.success("سمن با موفقیت پذیرفته شد");
+        refetch();
+      } else {
+        toast.error("عملیات ناموفق ، لطفا دوباره امتحان کنید");
+      }
+      handleCloseActions();
+    },
+  });
+  const rejectMutation = useMutation({
+    mutationKey: ["rejectNgo"],
+    mutationFn: rejectNgo,
+    onSuccess: (data) => {
+      if (data.success) {
+        toast.success("سمن با موفقیت رد شد");
+        refetch();
+      } else {
+        toast.error("عملیات ناموفق ، لطفا دوباره امتحان کنید");
+      }
+      handleCloseActions();
     },
   });
 
@@ -74,10 +116,10 @@ function NgosList() {
     },
     { field: "name", headerName: "نام سمن" },
     { field: "city", headerName: "شهر" },
-    { field: "country", headerName: "کشور" },
-    { field: "address", headerName: "آدرس" },
+    // { field: "country", headerName: "کشور" },
+    // { field: "address", headerName: "آدرس" },
     { field: "phone", headerName: "تلفن" },
-    { field: "postal", headerName: "کد پستی" },
+    // { field: "postal", headerName: "کد پستی" },
     {
       field: "disable",
       width: 150,
@@ -90,6 +132,7 @@ function NgosList() {
               id="s1-14"
               type="checkbox"
               className="switch"
+              disabled={params?.data?.approved === 0}
               defaultChecked={!params?.value}
               checked={!params?.value}
               onChange={() => {
@@ -97,6 +140,43 @@ function NgosList() {
               }}
             />
           </div>
+        );
+      },
+    },
+    {
+      field: "approved",
+      headerName: "اقدامات",
+      width: 250,
+      cellRenderer: (params: any) => {
+        return (
+          <>
+            {params?.value === 0 ? (
+              <span className="bg-red-500 rounded-full p-1 text-white h-5 flex justify-center items-center w-20">
+                رد شده
+              </span>
+            ) : params?.value === 1 ? (
+              <span className="bg-green-500 rounded-full p-1 text-white h-5 flex justify-center items-center w-20">
+                تایید شده
+              </span>
+            ) : (
+              <div className="flex gap-2">
+                <AcceptIcon
+                  className="text-2xl text-green-500 cursor-pointer"
+                  onClick={() => {
+                    setIsOpenActions("approve");
+                    setId(params?.data?._id);
+                  }}
+                />
+                <TimesIcon
+                  className="text-2xl text-red-500 cursor-pointer"
+                  onClick={() => {
+                    setIsOpenActions("reject");
+                    setId(params?.data?._id);
+                  }}
+                />
+              </div>
+            )}
+          </>
         );
       },
     },
@@ -174,6 +254,20 @@ function NgosList() {
         isLoading={mutation.isPending}
         onSubmit={() => mutation.mutate(isOpenDisableAndEnable)}
         message="آیا میخواهید این سمن را فعال/غیرفعال کنید؟"
+      />
+      <Confirm
+        isOpen={isOpenActions === "approve"}
+        onClose={handleCloseActions}
+        isLoading={approvedMutation.isPending}
+        onSubmit={() => approvedMutation.mutate(id)}
+        message="آیا میخواهید این سمن را بپذیرید؟"
+      />
+      <Confirm
+        isOpen={isOpenActions === "reject"}
+        onClose={handleCloseActions}
+        isLoading={rejectMutation.isPending}
+        onSubmit={() => rejectMutation.mutate(id)}
+        message="آیا میخواهید این سمن را رد کنید؟"
       />
     </>
   );

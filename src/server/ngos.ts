@@ -24,6 +24,29 @@ export const enableAndDisableNgo = async (id: string) => {
   }
 };
 
+export const approveNgo = async (id: string) => {
+  try {
+    const { data } = await instance.post(`ngo/approved/${id}`);
+
+    return data;
+  } catch (err) {
+    console.error("Error fetching events:", err);
+
+    return false;
+  }
+};
+export const rejectNgo = async (id: string) => {
+  try {
+    const { data } = await instance.post(`ngo/reject/${id}`);
+
+    return data;
+  } catch (err) {
+    console.error("Error fetching events:", err);
+
+    return false;
+  }
+};
+
 export const getSpecificNgo = async (id: string) => {
   try {
     const { data } = await instance.get(`ngo/admin/ngo/${id}`);
@@ -51,6 +74,19 @@ export const changeStatusDoc = async (id: string, state: number) => {
   try {
     const { data } = await instance.put(
       `/ngo/document/approve/${id}?state=${state}`
+    );
+
+    return data;
+  } catch (err) {
+    console.error("Error fetching events:", err);
+
+    return false;
+  }
+};
+export const changeStatusProject = async (id: string, state: number) => {
+  try {
+    const { data } = await instance.put(
+      `/ngo/project/approve/${id}?state=${state}`
     );
 
     return data;
