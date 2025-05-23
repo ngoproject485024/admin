@@ -15,6 +15,7 @@ import TextArea from "../form/input/TextArea";
 import DropzoneComponent from "../form/form-elements/DropZone";
 import DropzoneVideoComponent from "../form/form-elements/DropZoneVideo";
 import Button from "../ui/button/Button";
+import TextEditor from "../common/TextEditor";
 
 function UpdateEducation({
   isOpen,
@@ -195,7 +196,7 @@ function UpdateEducation({
 
   return (
     <>
-      <Modal isOpen={!!isOpen} onClose={onClose}>
+      <Modal isOpen={!!isOpen} onClose={onClose} isFullscreen>
         <h1 className="font-bold text-lg text-center w-full mb-8">
           به روز رسانی آموزش
         </h1>
@@ -203,7 +204,7 @@ function UpdateEducation({
         <form onSubmit={formik.handleSubmit}>
           <ComponentCard title="عنوان آموزش" className="my-2">
             <div className="flex gap-4">
-              <div>
+              <div className="flex-1">
                 <Label htmlFor="pe-input">عنوان فارسی</Label>
                 <Input
                   type="text"
@@ -218,7 +219,7 @@ function UpdateEducation({
                   </span>
                 )}
               </div>
-              <div>
+              <div className="flex-1">
                 <Label htmlFor="en-input">عنوان انگلیسی</Label>
                 <Input
                   type="text"
@@ -233,7 +234,7 @@ function UpdateEducation({
                   </span>
                 )}
               </div>
-              <div>
+              <div className="flex-1">
                 <Label htmlFor="ru-input">عنوان روسی</Label>
                 <Input
                   type="text"
@@ -252,13 +253,19 @@ function UpdateEducation({
           </ComponentCard>
           <ComponentCard title="توضیحات آموزش" className="my-2">
             <div>
-              <Label htmlFor="ru-input">توضیحات فارسی</Label>
+              <TextEditor
+                title="توضیحات (فارسی)"
+                formik={formik}
+                name="peDescription"
+                lang="fa"
+              />
+              {/* <Label htmlFor="ru-input">توضیحات فارسی</Label>
               <TextArea
                 placeholder="توضیحات فارسی را وارد کنید"
                 error={formik.errors.peDescription ? true : false}
                 name="peDescription"
                 formik={formik}
-              />
+              /> */}
               {formik.errors.peDescription && formik.touched.peDescription && (
                 <span className="text-sm text-error-500">
                   {formik.errors.peDescription}
@@ -266,12 +273,18 @@ function UpdateEducation({
               )}
             </div>
             <div>
-              <TextArea
-                placeholder="توضیحات انگلیسی را وارد کنید"
+              <TextEditor
+                title="توضیحات (انگیلسی)"
+                formik={formik}
+                name="enDescription"
+                lang="en"
+              />
+              {/* <TextArea
+                placeholder="توضیحات انگیلسی را وارد کنید"
                 error={formik.errors.enDescription ? true : false}
                 formik={formik}
                 name="enDescription"
-              />
+              /> */}
               {formik.errors.enDescription && formik.touched.enDescription && (
                 <span className="text-sm text-error-500">
                   {formik.errors.enDescription}
@@ -279,12 +292,18 @@ function UpdateEducation({
               )}
             </div>
             <div>
-              <TextArea
+              <TextEditor
+                title="توضیحات (روسی)"
+                formik={formik}
+                name="ruDescription"
+                lang="en"
+              />
+              {/* <TextArea
                 placeholder="توضیحات روسی را وارد کنید"
                 error={formik.errors.ruDescription ? true : false}
                 formik={formik}
                 name="ruDescription"
-              />
+              /> */}
               {formik.errors.ruDescription && formik.touched.ruDescription && (
                 <span className="text-sm text-error-500">
                   {formik.errors.ruDescription}
@@ -294,13 +313,19 @@ function UpdateEducation({
           </ComponentCard>
           <ComponentCard title="توضیحات تکمیلی" className="my-2">
             <div>
-              <Label htmlFor="ru-input">توضیحات تکمیلی فارسی</Label>
+              <TextEditor
+                title="توضیحات تکمیلی (فارسی)"
+                formik={formik}
+                name="peEducationBody"
+                lang="fa"
+              />
+              {/* <Label htmlFor="ru-input">توضیحات تکمیلی فارسی</Label>
               <TextArea
                 placeholder="توضیحات تکمیلی فارسی را وارد کنید"
                 error={formik.errors.peEducationBody ? true : false}
                 formik={formik}
                 name="peEducationBody"
-              />
+              /> */}
               {formik.errors.peEducationBody &&
                 formik.touched.peEducationBody && (
                   <span className="text-sm text-error-500">
@@ -309,13 +334,19 @@ function UpdateEducation({
                 )}
             </div>
             <div>
-              <Label htmlFor="ru-input">توضیحات تکمیلی انگلیسی</Label>
+              <TextEditor
+                title="توضیحات تکمیلی (انگلیسی)"
+                formik={formik}
+                name="enEducationBody"
+                lang="en"
+              />
+              {/* <Label htmlFor="ru-input">توضیحات تکمیلی انگلیسی</Label>
               <TextArea
                 placeholder="توضیحات تکمیلی انگلیسی را وارد کنید"
                 error={formik.errors.enEducationBody ? true : false}
                 formik={formik}
                 name="enEducationBody"
-              />
+              /> */}
               {formik.errors.enEducationBody &&
                 formik.touched.enEducationBody && (
                   <span className="text-sm text-error-500">
@@ -324,13 +355,19 @@ function UpdateEducation({
                 )}
             </div>
             <div>
-              <Label htmlFor="ru-input">توضیحات تکمیلی روسی</Label>
+              <TextEditor
+                title="توضیحات تکمیلی (روسی)"
+                formik={formik}
+                name="ruEducationBody"
+                lang="en"
+              />
+              {/* <Label htmlFor="ru-input">توضیحات تکمیلی روسی</Label>
               <TextArea
                 placeholder="توضیحات تکمیلی روسی را وارد کنید"
                 error={formik.errors.ruEducationBody ? true : false}
                 formik={formik}
                 name="ruEducationBody"
-              />
+              /> */}
               {formik.errors.ruEducationBody &&
                 formik.touched.ruEducationBody && (
                   <span className="text-sm text-error-500">

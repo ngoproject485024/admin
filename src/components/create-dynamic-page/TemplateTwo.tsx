@@ -7,7 +7,7 @@ import Button from "../ui/button/Button";
 import TextEditor from "../common/TextEditor";
 // import useTemplateOne from "../../hooks/useTemplateOne";
 
-function TemplateOne({
+function TemplateTwo({
   formik,
   contentFormik,
   formikTemplateSubContent,
@@ -32,7 +32,7 @@ function TemplateOne({
         <>
           <ComponentCard title="تصویر صفحه">
             <DropzoneComponent
-              multiple={false}
+              multiple
               title="تصویر صفحه"
               onFiles={onFile}
               formikImages={contentFormik.values.image}
@@ -239,10 +239,10 @@ function TemplateOne({
         </>
       ) : step === 5 ? (
         <>
-          <ComponentCard title="تصویر صفحه">
+          <ComponentCard title="تصاویر صفحه">
             <DropzoneComponent
-              multiple={false}
-              title="تصویر صفحه"
+              multiple
+              title="تصاویر صفحه"
               onFiles={onFile}
               formikImages={formikTemplateSubContent.values.image}
             />
@@ -366,7 +366,7 @@ function TemplateOne({
             </div>
           </ComponentCard>
           <ComponentCard title="محتوای صفحه" className="mt-4">
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col  gap-4">
               <div className="flex-1">
                 <TextEditor
                   title="محتوای فارسی"
@@ -465,10 +465,10 @@ function TemplateOne({
         </>
       ) : step === 7 ? (
         <>
-          <ComponentCard title="تصویر صفحه">
+          <ComponentCard title="تصاویر صفحه">
             <DropzoneComponent
-              multiple={false}
-              title="تصویر صفحه"
+              multiple
+              title="تصاویر صفحه"
               onFiles={onFile}
               formikImages={formikTemplateSecondPage.values.image}
             />
@@ -696,4 +696,4 @@ function TemplateOne({
   );
 }
 
-export default TemplateOne;
+export default TemplateTwo;

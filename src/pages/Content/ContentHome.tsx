@@ -11,6 +11,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { getHomeData, homePage } from "../../server/content";
 import Loading from "../../components/loading";
 import { homeDataSchema } from "../../utils/validation";
+import TextEditor from "../../components/common/TextEditor";
 
 function ContentHome() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -67,13 +68,13 @@ function ContentHome() {
       ruDescription: ruDescription ? ruDescription : "",
       peMiddleImageDescription: peMiddleImageDescription
         ? peMiddleImageDescription
-        : "",
+        : " ",
       enMiddleImageDescription: enMiddleImageDescription
         ? enMiddleImageDescription
-        : "",
+        : " ",
       ruMiddleImageDescription: ruMiddleImageDescription
         ? ruMiddleImageDescription
-        : "",
+        : " ",
       peProjectDescription: peProjectDescription ? peProjectDescription : "",
       enProjectDescription: enProjectDescription ? enProjectDescription : "",
       ruProjectDescription: ruProjectDescription ? ruProjectDescription : "",
@@ -157,6 +158,12 @@ function ContentHome() {
           formikImages={formik?.values?.mainImages}
           name="mainImages"
         />
+        {/* <TextEditor
+          title="توضیحات صفحه اصلی (فارسی)"
+          formik={formik}
+          name="peDescription"
+          lang="fa"
+        /> */}
         <TextAreaInput
           title="توضیحات صفحه اصلی (فارسی)"
           formik={formik}
@@ -168,6 +175,12 @@ function ContentHome() {
               : ""
           }
         />
+        {/* <TextEditor
+          title="توضیحات صفحه اصلی (انگلیسی)"
+          formik={formik}
+          name="enDescription"
+          lang="en"
+        /> */}
         <TextAreaInput
           title="توضیحات صفحه اصلی (انگلیسی)"
           formik={formik}
@@ -179,6 +192,13 @@ function ContentHome() {
               : ""
           }
         />
+
+        {/* <TextEditor
+          title="توضیحات صفحه اصلی (روسی)"
+          formik={formik}
+          name="ruDescription"
+          lang="en"
+        /> */}
         <TextAreaInput
           title="توضیحات صفحه اصلی (روسی)"
           formik={formik}
@@ -190,15 +210,16 @@ function ContentHome() {
               : ""
           }
         />
-        <DropzoneComponent
+        {/* <DropzoneComponent
           title="تصاویر میانی"
           multiple
           onFiles={setMiddleFiles}
           formik={formik}
           name="middleImages"
           formikImages={formik?.values?.middleImages}
-        />
-        <TextAreaInput
+        /> */}
+
+        {/* <TextAreaInput
           title="توضیحات تصاویر میانی (فارسی)"
           formik={formik}
           name="peMiddleImageDescription"
@@ -209,6 +230,7 @@ function ContentHome() {
               : ""
           }
         />
+
         <TextAreaInput
           title="توضیحات تصاویر میانی (انگلیسی)"
           formik={formik}
@@ -220,6 +242,7 @@ function ContentHome() {
               : ""
           }
         />
+
         <TextAreaInput
           title="توضیحات تصاویر میانی (روسی)"
           formik={formik}
@@ -230,7 +253,14 @@ function ContentHome() {
               ? formik.errors.ruMiddleImageDescription
               : ""
           }
-        />
+        /> */}
+
+        {/* <TextEditor
+          title="توضیحات بخش پروژه ها (فارسی)"
+          formik={formik}
+          name="peProjectDescription"
+          lang="fa"
+        /> */}
         <TextAreaInput
           title="توضیحات بخش پروژه ها (فارسی)"
           formik={formik}
@@ -242,6 +272,13 @@ function ContentHome() {
               : ""
           }
         />
+
+        {/* <TextEditor
+          title="توضیحات بخش پروژه ها (انگلیسی)"
+          formik={formik}
+          name="enProjectDescription"
+          lang="en"
+        /> */}
         <TextAreaInput
           title="توضیحات بخش پروژه ها (انگلیسی)"
           formik={formik}
@@ -253,6 +290,13 @@ function ContentHome() {
               : ""
           }
         />
+
+        {/* <TextEditor
+          title="توضیحات بخش پروژه ها (روسی)"
+          formik={formik}
+          name="ruProjectDescription"
+          lang="en"
+        /> */}
         <TextAreaInput
           title="توضیحات بخش پروژه ها (روسی)"
           formik={formik}
@@ -264,6 +308,12 @@ function ContentHome() {
               : ""
           }
         />
+        {/* <TextEditor
+          title="توضیحات درباره ما (فارسی)"
+          formik={formik}
+          name="peAboutUsDescription"
+          lang="fa"
+        /> */}
         <TextAreaInput
           title="توضیحات درباره ما (فارسی)"
           formik={formik}
@@ -275,6 +325,12 @@ function ContentHome() {
               : ""
           }
         />
+        {/* <TextEditor
+          title="توضیحات درباره ما (انگلیسی)"
+          formik={formik}
+          name="enAboutUsDescription"
+          lang="en"
+        /> */}
         <TextAreaInput
           title="توضیحات درباره ما (انگلیسی)"
           formik={formik}
@@ -286,6 +342,13 @@ function ContentHome() {
               : ""
           }
         />
+
+        {/* <TextEditor
+          title="توضیحات درباره ما (روسی)"
+          formik={formik}
+          name="ruAboutUsDescription"
+          lang="en"
+        /> */}
         <TextAreaInput
           title="توضیحات درباره ما (روسی)"
           formik={formik}
@@ -297,6 +360,12 @@ function ContentHome() {
               : ""
           }
         />
+        {/* <TextEditor
+          title="توضیحات سمن ها (فارسی)"
+          formik={formik}
+          name="peNgoDescription"
+          lang="fa"
+        /> */}
         <TextAreaInput
           title="توضیحات سمن ها (فارسی)"
           formik={formik}
@@ -308,6 +377,13 @@ function ContentHome() {
               : ""
           }
         />
+
+        {/* <TextEditor
+          title="توضیحات سمن ها (انگلیسی)"
+          formik={formik}
+          name="enNgoDescription"
+          lang="en"
+        /> */}
         <TextAreaInput
           title="توضیحات سمن ها (انگلیسی)"
           formik={formik}
@@ -319,6 +395,13 @@ function ContentHome() {
               : ""
           }
         />
+        {/* 
+        <TextEditor
+          title="توضیحات سمن ها (روسی)"
+          formik={formik}
+          name="ruNgoDescription"
+          lang="en"
+        /> */}
         <TextAreaInput
           title="توضیحات سمن ها (روسی)"
           formik={formik}

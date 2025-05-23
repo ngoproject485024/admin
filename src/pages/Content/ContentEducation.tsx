@@ -12,6 +12,7 @@ import {
 import Loading from "../../components/loading";
 import TextAreaInput from "../../components/form/form-elements/TextAreaInput";
 import toast from "react-hot-toast";
+import TextEditor from "../../components/common/TextEditor";
 
 function ContentEducation() {
   const { data, isLoading, refetch } = useQuery({
@@ -76,6 +77,12 @@ function ContentEducation() {
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-">
         <ComponentCard title="توضیحات آموزش و پرورش">
           <div>
+            {/* <TextEditor
+              title="توضیحات آموزش و پرورش (فارسی)"
+              formik={formik}
+              name="peDescription"
+              lang="fa"
+            /> */}
             <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}
@@ -91,6 +98,12 @@ function ContentEducation() {
             />
           </div>
           <div>
+            {/* <TextEditor
+              title="توضیحات آموزش و پرورش (انگلیسی)"
+              formik={formik}
+              name="enDescription"
+              lang="en"
+            /> */}
             <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}
@@ -106,6 +119,12 @@ function ContentEducation() {
             />
           </div>
           <div>
+            {/* <TextEditor
+              title="توضیحات آموزش و پرورش (روسی)"
+              formik={formik}
+              name="ruDescription"
+              lang="en"
+            /> */}
             <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}

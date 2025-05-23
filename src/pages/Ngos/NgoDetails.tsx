@@ -30,7 +30,7 @@ function NgoDetails() {
         <img
           src={data?.data?.ngo?.logo}
           alt="logo"
-          className="max-w-2/3 object-contain rounded-full"
+          className="w-[200px] h-[200px] rounded-full"
           loading="lazy"
         />
       </div>
@@ -102,7 +102,7 @@ function NgoDetails() {
                   <img
                     alt="file"
                     src={file}
-                    className="object-contain"
+                    className="w-[200px] h-[200px]"
                     loading="lazy"
                   />
                 ) : (

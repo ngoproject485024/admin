@@ -14,7 +14,9 @@ function StepTwo({ formik, onStep, step }: Props) {
     if (step === 2) {
       formik.setFieldValue("template", template);
     } else if (step === 4) {
-      formik.setFieldValue("subPage?.template", template);
+      formik.setFieldValue("subPage.template", template);
+    } else if (step === 6) {
+      formik.setFieldValue("secondSubPage.template", template);
     }
   };
 
@@ -22,18 +24,34 @@ function StepTwo({ formik, onStep, step }: Props) {
     <>
       <TemplateSelector
         title={
-          step === 2 ? "قالب صفحه اصلی" : step === 4 ? "قالب صفحه فرعی" : ""
+          step === 2
+            ? "قالب صفحه اصلی"
+            : step === 4
+            ? "قالب صفحه فرعی"
+            : "قالب صفحه فرعی دوم"
         }
         template={
           step === 2
             ? formik.values.template
             : step === 4
             ? formik.values.subPage?.template
+            : step === 6
+            ? formik.values.secondSubPage?.template
             : 1
         }
         onTemplate={handleSetTemplate}
       />
-      <TemplatePreviwe template={formik.values.template} />
+      <TemplatePreviwe
+        template={
+          step === 2
+            ? formik.values.template
+            : step === 4
+            ? formik?.values.subPage?.template
+            : step === 6
+            ? formik.values.secondSubPage?.template
+            : formik.values.template
+        }
+      />
       <div className="mt-4 flex gap-2">
         <Button onClick={() => onStep(step + 1)}>بعدی</Button>
         <Button onClick={() => onStep(step - 1)} variant="outline">

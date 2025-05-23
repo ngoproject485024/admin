@@ -80,7 +80,7 @@ function DynamicPagesList() {
       field: "template",
       headerName: "قالب صفحه",
       cellRenderer: (params: { value: number }) =>
-        params?.value === 1 ? "قالب اول" : "",
+        params?.value === 1 ? "قالب اول" : params?.value === 2 ? "قالب دوم" : "قالب سوم",
     },
 
     {

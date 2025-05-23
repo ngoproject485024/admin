@@ -22,6 +22,7 @@ function useCreatePage(
     onSuccess: async (response) => {
       if (response?.success) {
         // اپلود صفحه اول
+        //? اگر قالب اول که شامل یک تصویر است انتخاب شده بود
         if (createFormik.values.template === 1) {
           formikTemplateOne.values.id = response?.data?._id;
           const formData = new FormData();
@@ -36,13 +37,51 @@ function useCreatePage(
             toast.error(response?.data?.error);
           }
         }
+
+        //? اگر قالب دوم ک ه شامل اسلایدر است انتخاب شده  بود
+        if (createFormik.values.template === 2) {
+          formikTemplateOne.values.id = response?.data?._id;
+          const formData = new FormData();
+
+          image.forEach((file) => {
+            formData.append("picture", file);
+          });
+
+          const reponseFile = await uploadFiles(formData);
+          if (reponseFile?.success) {
+            formikTemplateOne.values.image = reponseFile?.data;
+            toast.success("تصاویر صفحه با موفقیت آپلود شدند");
+            formikTemplateOne.handleSubmit();
+          } else {
+            toast.error(response?.data?.error);
+          }
+        }
         if (response?.data?.Children.length === 1) {
-          console.log('first condition >>>> ')
+          console.log("first condition >>>> ");
+
           if (createFormik.values.template === 1) {
             formikTemplateSubContent.values.id =
               response?.data?.Children[0]._id;
             const formData = new FormData();
             formData.append("picture", subImage[0]);
+
+            const reponseFile = await uploadFiles(formData);
+            if (reponseFile?.success) {
+              formikTemplateSubContent.values.image = reponseFile?.data;
+              toast.success("تصویر صفحه با موفقیت آپلود شد");
+              formikTemplateSubContent.handleSubmit();
+            } else {
+              toast.error(response?.data?.error);
+            }
+          }
+          if (createFormik.values.template === 2) {
+            formikTemplateSubContent.values.id =
+              response?.data?.Children[0]._id;
+            const formData = new FormData();
+
+            subImage.forEach((file) => {
+              formData.append("picture", file);
+            });
 
             const reponseFile = await uploadFiles(formData);
             if (reponseFile?.success) {
@@ -54,8 +93,10 @@ function useCreatePage(
             }
           }
         } else if (response?.data?.Children.length > 1) {
-          console.log('first children >>>>' , response?.data?.Children[0])
-          console.log('second children >>>>' , response?.data?.Children[1])
+          console.log("first children >>>>", response?.data?.Children[0]);
+          console.log("second children >>>>", response?.data?.Children[1]);
+
+          //? اگر قالب اول برای صفحه فرعی انتخاب شده بود
           if (createFormik.values.template === 1) {
             formikTemplateSubContent.values.id =
               response?.data?.Children[0]._id;
@@ -71,11 +112,52 @@ function useCreatePage(
               toast.error(response?.data?.error);
             }
           }
+
+          //? اگر قالب دوم برای صفحه فرعی انتخاب شده بود
+          if (createFormik.values.template === 2) {
+            formikTemplateSubContent.values.id =
+              response?.data?.Children[0]._id;
+            const formData = new FormData();
+
+            subImage.forEach((file) => {
+              formData.append("picture", file);
+            });
+
+            const reponseFile = await uploadFiles(formData);
+            if (reponseFile?.success) {
+              formikTemplateSubContent.values.image = reponseFile?.data;
+              toast.success("تصویر صفحه با موفقیت آپلود شد");
+              formikTemplateSubContent.handleSubmit();
+            } else {
+              toast.error(response?.data?.error);
+            }
+          }
+
+          //? اگر قالب اول برای صفحه سوم انتخاب شده بود
           if (createFormik.values.template === 1) {
             formikTemplateSecondPage.values.id =
               response?.data?.Children[1]._id;
             const formData = new FormData();
             formData.append("picture", secondImage[0]);
+
+            const reponseFile = await uploadFiles(formData);
+            if (reponseFile?.success) {
+              formikTemplateSecondPage.values.image = reponseFile?.data;
+              toast.success("تصویر صفحه با موفقیت آپلود شد");
+              formikTemplateSecondPage.handleSubmit();
+            } else {
+              toast.error(response?.data?.error);
+            }
+          }
+          //? اگر قالب دوم برای صفحه سوم انتخاب شده بود
+          if (createFormik.values.template === 2) {
+            formikTemplateSecondPage.values.id =
+              response?.data?.Children[1]._id;
+            const formData = new FormData();
+
+            secondImage?.forEach((file) => {
+              formData.append("picture", file);
+            });
 
             const reponseFile = await uploadFiles(formData);
             if (reponseFile?.success) {

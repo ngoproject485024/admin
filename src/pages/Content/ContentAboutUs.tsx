@@ -12,6 +12,7 @@ import * as Yup from "yup";
 import Loading from "../../components/loading";
 import { useState } from "react";
 import { uploadFiles } from "../../server/uploadFiles";
+import TextEditor from "../../components/common/TextEditor";
 
 function ContentAboutUs() {
   const [middleFiles, setMiddleFiles] = useState<File[]>([]);
@@ -190,7 +191,13 @@ function ContentAboutUs() {
         </ComponentCard>
         <ComponentCard title="">
           <div>
-            <TextAreaInput
+            <TextEditor
+              title="توضیحات درباه ما (فارسی)"
+              formik={formik}
+              name="peDescription"
+              lang="fa"
+            />
+            {/* <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}
               title="توضیحات درباه ما (فارسی)"
@@ -202,12 +209,18 @@ function ContentAboutUs() {
                   ? formik.errors.peDescription
                   : ""
               }
-            />
+            /> */}
           </div>
         </ComponentCard>
         <ComponentCard title="">
           <div>
-            <TextAreaInput
+            <TextEditor
+              title="توضیحات درباه ما (انگلیسی)"
+              formik={formik}
+              name="enDescription"
+              lang="en"
+            />
+            {/* <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}
               title="توضیحات درباه ما (انگلیسی)"
@@ -218,11 +231,11 @@ function ContentAboutUs() {
                 typeof formik.errors.enDescription === "string"
                   ? formik.errors.enDescription
                   : ""
-              }
-            />
+              } */}
+            {/* /> */}
           </div>
         </ComponentCard>
-        <ComponentCard title="">
+        {/* <ComponentCard title="">
           <div>
             <TextAreaInput
               // value={message}
@@ -238,7 +251,14 @@ function ContentAboutUs() {
               }
             />
           </div>
-        </ComponentCard>
+        </ComponentCard> */}
+
+        <TextEditor
+          title="توضیحات درباه ما (روسی)"
+          formik={formik}
+          name="ruDescription"
+          lang="en"
+        />
 
         <DropzoneComponent
           title="تصاویر"
@@ -250,7 +270,13 @@ function ContentAboutUs() {
         />
         <ComponentCard title="">
           <div>
-            <TextAreaInput
+            <TextEditor
+              title="توضیحات تصاویر میانی (فارسی)"
+              formik={formik}
+              name="peMiddleImageDescription"
+              lang="fa"
+            />
+            {/* <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}
               title="توضیحات تصاویر میانی (فارسی)"
@@ -262,12 +288,18 @@ function ContentAboutUs() {
                   ? formik.errors.peMiddleImageDescription
                   : ""
               }
-            />
+            /> */}
           </div>
         </ComponentCard>
         <ComponentCard title="">
           <div>
-            <TextAreaInput
+            <TextEditor
+              title="توضیحات تصاویر میانی (انگلیسی)"
+              formik={formik}
+              name="enMiddleImageDescription"
+              lang="en"
+            />
+            {/* <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}
               title="توضیحات تصاویر میانی (انگلیسی)"
@@ -279,12 +311,18 @@ function ContentAboutUs() {
                   ? formik.errors.enMiddleImageDescription
                   : ""
               }
-            />
+            /> */}
           </div>
         </ComponentCard>
         <ComponentCard title="">
           <div>
-            <TextAreaInput
+            <TextEditor
+              title="توضیحات تصاویر میانی (روسی)"
+              formik={formik}
+              name="ruMiddleImageDescription"
+              lang="en"
+            />
+            {/* <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}
               title="توضیحات تصاویر میانی (روسی)"
@@ -296,12 +334,18 @@ function ContentAboutUs() {
                   ? formik.errors.ruMiddleImageDescription
                   : ""
               }
-            />
+            /> */}
           </div>
         </ComponentCard>
         <ComponentCard title="">
           <div>
-            <TextAreaInput
+            <TextEditor
+              title="توضیحات اهداف و دستاورد ها (فارسی)"
+              formik={formik}
+              name="peMissionAndGoals"
+              lang="fa"
+            />
+            {/* <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}
               title="توضیحات اهداف و دستاورد ها (فارسی)"
@@ -313,12 +357,18 @@ function ContentAboutUs() {
                   ? formik.errors.peMissionAndGoals
                   : ""
               }
-            />
+            /> */}
           </div>
         </ComponentCard>
         <ComponentCard title="">
           <div>
-            <TextAreaInput
+            <TextEditor
+              title="توضیحات اهداف و دستاورد ها (انگلیسی)"
+              formik={formik}
+              name="enMissionAndGoals"
+              lang="en"
+            />
+            {/* <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}
               title="توضیحات اهداف و دستاورد ها (انگلیسی)"
@@ -330,12 +380,18 @@ function ContentAboutUs() {
                   ? formik.errors.enMissionAndGoals
                   : ""
               }
-            />
+            /> */}
           </div>
         </ComponentCard>
         <ComponentCard title="">
           <div>
-            <TextAreaInput
+            <TextEditor
+              title="توضیحات اهداف و دستاورد ها (روسی)"
+              formik={formik}
+              name="ruMissionAndGoals"
+              lang="en"
+            />
+            {/* <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}
               title="توضیحات اهداف و دستاورد ها (روسی)"
@@ -347,7 +403,7 @@ function ContentAboutUs() {
                   ? formik.errors.ruMissionAndGoals
                   : ""
               }
-            />
+            /> */}
           </div>
         </ComponentCard>
         <div className="flex gap-2 mt-2">
