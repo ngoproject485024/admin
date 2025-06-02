@@ -32,7 +32,7 @@ const tableData: Product[] = [
   },
   {
     id: 2,
-    name: "Apple Watch Ultra",
+    name: "ngo2",
     variants: "1 Variant",
     category: "25",
     price: "6",
@@ -41,7 +41,7 @@ const tableData: Product[] = [
   },
   {
     id: 3,
-    name: "iPhone 15 Pro Max",
+    name: "ngo3",
     variants: "2 Variants",
     category: "25",
     price: "60",
@@ -50,7 +50,7 @@ const tableData: Product[] = [
   },
   {
     id: 4,
-    name: "iPad Pro 3rd Gen",
+    name: "ngo4",
     variants: "2 Variants",
     category: "25",
     price: "60",
@@ -59,7 +59,7 @@ const tableData: Product[] = [
   },
   {
     id: 5,
-    name: "AirPods Pro 2nd Gen",
+    name: "ngo5",
     variants: "1 Variant",
     category: "25",
     price: "6",
@@ -149,7 +149,7 @@ export default function RecentOrders() {
                 isHeader
                 className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
-                پروژه های تکمیل
+                وضعیت سمن
               </TableCell>
             </TableRow>
           </TableHeader>
@@ -190,12 +190,16 @@ export default function RecentOrders() {
                     color={
                       product.status === "approved"
                         ? "success"
-                        : product.status === "Pending"
+                        : product.status === "pending"
                         ? "warning"
                         : "error"
                     }
                   >
-                    {product.status}
+                    { product.status === "approved"
+                        ? "تایید شده"
+                        : product.status === "pending"
+                        ? "در انتظار"
+                        : "رد شده"}
                   </Badge>
                 </TableCell>
               </TableRow>
