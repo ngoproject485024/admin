@@ -16,55 +16,55 @@ interface Product {
   price: string; // Price of the product (as a string with currency symbol)
   // status: string; // Status of the product
   image: string; // URL or path to the product image
-  status: "Delivered" | "Pending" | "Canceled"; // Status of the product
+  status: "approved" | "pending" |"rejected" // Status of the product
 }
 
 // Define the table data using the interface
 const tableData: Product[] = [
   {
     id: 1,
-    name: "MacBook Pro 13”",
+    name: "سمن 1”",
     variants: "2 Variants",
-    category: "Laptop",
-    price: "$2399.00",
-    status: "Delivered",
-    image: "/images/product/product-01.jpg", // Replace with actual image URL
+    category: "25",
+    price: "60",
+    status: "approved",
+    image: "https://ngoupload.oceanjourney.ir/105095b610710506a63af58a4765ab5886b.jpg", // Replace with actual image URL
   },
   {
     id: 2,
-    name: "Apple Watch Ultra",
+    name: "ngo2",
     variants: "1 Variant",
-    category: "Watch",
-    price: "$879.00",
-    status: "Pending",
-    image: "/images/product/product-02.jpg", // Replace with actual image URL
+    category: "25",
+    price: "6",
+    status: "approved",
+    image: "https://ngoupload.oceanjourney.ir/105095b610710506a63af58a4765ab5886b.jpg", // Replace with actual image URL
   },
   {
     id: 3,
-    name: "iPhone 15 Pro Max",
+    name: "ngo3",
     variants: "2 Variants",
-    category: "SmartPhone",
-    price: "$1869.00",
-    status: "Delivered",
-    image: "/images/product/product-03.jpg", // Replace with actual image URL
+    category: "25",
+    price: "60",
+    status: "rejected",
+    image: "https://ngoupload.oceanjourney.ir/105095b610710506a63af58a4765ab5886b.jpg", // Replace with actual image URL
   },
   {
     id: 4,
-    name: "iPad Pro 3rd Gen",
+    name: "ngo4",
     variants: "2 Variants",
-    category: "Electronics",
-    price: "$1699.00",
-    status: "Canceled",
-    image: "/images/product/product-04.jpg", // Replace with actual image URL
+    category: "25",
+    price: "60",
+    status: "pending",
+    image: "https://ngoupload.oceanjourney.ir/105095b610710506a63af58a4765ab5886b.jpg", // Replace with actual image URL
   },
   {
     id: 5,
-    name: "AirPods Pro 2nd Gen",
+    name: "ngo5",
     variants: "1 Variant",
-    category: "Accessories",
-    price: "$240.00",
-    status: "Delivered",
-    image: "/images/product/product-05.jpg", // Replace with actual image URL
+    category: "25",
+    price: "6",
+    status: "approved",
+    image: "https://ngoupload.oceanjourney.ir/105095b610710506a63af58a4765ab5886b.jpg", // Replace with actual image URL
   },
 ];
 
@@ -74,7 +74,7 @@ export default function RecentOrders() {
       <div className="flex flex-col gap-2 mb-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">
-            Recent Orders
+            آخرین سمن ها
           </h3>
         </div>
 
@@ -115,10 +115,10 @@ export default function RecentOrders() {
                 strokeWidth="1.5"
               />
             </svg>
-            Filter
+            فیلتر
           </button>
           <button className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-theme-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
-            See all
+            دیدن همه
           </button>
         </div>
       </div>
@@ -131,25 +131,25 @@ export default function RecentOrders() {
                 isHeader
                 className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
-                Products
+                نام سمن
               </TableCell>
               <TableCell
                 isHeader
                 className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
-                Category
+                اسناد
               </TableCell>
               <TableCell
                 isHeader
                 className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
-                Price
+                پروژه ها
               </TableCell>
               <TableCell
                 isHeader
                 className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
-                Status
+                وضعیت سمن
               </TableCell>
             </TableRow>
           </TableHeader>
@@ -188,14 +188,18 @@ export default function RecentOrders() {
                   <Badge
                     size="sm"
                     color={
-                      product.status === "Delivered"
+                      product.status === "approved"
                         ? "success"
-                        : product.status === "Pending"
+                        : product.status === "pending"
                         ? "warning"
                         : "error"
                     }
                   >
-                    {product.status}
+                    { product.status === "approved"
+                        ? "تایید شده"
+                        : product.status === "pending"
+                        ? "در انتظار"
+                        : "رد شده"}
                   </Badge>
                 </TableCell>
               </TableRow>

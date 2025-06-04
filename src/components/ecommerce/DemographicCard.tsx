@@ -19,10 +19,10 @@ export default function DemographicCard() {
       <div className="flex justify-between">
         <div>
           <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">
-            Customers Demographic
+            موقعیت جغرافیایی سمن ها
           </h3>
           <p className="mt-1 text-gray-500 text-theme-sm dark:text-gray-400">
-            Number of customer based on country
+           تعداد سمن ها در هر منطقه جغرافیایی
           </p>
         </div>
         <div className="relative inline-block">
@@ -58,7 +58,7 @@ export default function DemographicCard() {
         </div>
       </div>
 
-      <div className="space-y-5">
+      {/* <div className="space-y-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="items-center w-full rounded-full max-w-8">
@@ -108,7 +108,7 @@ export default function DemographicCard() {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
