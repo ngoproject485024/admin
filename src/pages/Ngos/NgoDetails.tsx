@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getSpecificNgo } from "../../server/ngos";
 import Loading from "../../components/loading";
 import ComponentCard from "../../components/common/ComponentCard";
+import Button from "../../components/ui/button/Button";
 
 function NgoDetails() {
   const params = useParams<{ id?: string }>();
@@ -13,6 +14,8 @@ function NgoDetails() {
     queryKey: ["getSpecificNgo", params.id],
     queryFn: () => getSpecificNgo(params?.id || ""),
   });
+
+  console.log("dddd", data);
 
   if (isLoading) {
     return <Loading />;
@@ -92,31 +95,34 @@ function NgoDetails() {
             </span>
           </ComponentCard>
         )}
-        {data?.data?.ngo?.socialMedia?.telegram && (
-          <ComponentCard title="مدارک" className="col-span-3">
-            {data?.data?.ngo?.documentsFile?.map((file: string) => (
-              <>
-                {file.slice(file.length - 3) === "png" ||
-                file.slice(file.length - 3) === "jpg" ||
-                file.slice(file.length - 4) === "jpeg" ? (
-                  <img
-                    alt="file"
-                    src={file}
-                    className="w-[200px] h-[200px]"
-                    loading="lazy"
+        {data?.data?.ngo?.publishImages?.length > 0 && (
+          <ComponentCard title="تصاویر عمومی" className="col-span-3">
+            <div className="grid grid-cols-1 md:grid-cols-3">
+              {data?.data?.ngo?.publishImages?.map((file: string) => (
+                <img
+                  key={file}
+                  alt="file"
+                  src={file}
+                  className="w-[200px] h-[200px] rounded-md"
+                  loading="lazy"
+                />
+              ))}
+            </div>
+          </ComponentCard>
+        )}
+        {data?.data?.ngo?.documentsFile?.length > 0 && (
+          <ComponentCard title="مدارک و مستندات" className="col-span-3">
+            <div className="grid grid-cols-1 ">
+              {data?.data?.ngo?.documentsFile?.map((file: string) => (
+                <div className="w-full flex flex-col justify-center items-center gap-2">
+                  <object
+                    data={file}
+                    type="application/pdf"
+                    className="w-full h-[500px]"
                   />
-                ) : (
-                  <>
-                    {file.slice(file.length - 3) === "mp4" ||
-                    file.slice(file.length - 4) === "mpeg" ? (
-                      <video src={file} controls />
-                    ) : (
-                      <></>
-                    )}
-                  </>
-                )}
-              </>
-            ))}
+                </div>
+              ))}
+            </div>
           </ComponentCard>
         )}
       </div>
