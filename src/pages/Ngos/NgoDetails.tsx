@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getSpecificNgo } from "../../server/ngos";
 import Loading from "../../components/loading";
 import ComponentCard from "../../components/common/ComponentCard";
-import Button from "../../components/ui/button/Button";
 
 function NgoDetails() {
   const params = useParams<{ id?: string }>();
