@@ -12,6 +12,9 @@ interface IDropZoneComponent {
   onDelete?: (url: string, name: string) => void;
   name?: string;
   formikImages: string[];
+  dropTitle?: string;
+  dropDescription?: string;
+  accept?: any;
 }
 
 const DropzoneComponent: React.FC<IDropZoneComponent> = ({
@@ -23,6 +26,9 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
   onDelete,
   name,
   formikImages,
+  dropTitle,
+  dropDescription,
+  accept,
 }) => {
   const [thumbImage, setThumbImage] = useState<string[]>([]);
 
@@ -43,7 +49,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: {
+    accept: accept || {
       "image/png": [],
       "image/jpeg": [],
       "image/webp": [],
@@ -91,37 +97,63 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
 
             {/* Text Content */}
             <h4 className="mb-3 font-semibold text-gray-800 text-theme-xl dark:text-white/90">
-              {isDragActive
-                ? "اینجا رها کنید"
-                : "تصویر را بکشید و اینجا رها کنید"}
+              {dropTitle ? (
+                <>{isDragActive ? "اینجا رها کنید" : dropTitle}</>
+              ) : (
+                <>
+                  {isDragActive
+                    ? "اینجا رها کنید"
+                    : "تصویر را بکشید و اینجا رها کنید"}
+                </>
+              )}
             </h4>
 
             <span className=" text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
-              تصاویر PNG, JPG, WebP, SVG خود را اینجا بکشید و رها کنید و یا
-              انتخاب کنید
+              {dropDescription ? (
+                <>{dropDescription}</>
+              ) : (
+                <>
+                  تصاویر PNG, JPG, WebP, SVG خود را اینجا بکشید و رها کنید و یا
+                  انتخاب کنید
+                </>
+              )}
             </span>
             <span className=" text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
               حداکثر 5
             </span>
 
             <span className="font-medium underline text-theme-sm text-brand-500">
-              انتخاب تصویر
+              {dropTitle ? <>فایل را انتخاب کنید</> : <>انتخاب تصویر</>}
             </span>
           </div>
         </form>
         {thumbImage && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center mb-3 w-full gap-5 flex-wrap">
             {thumbImage?.map((image) => (
-              <div
-                key={image}
-                className="flex items-center justify-center mb-3 p-8"
-              >
-                <img
-                  src={image}
-                  alt="uploaded image"
-                  className="object-contain"
-                />
-              </div>
+              <>
+                {image.slice(image.length - 3) === "png" ||
+                image.slice(image.length - 3) === "jpg" ||
+                image.slice(image.length - 4) === "jpeg" ? (
+                  <div
+                    key={image}
+                    className="flex items-center justify-center mb-3 p-8"
+                  >
+                    <img
+                      src={image}
+                      alt="uploaded image"
+                      className="object-contain"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-full flex flex-col justify-center items-center gap-2 mt-2">
+                    <object
+                      data={image}
+                      type="application/pdf"
+                      className="w-full h-[500px]"
+                    />
+                  </div>
+                )}
+              </>
             ))}
           </div>
         )}
@@ -153,7 +185,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
                   <img
                     src={image}
                     alt="uploaded image"
-                    className=" object-contain"
+                    className="object-contain"
                   />
                   <button
                     className="absolute top-0 z-10 bg-rose-500 p-1 rounded-full text-white"
