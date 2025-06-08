@@ -23,18 +23,18 @@ function TextEditor({ title, formik, name, lang }: Props) {
       skin: theme === "dark" ? "oxide-dark" : "oxide",
       content_css: theme === "dark" ? "dark" : "default",
 
-      //   skin: window.matchMedia("(prefers-color-scheme: dark)").matches
-      //     ? "oxide-dark"
-      //     : "oxide",
-      //   content_css: window.matchMedia("(prefers-color-scheme: dark)").matches
-      //     ? "dark"
-      //     : "default",
+      skin: window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "oxide-dark"
+        : "oxide",
+      content_css: window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "default",
       plugins:
         "anchor autolink charmap codesample emoticons link lists searchreplace visualblocks wordcount code",
       toolbar:
         "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat",
     };
-  }, [theme, lang]);
+  }, []);
 
   useEffect(() => {
     if (editorRef.current) {
@@ -53,14 +53,18 @@ function TextEditor({ title, formik, name, lang }: Props) {
     }
   }, [theme, init, lang]);
 
+
+  console.log(formik?.values?.[name])
+
   return (
     <ComponentCard title={title ? title : ""}>
       <Editor
         apiKey="xk4xeon5pd61jrqvr3td1om4xw9z4y9oihf3szwdfqc41fyj"
         licenseKey="xk4xeon5pd61jrqvr3td1om4xw9z4y9oihf3szwdfqc41fyj"
         init={init}
+        value={formik?.values?.[name] || formik?.values?.[name]}
         onInit={(evt, editor) => (editorRef.current = editor)}
-        initialValue={formik?.values?.[name]}
+        // initialValue={formik?.values?.[name] || formik?.values?.[name]}
         onEditorChange={(e) => {
           formik.setFieldValue(name, e);
         }}

@@ -11,9 +11,15 @@ import toast from "react-hot-toast";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import TextAreaInput from "../../components/form/form-elements/TextAreaInput";
+import DropzoneComponent from "../../components/form/form-elements/DropZone";
+import { useState } from "react";
+import { uploadFiles } from "../../server/uploadFiles";
 
 function ContentNgosRegistration() {
-  const { data, isLoading, refetch } = useQuery({
+  const [registerFile, setRegisterFile] = useState<File[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const { data, refetch } = useQuery({
     queryKey: ["getDescriptionPage"],
     queryFn: () => getDescriptionPage("ngoRegister"),
   });
@@ -30,24 +36,49 @@ function ContentNgosRegistration() {
           "توضیحات صفحه ثبت نام سمن تغییر نکرد ، لطفا دوباره امتحان کنید"
         );
       }
+      setLoading(false);
       refetch();
     },
   });
 
   const formik = useFormik({
     initialValues: {
+      pdf: data?.data?.pdf || [],
       peDescription: data?.data?.peDescription,
       enDescription: data?.data?.enDescription,
       ruDescription: data?.data?.ruDescription,
     },
-
+    enableReinitialize: true,
     validationSchema: Yup.object().shape({
       peDescription: Yup.string().required("توضیحات فارسی الزامی است"),
       enDescription: Yup.string().required("توضیحات انگلیسی الزامی است"),
       ruDescription: Yup.string().required("توضیحات روسی الزامی است"),
     }),
 
-    onSubmit: (values: any) => {
+    onSubmit: async (values: any) => {
+      if (registerFile.length > 0) {
+        setLoading(true)
+        const formData = new FormData();
+
+        for (let i = 0; i < registerFile.length; i++) {
+          formData.append("picture", registerFile[i]);
+        }
+
+        const response = await uploadFiles(formData);
+
+        if (response.success) {
+          values.pdf = response.data;
+          toast.success("فایل راهنمای ثبت نام آپلود شد");
+        } else {
+          toast.error(
+            "فایل راهنمای ثبت نام آپلود نشد ، لطفا دوباره امتحان کنید"
+          );
+          setLoading(false);
+
+          return;
+        }
+      }
+
       mutation.mutate(values);
     },
   });
@@ -61,6 +92,17 @@ function ContentNgosRegistration() {
       <PageBreadcrumb pageTitle="محتوا" subMenu="ثبت نام سمن" />
       <div className="flex flex-col gap-2">
         <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
+          <DropzoneComponent
+            accept={{ "application/pdf": [] }}
+            title="فایل راهنمای ثبت نام"
+            multiple
+            onFiles={setRegisterFile}
+            formik={formik}
+            formikImages={formik?.values?.file}
+            name="file"
+            dropTitle="فایل را بکشید و رها کنید"
+            dropDescription="فایل PDF خود را اینجا بکشید و رها کنید"
+          />
           <ComponentCard title="">
             <div>
               <TextAreaInput
@@ -113,7 +155,7 @@ function ContentNgosRegistration() {
             </div>
           </ComponentCard>
           <div className="flex gap-2 mt-2">
-            <Button type="submit" isLoading={mutation.isPending}>
+            <Button type="submit" isLoading={mutation.isPending || loading}>
               ثبت
             </Button>
             <Button variant="outline">انصراف</Button>

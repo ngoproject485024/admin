@@ -68,8 +68,6 @@ function NgoDocList() {
     queryFn: getNgoDocuments,
   });
 
-  console.log("ccvv", data);
-
   const [colDefs] = useState<ColDef<IRow>[]>([
     { field: "ngo.name", headerName: "نام سمن" },
     { field: "name", headerName: "نام" },
@@ -244,14 +242,25 @@ const DocsModal = ({
                 doc.slice(doc.length - 3) === "mov" ? (
                   <video src={doc} controls className="max-w-2/3 " />
                 ) : (
-                  <a
-                    href={doc}
-                    download={doc}
-                    className="bg-blue-500 p-2 rounded-full  mx-auto flex items-center gap-2"
-                  >
-                    <ArrowDownIcon />
-                    دانلود فایل
-                  </a>
+                  <>
+                    {doc.slice(doc.length - 3) === "pdf" ? (
+                      <object
+                        data={doc}
+                        type="application/pdf"
+                        className="w-full h-[300px]"
+                      />
+                    ) : (
+                      <a
+                        href={doc}
+                        download={doc}
+                        className="bg-blue-500 p-2 rounded-full  mx-auto flex items-center gap-2"
+                        target="_blank"
+                      >
+                        <ArrowDownIcon />
+                        دانلود فایل
+                      </a>
+                    )}
+                  </>
                 )}
               </>
             )}
