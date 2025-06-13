@@ -13,9 +13,13 @@ import Loading from "../../components/loading";
 import { useState } from "react";
 import { uploadFiles } from "../../server/uploadFiles";
 import TextEditor from "../../components/common/TextEditor";
+import Input from "../../components/form/input/InputField";
+import Label from "../../components/form/Label";
 
 function ContentAboutUs() {
   const [middleFiles, setMiddleFiles] = useState<File[]>([]);
+  const [firstBossFile, setFirstBossFile] = useState<File[]>([]);
+  const [secondBossFile, setSecondBossFile] = useState<File[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const { data, isLoading, refetch } = useQuery({
@@ -56,15 +60,60 @@ function ContentAboutUs() {
       peMissionAndGoals: data?.data?.peMissionAndGoals,
       enMissionAndGoals: data?.data?.enMissionAndGoals,
       ruMissionAndGoals: data?.data?.ruMissionAndGoals,
-      // peAddress: data?.data?.peAddress,
-      // enAddress: data?.data?.enAddress,
-      // ruAddress: data?.data?.ruAddress,
-      // phone: data?.data?.phone,
-      // gmail: data?.data?.gmail,
-      // instaLink: data?.data?.instaLink,
-      // xLink: data?.data?.xLink,
-      // linkedInLink: data?.data?.linkedInLink,
-      // faceBookLink: data?.data?.faceBookLink,
+      peFirstManagerDescription: data?.data?.peFirstManagerDescription,
+      enFirstManagerDescription: data?.data?.enFirstManagerDescription,
+      ruFirstManagerDescription: data?.data?.ruFirstManagerDescription,
+      firstManagerImage: data?.data?.firstManagerImage
+        ? data?.data?.firstManagerImage
+        : [],
+      peFirstManagerFooterTitle: data?.data?.peFirstManagerFooterTitle
+        ? data?.data?.peFirstManagerFooterTitle
+        : "",
+      enFirstManagerFooterTitle: data?.data?.enFirstManagerFooterTitle
+        ? data?.data?.enFirstManagerFooterTitle
+        : "",
+      ruFirstManagerFooterTitle: data?.data?.ruFirstManagerFooterTitle
+        ? data?.data?.ruFirstManagerFooterTitle
+        : "",
+      peFirstManagerFooterDescription: data?.data
+        ?.peFirstManagerFooterDescription
+        ? data?.data?.peFirstManagerFooterDescription
+        : "",
+      enFirstManagerFooterDescription: data?.data
+        ?.enFirstManagerFooterDescription
+        ? data?.data?.enFirstManagerFooterDescription
+        : "",
+      ruFirstManagerFooterDescription: data?.data
+        ?.ruFirstManagerFooterDescription
+        ? data?.data?.ruFirstManagerFooterDescription
+        : "",
+      secondManagerImage: data?.data?.firstManagerImage
+        ? data?.data?.firstManagerImage
+        : [],
+      peSecondManagerDescription: data?.data?.peSecondManagerDescription,
+      enSecondManagerDescription: data?.data?.enSecondManagerDescription,
+      ruSecondManagerDescription: data?.data?.ruSecondManagerDescription,
+      peSecondManagerFooterTitle: data?.data?.peSecondManagerFooterTitle
+        ? data?.data?.peSecondManagerFooterTitle
+        : "",
+      enSecondManagerFooterTitle: data?.data?.enSecondManagerFooterTitle
+        ? data?.data?.enSecondManagerFooterTitle
+        : "",
+      ruSecondManagerFooterTitle: data?.data?.ruSecondManagerFooterTitle
+        ? data?.data?.ruSecondManagerFooterTitle
+        : "",
+      peSecondManagerFooterDescription: data?.data
+        ?.peSecondManagerFooterDescription
+        ? data?.data?.peSecondManagerFooterDescription
+        : "",
+      enSecondManagerFooterDescription: data?.data
+        ?.enSecondManagerFooterDescription
+        ? data?.data?.enSecondManagerFooterDescription
+        : "",
+      ruSecondManagerFooterDescription: data?.data
+        ?.ruSecondManagerFooterDescription
+        ? data?.data?.ruSecondManagerFooterDescription
+        : "",
     },
     validationSchema: Yup.object().shape({
       peDescription: Yup.string().required("لطفا توضیحات فارسی را وارد کنید"),
@@ -91,34 +140,137 @@ function ContentAboutUs() {
       ruMissionAndGoals: Yup.string().required(
         "لطفا توضیحات اهداف و دستاورد ها (روسی) را وارد کنید"
       ),
+
+      peFirstManagerDescription: Yup.string().required(
+        "پیام فارسی مدیر الزامی است"
+      ),
+      enFirstManagerDescription: Yup.string().required(
+        "پیام انگلیسی مدیر الزامی است"
+      ),
+      ruFirstManagerDescription: Yup.string().required(
+        "پیام روسی مدیر الزامی است"
+      ),
+      peFirstManagerFooterTitle: Yup.string().required(
+        "عنوان فارسی پاورقی الزامی است"
+      ),
+      enFirstManagerFooterTitle: Yup.string().required(
+        "عنوان انگلیسی پاورقی الزامی است"
+      ),
+      ruFirstManagerFooterTitle: Yup.string().required(
+        "عنوان روسی پاورقی الزامی است"
+      ),
+      peFirstManagerFooterDescription: Yup.string().required(
+        "توضیحات فارسی پاورقی الزامی است"
+      ),
+      enFirstManagerFooterDescription: Yup.string().required(
+        "توضیحات انگلیسی پاورقی الزامی است"
+      ),
+      ruFirstManagerFooterDescription: Yup.string().required(
+        "توضیحات روسی پاورقی الزامی است"
+      ),
+      peSecondManagerDescription: Yup.string().required(
+        "توضیحات فارسی مدیر الزامی است"
+      ),
+      enSecondManagerDescription: Yup.string().required(
+        "توضیحات انگلیسی مدیر الزامی است"
+      ),
+      ruSecondManagerDescription: Yup.string().required(
+        "توضیحات روسی مدیر الزامی است"
+      ),
+      peSecondManagerFooterTitle: Yup.string().required(
+        "عنوان فارسی پاورقی الزامی است"
+      ),
+      enSecondManagerFooterTitle: Yup.string().required(
+        "عنوان انگلیسی پاورقی الزامی است"
+      ),
+      ruSecondManagerFooterTitle: Yup.string().required(
+        "عنوان روسی پاورقی الزامی است"
+      ),
+      peSecondManagerFooterDescription: Yup.string().required(
+        "توضیحات فارسی پاورقی الزامی است"
+      ),
+      enSecondManagerFooterDescription: Yup.string().required(
+        "توضیحات انگلیسی پاورقی الزامی است"
+      ),
+      ruSecondManagerFooterDescription: Yup.string().required(
+        "توضیحات روسی پاورقی الزامی است"
+      ),
     }),
     enableReinitialize: true,
     onSubmit: async (values: any) => {
       setLoading(true);
 
-      if (middleFiles.length > 0) {
-        const middleFormData = new FormData();
+      if (
+        firstBossFile.length > 0 ||
+        secondBossFile.length > 0 ||
+        middleFiles.length > 0
+      ) {
+        if (middleFiles.length > 0) {
+          const middleFormData = new FormData();
 
-        middleFiles.forEach((file) => {
-          middleFormData.append("picture", file);
-        });
+          middleFiles.forEach((file) => {
+            middleFormData.append("picture", file);
+          });
 
-        const responseMiddle = await uploadFiles(middleFormData);
+          const responseMiddle = await uploadFiles(middleFormData);
 
-        if (responseMiddle.success) {
-          values.middleImages = responseMiddle.data;
-          toast.success("تصاویر درباره ما آپلود شدند");
-          setLoading(false);
-        } else {
-          toast.error("تصاویر درباره ما آپلود نشدند ، لطفا دوباره امتحان کنید");
-          setLoading(false);
+          if (responseMiddle.success) {
+            values.middleImages = responseMiddle.data;
+            toast.success("تصاویر درباره ما آپلود شدند");
+            setLoading(false);
+          } else {
+            toast.error(
+              "تصاویر درباره ما آپلود نشدند ، لطفا دوباره امتحان کنید"
+            );
+            setLoading(false);
 
-          return;
+            return;
+          }
         }
-      }
+        if (firstBossFile.length > 0) {
+          const firstBossFormData = new FormData();
 
-      setLoading(false);
-      mutation.mutate(values);
+          firstBossFile.forEach((file) => {
+            firstBossFormData.append("picture", file);
+          });
+
+          const responseFirstBoss = await uploadFiles(firstBossFormData);
+
+          if (responseFirstBoss.success) {
+            values.firstManagerImage = responseFirstBoss.data;
+            toast.success("تصویر مدیر اول آپلود شد");
+            setLoading(false);
+          } else {
+            toast.error("تصویر مدیر اول آپلود نشد ، لطفا دوباره امتحان کنید");
+            setLoading(false);
+
+            return;
+          }
+        }
+        if (secondBossFile.length > 0) {
+          const secondBossFormData = new FormData();
+
+          secondBossFile.forEach((file) => {
+            secondBossFormData.append("picture", file);
+          });
+
+          const responseSecondBoss = await uploadFiles(secondBossFormData);
+
+          if (responseSecondBoss.success) {
+            values.secondManagerImage = responseSecondBoss.data;
+            toast.success("تصویر مدیر دوم آپلود شد");
+            setLoading(false);
+          } else {
+            toast.error("تصویر مدیر دوم آپلود نشد ، لطفا دوباره امتحان کنید");
+            setLoading(false);
+
+            return;
+          }
+        }
+
+        setLoading(false);
+        mutation.mutate(values);
+      }
     },
   });
 
@@ -391,21 +543,263 @@ function ContentAboutUs() {
               name="ruMissionAndGoals"
               lang="en"
             />
-            {/* <TextAreaInput
-              // value={message}
-              // onChange={(value) => setMessage(value)}
-              title="توضیحات اهداف و دستاورد ها (روسی)"
-              formik={formik}
-              name="ruMissionAndGoals"
-              error={formik.errors.ruMissionAndGoals ? true : false}
-              hint={
-                typeof formik.errors.ruMissionAndGoals === "string"
-                  ? formik.errors.ruMissionAndGoals
-                  : ""
-              }
-            /> */}
           </div>
         </ComponentCard>
+
+        <ComponentCard title="مدیر اول">
+          <DropzoneComponent
+            title="تصویر مدیر اول"
+            multiple={false}
+            onFiles={setFirstBossFile}
+            formik={formik}
+            formikImages={formik?.values?.firstManagerImage}
+            name="firstManagerImage"
+          />
+
+          <div>
+            <TextEditor
+              title="پیام مدیر (فارسی)"
+              formik={formik}
+              name="peFirstManagerDescription"
+              lang="fa"
+            />
+          </div>
+          <div>
+            <TextEditor
+              title="پیام مدیر (انگلیسی)"
+              formik={formik}
+              name="enFirstManagerDescription"
+              lang="en"
+            />
+          </div>
+          <div>
+            <TextEditor
+              title="پیام مدیر (روسی)"
+              formik={formik}
+              name="ruFirstManagerDescription"
+              lang="en"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
+            <div>
+              <Label htmlFor="pe-input"> عنوان پاورقی (فارسی)</Label>
+              <Input
+                type="text"
+                id="pe-input"
+                placeholder="عنوان پاورقی را وارد کنید (فارسی)"
+                error={formik.errors.peFirstManagerFooterTitle ? true : false}
+                {...formik.getFieldProps("peFirstManagerFooterTitle")}
+              />
+              {formik.errors.peFirstManagerFooterTitle &&
+                formik.touched.peFirstManagerFooterTitle && (
+                  <span className="text-sm text-error-500">
+                    {typeof formik.errors.peFirstManagerFooterTitle ===
+                      "string" && formik.errors.peFirstManagerFooterTitle}
+                  </span>
+                )}
+            </div>
+            <div>
+              <Label htmlFor="en-input"> عنوان پاورقی (انگلیسی)</Label>
+              <Input
+                type="text"
+                id="en-input"
+                placeholder="عنوان پاورقی را وارد کنید (انگلیسی)"
+                error={formik.errors.enFirstManagerFooterTitle ? true : false}
+                {...formik.getFieldProps("enFirstManagerFooterTitle")}
+              />
+              {formik.errors.enFirstManagerFooterTitle &&
+                formik.touched.enFirstManagerFooterTitle && (
+                  <span className="text-sm text-error-500">
+                    {typeof formik.errors.enFirstManagerFooterTitle ===
+                      "string" && formik.errors.enFirstManagerFooterTitle}
+                  </span>
+                )}
+            </div>
+            <div>
+              <Label htmlFor="ru-input"> عنوان پاورقی (روسی)</Label>
+              <Input
+                type="text"
+                id="ru-input"
+                placeholder="عنوان پاورقی را وارد کنید (روسی)"
+                error={formik.errors.ruFirstManagerFooterTitle ? true : false}
+                {...formik.getFieldProps("ruFirstManagerFooterTitle")}
+              />
+              {formik.errors.ruFirstManagerFooterTitle &&
+                formik.touched.ruFirstManagerFooterTitle && (
+                  <span className="text-sm text-error-500">
+                    {typeof formik.errors.ruFirstManagerFooterTitle ===
+                      "string" && formik.errors.ruFirstManagerFooterTitle}
+                  </span>
+                )}
+            </div>
+          </div>
+
+          <TextAreaInput
+            title="توضیحات پاورقی (فارسی)"
+            formik={formik}
+            name="peFirstManagerFooterDescription"
+            error={formik.errors.peFirstManagerFooterDescription ? true : false}
+            hint={
+              typeof formik.errors.peFirstManagerFooterDescription === "string"
+                ? formik.errors.peFirstManagerFooterDescription
+                : ""
+            }
+          />
+          <TextAreaInput
+            title="توضیحات پاورقی (انگلیسی)"
+            formik={formik}
+            name="enFirstManagerFooterDescription"
+            error={formik.errors.enFirstManagerFooterDescription ? true : false}
+            hint={
+              typeof formik.errors.enFirstManagerFooterDescription === "string"
+                ? formik.errors.enFirstManagerFooterDescription
+                : ""
+            }
+          />
+          <TextAreaInput
+            title="توضیحات پاورقی (روسی)"
+            formik={formik}
+            name="ruFirstManagerFooterDescription"
+            error={formik.errors.ruFirstManagerFooterDescription ? true : false}
+            hint={
+              typeof formik.errors.ruFirstManagerFooterDescription === "string"
+                ? formik.errors.ruFirstManagerFooterDescription
+                : ""
+            }
+          />
+        </ComponentCard>
+
+        <ComponentCard title="مدیر دوم">
+          <DropzoneComponent
+            title="تصویر مدیر دوم"
+            multiple={false}
+            onFiles={setSecondBossFile}
+            formik={formik}
+            formikImages={formik?.values?.secondManagerImage}
+            name="firstManagerImage"
+          />
+
+          <div>
+            <TextEditor
+              title="پیام مدیر (فارسی)"
+              formik={formik}
+              name="peSecondManagerDescription"
+              lang="fa"
+            />
+          </div>
+          <div>
+            <TextEditor
+              title="پیام مدیر (انگلیسی)"
+              formik={formik}
+              name="enSecondManagerDescription"
+              lang="en"
+            />
+          </div>
+          <div>
+            <TextEditor
+              title="پیام مدیر (روسی)"
+              formik={formik}
+              name="ruSecondManagerDescription"
+              lang="en"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
+            <div>
+              <Label htmlFor="pe-input"> عنوان پاورقی (فارسی)</Label>
+              <Input
+                type="text"
+                id="pe-input"
+                placeholder="عنوان پاورقی را وارد کنید (فارسی)"
+                error={formik.errors.peSecondManagerFooterTitle ? true : false}
+                {...formik.getFieldProps("peSecondManagerFooterTitle")}
+              />
+              {formik.errors.peSecondManagerFooterTitle &&
+                formik.touched.peSecondManagerFooterTitle && (
+                  <span className="text-sm text-error-500">
+                    {typeof formik.errors.peSecondManagerFooterTitle ===
+                      "string" && formik.errors.peSecondManagerFooterTitle}
+                  </span>
+                )}
+            </div>
+            <div>
+              <Label htmlFor="en-input"> عنوان پاورقی (انگلیسی)</Label>
+              <Input
+                type="text"
+                id="en-input"
+                placeholder="عنوان پاورقی را وارد کنید (انگلیسی)"
+                error={formik.errors.enSecondManagerFooterTitle ? true : false}
+                {...formik.getFieldProps("enSecondManagerFooterTitle")}
+              />
+              {formik.errors.enSecondManagerFooterTitle &&
+                formik.touched.enSecondManagerFooterTitle && (
+                  <span className="text-sm text-error-500">
+                    {typeof formik.errors.enSecondManagerFooterTitle ===
+                      "string" && formik.errors.enSecondManagerFooterTitle}
+                  </span>
+                )}
+            </div>
+            <div>
+              <Label htmlFor="ru-input"> عنوان پاورقی (روسی)</Label>
+              <Input
+                type="text"
+                id="ru-input"
+                placeholder="عنوان پاورقی را وارد کنید (روسی)"
+                error={formik.errors.ruSecondManagerFooterTitle ? true : false}
+                {...formik.getFieldProps("ruSecondManagerFooterTitle")}
+              />
+              {formik.errors.ruSecondManagerFooterTitle &&
+                formik.touched.ruSecondManagerFooterTitle && (
+                  <span className="text-sm text-error-500">
+                    {typeof formik.errors.ruSecondManagerFooterTitle ===
+                      "string" && formik.errors.ruSecondManagerFooterTitle}
+                  </span>
+                )}
+            </div>
+          </div>
+
+          <TextAreaInput
+            title="توضیحات پاورقی (فارسی)"
+            formik={formik}
+            name="peSecondManagerFooterDescription"
+            error={
+              formik.errors.peSecondManagerFooterDescription ? true : false
+            }
+            hint={
+              typeof formik.errors.peSecondManagerFooterDescription === "string"
+                ? formik.errors.peSecondManagerFooterDescription
+                : ""
+            }
+          />
+          <TextAreaInput
+            title="توضیحات پاورقی (انگلیسی)"
+            formik={formik}
+            name="enSecondManagerFooterDescription"
+            error={
+              formik.errors.enSecondManagerFooterDescription ? true : false
+            }
+            hint={
+              typeof formik.errors.enSecondManagerFooterDescription === "string"
+                ? formik.errors.enSecondManagerFooterDescription
+                : ""
+            }
+          />
+          <TextAreaInput
+            title="توضیحات پاورقی (روسی)"
+            formik={formik}
+            name="ruSecondManagerFooterDescription"
+            error={
+              formik.errors.ruSecondManagerFooterDescription ? true : false
+            }
+            hint={
+              typeof formik.errors.ruSecondManagerFooterDescription === "string"
+                ? formik.errors.ruSecondManagerFooterDescription
+                : ""
+            }
+          />
+        </ComponentCard>
+
         <div className="flex gap-2 mt-2">
           <Button isLoading={mutation.isPending || loading} type="submit">
             ثبت

@@ -1,22 +1,28 @@
 import { useFormik } from "formik";
+import toast from "react-hot-toast";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+
 import PageBreadcrumb from "../../components/common/PageBreadCrumb";
 import PageMeta from "../../components/common/PageMeta";
 import DropzoneComponent from "../../components/form/form-elements/DropZone";
 import TextAreaInput from "../../components/form/form-elements/TextAreaInput";
 import Button from "../../components/ui/button/Button";
-import { useState } from "react";
 import { uploadFiles } from "../../server/uploadFiles";
-import toast from "react-hot-toast";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { getHomeData, homePage } from "../../server/content";
 import Loading from "../../components/loading";
 import { homeDataSchema } from "../../utils/validation";
-import TextEditor from "../../components/common/TextEditor";
+import Input from "../../components/form/input/InputField";
+import ComponentCard from "../../components/common/ComponentCard";
+import Label from "../../components/form/Label";
+import Checkbox from "../../components/form/input/Checkbox";
 
 function ContentHome() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [mainFile, setMainFile] = useState<File[]>([]);
   const [middleFiles, setMiddleFiles] = useState<File[]>([]);
+  const [firstBannerFile, setFirstBannerFile] = useState<File[]>([]);
+  const [secondBannerFile, setSecondBannerFile] = useState<File[]>([]);
 
   const { data, isLoading: isLoadingData } = useQuery({
     queryKey: ["getHomeData"],
@@ -41,14 +47,24 @@ function ContentHome() {
     peNgoDescription,
     enNgoDescription,
     ruNgoDescription,
+    firstBannerImage,
+    peFirstBannerDescription,
+    enFirstBannerDescription,
+    ruFirstBannerDescription,
+    secondBannerImage,
+    peSecondBannerDescription,
+    enSecondBannerDescription,
+    ruSecondBannerDescription,
+    permitedToShowSecondBanner,
+    ngoAlgo,
   } = data?.data?.home ?? {};
 
   const mutation = useMutation({
     mutationKey: ["homePage"],
     mutationFn: homePage,
     onSuccess: (data: any) => {
+      console.log("dddddddd", data);
       if (data.success) {
-        // formik.resetForm();
         toast.success("محتوای صفحه اصلی با موفقیت تغییر کرد");
         setMainFile([]);
         setMiddleFiles([]);
@@ -84,12 +100,41 @@ function ContentHome() {
       peNgoDescription: peNgoDescription ? peNgoDescription : "",
       enNgoDescription: enNgoDescription ? enNgoDescription : "",
       ruNgoDescription: ruNgoDescription ? ruNgoDescription : "",
+      firstBannerImage: firstBannerImage ? firstBannerImage : [],
+      peFirstBannerDescription: peFirstBannerDescription
+        ? peFirstBannerDescription
+        : "",
+      enFirstBannerDescription: enFirstBannerDescription
+        ? enFirstBannerDescription
+        : "",
+      ruFirstBannerDescription: ruFirstBannerDescription
+        ? ruFirstBannerDescription
+        : "",
+      secondBannerImage: secondBannerImage ? secondBannerImage : [],
+      peSecondBannerDescription: peSecondBannerDescription
+        ? peSecondBannerDescription
+        : "",
+      enSecondBannerDescription: enSecondBannerDescription
+        ? enSecondBannerDescription
+        : "",
+      ruSecondBannerDescription: ruSecondBannerDescription
+        ? ruSecondBannerDescription
+        : "",
+      permitedToShowSecondBanner: permitedToShowSecondBanner
+        ? permitedToShowSecondBanner
+        : false,
+      ngoAlgo: ngoAlgo ? ngoAlgo : 0,
     },
     enableReinitialize: true,
     validationSchema: homeDataSchema,
     onSubmit: async (values: any) => {
       setIsLoading(true);
-      if (mainFile.length > 0 || middleFiles.length > 0) {
+      if (
+        mainFile.length > 0 ||
+        middleFiles.length > 0 ||
+        firstBannerFile.length > 0 ||
+        secondBannerFile.length > 0
+      ) {
         if (mainFile.length > 0) {
           const formData = new FormData();
 
@@ -130,6 +175,45 @@ function ContentHome() {
           }
         }
 
+        if (firstBannerFile.length > 0) {
+          const firstBannerFormData = new FormData();
+
+          firstBannerFile.forEach((file) => {
+            firstBannerFormData.append("picture", file);
+          });
+
+          const resFirstBanner = await uploadFiles(firstBannerFormData);
+
+          if (resFirstBanner.success) {
+            values.firstBannerImage = resFirstBanner.data;
+            toast.success("تصویر بنر اول آپلود شد");
+          } else {
+            toast.error("تصویر بنر اول آپلود نشد ، لطفا دوباره امتحان کنید");
+            setIsLoading(false);
+
+            return;
+          }
+        }
+        if (secondBannerFile.length > 0) {
+          const secondBannerFormData = new FormData();
+
+          secondBannerFile.forEach((file) => {
+            secondBannerFormData.append("picture", file);
+          });
+
+          const resSecondBanner = await uploadFiles(secondBannerFormData);
+
+          if (resSecondBanner.success) {
+            values.secondBannerImage = resSecondBanner.data;
+            toast.success("تصویر بنر دوم آپلود شد");
+          } else {
+            toast.error("تصویر بنر دوم آپلود نشد ، لطفا دوباره امتحان کنید");
+            setIsLoading(false);
+
+            return;
+          }
+        }
+
         mutation.mutate(values);
       } else {
         mutation.mutate(values);
@@ -158,12 +242,7 @@ function ContentHome() {
           formikImages={formik?.values?.mainImages}
           name="mainImages"
         />
-        {/* <TextEditor
-          title="توضیحات صفحه اصلی (فارسی)"
-          formik={formik}
-          name="peDescription"
-          lang="fa"
-        /> */}
+
         <TextAreaInput
           title="توضیحات صفحه اصلی (فارسی)"
           formik={formik}
@@ -175,12 +254,7 @@ function ContentHome() {
               : ""
           }
         />
-        {/* <TextEditor
-          title="توضیحات صفحه اصلی (انگلیسی)"
-          formik={formik}
-          name="enDescription"
-          lang="en"
-        /> */}
+
         <TextAreaInput
           title="توضیحات صفحه اصلی (انگلیسی)"
           formik={formik}
@@ -193,12 +267,6 @@ function ContentHome() {
           }
         />
 
-        {/* <TextEditor
-          title="توضیحات صفحه اصلی (روسی)"
-          formik={formik}
-          name="ruDescription"
-          lang="en"
-        /> */}
         <TextAreaInput
           title="توضیحات صفحه اصلی (روسی)"
           formik={formik}
@@ -210,57 +278,7 @@ function ContentHome() {
               : ""
           }
         />
-        {/* <DropzoneComponent
-          title="تصاویر میانی"
-          multiple
-          onFiles={setMiddleFiles}
-          formik={formik}
-          name="middleImages"
-          formikImages={formik?.values?.middleImages}
-        /> */}
 
-        {/* <TextAreaInput
-          title="توضیحات تصاویر میانی (فارسی)"
-          formik={formik}
-          name="peMiddleImageDescription"
-          error={formik.errors.peMiddleImageDescription ? true : false}
-          hint={
-            typeof formik.errors.peMiddleImageDescription === "string"
-              ? formik.errors.peMiddleImageDescription
-              : ""
-          }
-        />
-
-        <TextAreaInput
-          title="توضیحات تصاویر میانی (انگلیسی)"
-          formik={formik}
-          name="enMiddleImageDescription"
-          error={formik.errors.enMiddleImageDescription ? true : false}
-          hint={
-            typeof formik.errors.enMiddleImageDescription === "string"
-              ? formik.errors.enMiddleImageDescription
-              : ""
-          }
-        />
-
-        <TextAreaInput
-          title="توضیحات تصاویر میانی (روسی)"
-          formik={formik}
-          name="ruMiddleImageDescription"
-          error={formik.errors.ruMiddleImageDescription ? true : false}
-          hint={
-            typeof formik.errors.ruMiddleImageDescription === "string"
-              ? formik.errors.ruMiddleImageDescription
-              : ""
-          }
-        /> */}
-
-        {/* <TextEditor
-          title="توضیحات بخش پروژه ها (فارسی)"
-          formik={formik}
-          name="peProjectDescription"
-          lang="fa"
-        /> */}
         <TextAreaInput
           title="توضیحات بخش پروژه ها (فارسی)"
           formik={formik}
@@ -273,12 +291,6 @@ function ContentHome() {
           }
         />
 
-        {/* <TextEditor
-          title="توضیحات بخش پروژه ها (انگلیسی)"
-          formik={formik}
-          name="enProjectDescription"
-          lang="en"
-        /> */}
         <TextAreaInput
           title="توضیحات بخش پروژه ها (انگلیسی)"
           formik={formik}
@@ -291,12 +303,6 @@ function ContentHome() {
           }
         />
 
-        {/* <TextEditor
-          title="توضیحات بخش پروژه ها (روسی)"
-          formik={formik}
-          name="ruProjectDescription"
-          lang="en"
-        /> */}
         <TextAreaInput
           title="توضیحات بخش پروژه ها (روسی)"
           formik={formik}
@@ -308,12 +314,7 @@ function ContentHome() {
               : ""
           }
         />
-        {/* <TextEditor
-          title="توضیحات درباره ما (فارسی)"
-          formik={formik}
-          name="peAboutUsDescription"
-          lang="fa"
-        /> */}
+
         <TextAreaInput
           title="توضیحات درباره ما (فارسی)"
           formik={formik}
@@ -325,12 +326,7 @@ function ContentHome() {
               : ""
           }
         />
-        {/* <TextEditor
-          title="توضیحات درباره ما (انگلیسی)"
-          formik={formik}
-          name="enAboutUsDescription"
-          lang="en"
-        /> */}
+
         <TextAreaInput
           title="توضیحات درباره ما (انگلیسی)"
           formik={formik}
@@ -343,12 +339,6 @@ function ContentHome() {
           }
         />
 
-        {/* <TextEditor
-          title="توضیحات درباره ما (روسی)"
-          formik={formik}
-          name="ruAboutUsDescription"
-          lang="en"
-        /> */}
         <TextAreaInput
           title="توضیحات درباره ما (روسی)"
           formik={formik}
@@ -360,12 +350,7 @@ function ContentHome() {
               : ""
           }
         />
-        {/* <TextEditor
-          title="توضیحات سمن ها (فارسی)"
-          formik={formik}
-          name="peNgoDescription"
-          lang="fa"
-        /> */}
+
         <TextAreaInput
           title="توضیحات سمن ها (فارسی)"
           formik={formik}
@@ -378,12 +363,6 @@ function ContentHome() {
           }
         />
 
-        {/* <TextEditor
-          title="توضیحات سمن ها (انگلیسی)"
-          formik={formik}
-          name="enNgoDescription"
-          lang="en"
-        /> */}
         <TextAreaInput
           title="توضیحات سمن ها (انگلیسی)"
           formik={formik}
@@ -395,13 +374,7 @@ function ContentHome() {
               : ""
           }
         />
-        {/* 
-        <TextEditor
-          title="توضیحات سمن ها (روسی)"
-          formik={formik}
-          name="ruNgoDescription"
-          lang="en"
-        /> */}
+
         <TextAreaInput
           title="توضیحات سمن ها (روسی)"
           formik={formik}
@@ -413,6 +386,174 @@ function ContentHome() {
               : ""
           }
         />
+
+        <ComponentCard title="بنر اول">
+          <DropzoneComponent
+            title="تصویر بنر اول"
+            multiple={false}
+            onFiles={setFirstBannerFile}
+            formik={formik}
+            formikImages={formik?.values?.firstBannerImage}
+            name="firstBannerImage"
+          />
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
+            <div>
+              <Label htmlFor="pe-input">متن بنر فارسی</Label>
+              <Input
+                type="text"
+                id="pe-input"
+                placeholder="متن فارسی بنر را وارد کنید"
+                error={formik.errors.peFirstBannerDescription ? true : false}
+                {...formik.getFieldProps("peFirstBannerDescription")}
+              />
+              {formik.errors.peFirstBannerDescription &&
+                formik.touched.peFirstBannerDescription && (
+                  <span className="text-sm text-error-500">
+                    {typeof formik.errors.peFirstBannerDescription ===
+                      "string" && formik.errors.peFirstBannerDescription}
+                  </span>
+                )}
+            </div>
+            <div>
+              <Label htmlFor="en-input">متن انگلیسی بنر</Label>
+              <Input
+                type="text"
+                id="en-input"
+                placeholder="متن انگلیسی بنر را وارد کنید"
+                error={formik.errors.enFirstBannerDescription ? true : false}
+                {...formik.getFieldProps("enFirstBannerDescription")}
+              />
+              {formik.errors.enFirstBannerDescription &&
+                formik.touched.enFirstBannerDescription && (
+                  <span className="text-sm text-error-500">
+                    {typeof formik.errors.enFirstBannerDescription ===
+                      "string" && formik.errors.enFirstBannerDescription}
+                  </span>
+                )}
+            </div>
+            <div>
+              <Label htmlFor="ru-input">متن روسی بنر</Label>
+              <Input
+                type="text"
+                id="ru-input"
+                placeholder="متن روسی بنر را وارد کنید"
+                error={formik.errors.ruFirstBannerDescription ? true : false}
+                {...formik.getFieldProps("ruFirstBannerDescription")}
+              />
+              {formik.errors.ruFirstBannerDescription &&
+                formik.touched.ruFirstBannerDescription && (
+                  <span className="text-sm text-error-500">
+                    {typeof formik.errors.ruFirstBannerDescription ===
+                      "string" && formik.errors.ruFirstBannerDescription}
+                  </span>
+                )}
+            </div>
+          </div>
+        </ComponentCard>
+        <ComponentCard title="بنر دوم">
+          <DropzoneComponent
+            title="تصویر بنر دوم"
+            multiple={false}
+            onFiles={setSecondBannerFile}
+            formik={formik}
+            formikImages={formik?.values?.secondBannerImage}
+            name="secondBannerImage"
+          />
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
+            <div>
+              <Label htmlFor="pe-input">متن بنر فارسی دوم</Label>
+              <Input
+                type="text"
+                id="pe-input"
+                placeholder="متن فارسی بنر دوم را وارد کنید"
+                error={formik.errors.peSecondBannerDescription ? true : false}
+                {...formik.getFieldProps("peSecondBannerDescription")}
+              />
+              {formik.errors.peSecondBannerDescription &&
+                formik.touched.peSecondBannerDescription && (
+                  <span className="text-sm text-error-500">
+                    {typeof formik.errors.peSecondBannerDescription ===
+                      "string" && formik.errors.peSecondBannerDescription}
+                  </span>
+                )}
+            </div>
+            <div>
+              <Label htmlFor="en-input">متن انگلیسی بنر دوم</Label>
+              <Input
+                type="text"
+                id="en-input"
+                placeholder="متن انگلیسی بنر دوم را وارد کنید"
+                error={formik.errors.enSecondBannerDescription ? true : false}
+                {...formik.getFieldProps("enSecondBannerDescription")}
+              />
+              {formik.errors.enSecondBannerDescription &&
+                formik.touched.enSecondBannerDescription && (
+                  <span className="text-sm text-error-500">
+                    {typeof formik.errors.enSecondBannerDescription ===
+                      "string" && formik.errors.enSecondBannerDescription}
+                  </span>
+                )}
+            </div>
+            <div>
+              <Label htmlFor="ru-input">متن روسی بنر دوم</Label>
+              <Input
+                type="text"
+                id="ru-input"
+                placeholder="متن روسی بنر دوم را وارد کنید"
+                error={formik.errors.ruSecondBannerDescription ? true : false}
+                {...formik.getFieldProps("ruSecondBannerDescription")}
+              />
+              {formik.errors.ruSecondBannerDescription &&
+                formik.touched.ruSecondBannerDescription && (
+                  <span className="text-sm text-error-500">
+                    {typeof formik.errors.ruSecondBannerDescription ===
+                      "string" && formik.errors.ruSecondBannerDescription}
+                  </span>
+                )}
+            </div>
+            <div className="mt-4">
+              <Checkbox
+                label="نمایش بنر دوم"
+                checked={formik.values.permitedToShowSecondBanner}
+                onChange={() => {
+                  formik.setFieldValue(
+                    "permitedToShowSecondBanner",
+                    !formik.values.permitedToShowSecondBanner
+                  );
+                }}
+              />
+            </div>
+          </div>
+        </ComponentCard>
+
+        <ComponentCard title="ترتیب نمایش سمن ها">
+          <div className="mt-4 flex flex-col gap-2">
+            <Checkbox
+              label="پر بازدید ترین"
+              checked={formik.values.ngoAlgo === 0}
+              onChange={() => {
+                formik.setFieldValue("ngoAlgo", 0);
+              }}
+            />
+            <Checkbox
+              label="جدیدترین"
+              checked={formik.values.ngoAlgo === 1}
+              onChange={() => {
+                formik.setFieldValue("ngoAlgo", 1);
+              }}
+            />
+            <Checkbox
+              label="بیشترین همکاری"
+              checked={formik.values.ngoAlgo === 2}
+              onChange={() => {
+                formik.setFieldValue("ngoAlgo", 2);
+              }}
+            />
+          </div>
+        </ComponentCard>
+
         <div className="flex gap-2 mt-2">
           <Button type="submit" isLoading={mutation.isPending || isLoading}>
             ثبت
