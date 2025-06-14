@@ -43,6 +43,8 @@ import AdminReportsPage from "./pages/Admin/AdminReports";
 import UserReportsPage from "./pages/Admin/UsersReports";
 import DynamicPages from "./pages/DynamicPages/DynamicPages";
 import CreateDynamicPage from "./pages/CreateDynamicPage";
+import ContentProjectRegistration from "./pages/Content/ContentProjectRegistration";
+import ContentDocumentRegistration from "./pages/Content/ContentDocumentRegistration";
 
 export default function App() {
   return (
@@ -126,6 +128,16 @@ export default function App() {
               index
               path="/content/collaboration-opportunities"
               element={<ContentCollaborationOpportunities />}
+            />
+            <Route
+              index
+              path="/content/project-registration"
+              element={<ContentProjectRegistration />}
+            />
+            <Route
+              index
+              path="/content/document-registration"
+              element={<ContentDocumentRegistration />}
             />
 
             <Route index path="/content/footer" element={<ContentFooter />} />

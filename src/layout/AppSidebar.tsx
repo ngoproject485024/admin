@@ -74,6 +74,16 @@ const navItems: NavItem[] = [
         path: "/content/collaboration-opportunities",
         pro: false,
       },
+      {
+        name: "ثبت پروژه",
+        path: "/content/project-registration",
+        pro: false,
+      },
+      {
+        name: "ثبت اسناد و مدارک",
+        path: "/content/document-registration",
+        pro: false,
+      },
       { name: "فوتر", path: "/content/footer", pro: false },
     ],
   },

@@ -15,6 +15,7 @@ import { uploadFiles } from "../../server/uploadFiles";
 import TextEditor from "../../components/common/TextEditor";
 import Input from "../../components/form/input/InputField";
 import Label from "../../components/form/Label";
+import Checkbox from "../../components/form/input/Checkbox";
 
 function ContentAboutUs() {
   const [middleFiles, setMiddleFiles] = useState<File[]>([]);
@@ -87,6 +88,9 @@ function ContentAboutUs() {
         ?.ruFirstManagerFooterDescription
         ? data?.data?.ruFirstManagerFooterDescription
         : "",
+      premitedToShowFirstManager: data?.data?.premitedToShowFirstManager
+        ? data?.data?.premitedToShowFirstManager
+        : true,
       secondManagerImage: data?.data?.firstManagerImage
         ? data?.data?.firstManagerImage
         : [],
@@ -114,6 +118,9 @@ function ContentAboutUs() {
         ?.ruSecondManagerFooterDescription
         ? data?.data?.ruSecondManagerFooterDescription
         : "",
+      premitedToShowSecondManager: data?.data?.premitedToShowFirstManager
+        ? data?.data?.premitedToShowFirstManager
+        : true,
     },
     validationSchema: Yup.object().shape({
       peDescription: Yup.string().required("لطفا توضیحات فارسی را وارد کنید"),
@@ -349,19 +356,6 @@ function ContentAboutUs() {
               name="peDescription"
               lang="fa"
             />
-            {/* <TextAreaInput
-              // value={message}
-              // onChange={(value) => setMessage(value)}
-              title="توضیحات درباه ما (فارسی)"
-              formik={formik}
-              name="peDescription"
-              error={formik.errors.peDescription ? true : false}
-              hint={
-                typeof formik.errors.peDescription === "string"
-                  ? formik.errors.peDescription
-                  : ""
-              }
-            /> */}
           </div>
         </ComponentCard>
         <ComponentCard title="">
@@ -372,38 +366,8 @@ function ContentAboutUs() {
               name="enDescription"
               lang="en"
             />
-            {/* <TextAreaInput
-              // value={message}
-              // onChange={(value) => setMessage(value)}
-              title="توضیحات درباه ما (انگلیسی)"
-              formik={formik}
-              name="enDescription"
-              error={formik.errors.enDescription ? true : false}
-              hint={
-                typeof formik.errors.enDescription === "string"
-                  ? formik.errors.enDescription
-                  : ""
-              } */}
-            {/* /> */}
           </div>
         </ComponentCard>
-        {/* <ComponentCard title="">
-          <div>
-            <TextAreaInput
-              // value={message}
-              // onChange={(value) => setMessage(value)}
-              title="توضیحات درباه ما (روسی)"
-              formik={formik}
-              name="ruDescription"
-              error={formik.errors.ruDescription ? true : false}
-              hint={
-                typeof formik.errors.ruDescription === "string"
-                  ? formik.errors.ruDescription
-                  : ""
-              }
-            />
-          </div>
-        </ComponentCard> */}
 
         <TextEditor
           title="توضیحات درباه ما (روسی)"
@@ -428,19 +392,6 @@ function ContentAboutUs() {
               name="peMiddleImageDescription"
               lang="fa"
             />
-            {/* <TextAreaInput
-              // value={message}
-              // onChange={(value) => setMessage(value)}
-              title="توضیحات تصاویر میانی (فارسی)"
-              formik={formik}
-              name="peMiddleImageDescription"
-              error={formik.errors.peMiddleImageDescription ? true : false}
-              hint={
-                typeof formik.errors.peMiddleImageDescription === "string"
-                  ? formik.errors.peMiddleImageDescription
-                  : ""
-              }
-            /> */}
           </div>
         </ComponentCard>
         <ComponentCard title="">
@@ -451,19 +402,6 @@ function ContentAboutUs() {
               name="enMiddleImageDescription"
               lang="en"
             />
-            {/* <TextAreaInput
-              // value={message}
-              // onChange={(value) => setMessage(value)}
-              title="توضیحات تصاویر میانی (انگلیسی)"
-              formik={formik}
-              name="enMiddleImageDescription"
-              error={formik.errors.enMiddleImageDescription ? true : false}
-              hint={
-                typeof formik.errors.enMiddleImageDescription === "string"
-                  ? formik.errors.enMiddleImageDescription
-                  : ""
-              }
-            /> */}
           </div>
         </ComponentCard>
         <ComponentCard title="">
@@ -474,19 +412,6 @@ function ContentAboutUs() {
               name="ruMiddleImageDescription"
               lang="en"
             />
-            {/* <TextAreaInput
-              // value={message}
-              // onChange={(value) => setMessage(value)}
-              title="توضیحات تصاویر میانی (روسی)"
-              formik={formik}
-              name="ruMiddleImageDescription"
-              error={formik.errors.ruMiddleImageDescription ? true : false}
-              hint={
-                typeof formik.errors.ruMiddleImageDescription === "string"
-                  ? formik.errors.ruMiddleImageDescription
-                  : ""
-              }
-            /> */}
           </div>
         </ComponentCard>
         <ComponentCard title="">
@@ -497,19 +422,6 @@ function ContentAboutUs() {
               name="peMissionAndGoals"
               lang="fa"
             />
-            {/* <TextAreaInput
-              // value={message}
-              // onChange={(value) => setMessage(value)}
-              title="توضیحات اهداف و دستاورد ها (فارسی)"
-              formik={formik}
-              name="peMissionAndGoals"
-              error={formik.errors.peMissionAndGoals ? true : false}
-              hint={
-                typeof formik.errors.peMissionAndGoals === "string"
-                  ? formik.errors.peMissionAndGoals
-                  : ""
-              }
-            /> */}
           </div>
         </ComponentCard>
         <ComponentCard title="">
@@ -520,19 +432,6 @@ function ContentAboutUs() {
               name="enMissionAndGoals"
               lang="en"
             />
-            {/* <TextAreaInput
-              // value={message}
-              // onChange={(value) => setMessage(value)}
-              title="توضیحات اهداف و دستاورد ها (انگلیسی)"
-              formik={formik}
-              name="enMissionAndGoals"
-              error={formik.errors.enMissionAndGoals ? true : false}
-              hint={
-                typeof formik.errors.enMissionAndGoals === "string"
-                  ? formik.errors.enMissionAndGoals
-                  : ""
-              }
-            /> */}
           </div>
         </ComponentCard>
         <ComponentCard title="">
@@ -668,6 +567,19 @@ function ContentAboutUs() {
                 : ""
             }
           />
+
+          <div className="mt-4 flex flex-col gap-2">
+            <Checkbox
+              label="نمایش پیام مدیر"
+              checked={formik.values.premitedToShowFirstManager}
+              onChange={() => {
+                formik.setFieldValue(
+                  "premitedToShowFirstManager",
+                  !formik.values.premitedToShowFirstManager
+                );
+              }}
+            />
+          </div>
         </ComponentCard>
 
         <ComponentCard title="مدیر دوم">
@@ -798,6 +710,19 @@ function ContentAboutUs() {
                 : ""
             }
           />
+
+          <div className="mt-4 flex flex-col gap-2">
+            <Checkbox
+              label="نمایش پیام مدیر"
+              checked={formik.values.premitedToShowSecondManager}
+              onChange={() => {
+                formik.setFieldValue(
+                  "premitedToShowSecondManager",
+                  !formik.values.premitedToShowSecondManager
+                );
+              }}
+            />
+          </div>
         </ComponentCard>
 
         <div className="flex gap-2 mt-2">
