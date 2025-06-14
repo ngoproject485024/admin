@@ -59,8 +59,8 @@ function TextEditor({ title, formik, name, lang }: Props) {
   return (
     <ComponentCard title={title ? title : ""}>
       <Editor
-        apiKey="xk4xeon5pd61jrqvr3td1om4xw9z4y9oihf3szwdfqc41fyj"
-        licenseKey="xk4xeon5pd61jrqvr3td1om4xw9z4y9oihf3szwdfqc41fyj"
+        apiKey="b1l0dr2vsao1zfzn9a90sj6nojthzf6zs5hfyo0rnnt2dqx4"
+        licenseKey="b1l0dr2vsao1zfzn9a90sj6nojthzf6zs5hfyo0rnnt2dqx4"
         init={init}
         value={formik?.values?.[name] || formik?.values?.[name]}
         onInit={(evt, editor) => (editorRef.current = editor)}
