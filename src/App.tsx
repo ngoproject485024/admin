@@ -39,6 +39,8 @@ import ManageDocsPage from "./pages/Ngos/ManageDocs";
 import ManageProjects from "./pages/Ngos/ManageProjects";
 import NgoProjectDetailsPage from "./pages/Ngos/NgoProjectDetails";
 import AdminPage from "./pages/Admin";
+import AdminReportsPage from "./pages/Admin/AdminReports";
+import UserReportsPage from "./pages/Admin/UsersReports";
 import DynamicPages from "./pages/DynamicPages/DynamicPages";
 import CreateDynamicPage from "./pages/CreateDynamicPage";
 
@@ -138,6 +140,9 @@ export default function App() {
 
             {/* Others Page */}
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="/admin/admin-reports" element={<AdminReportsPage />} />
+            <Route path="/admin/users-reports" element={<UserReportsPage />} />
+
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/blank" element={<Blank />} />
 

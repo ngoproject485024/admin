@@ -129,9 +129,20 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
         </form>
         {thumbImage && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center mb-3 w-full gap-5 flex-wrap">
-            {thumbImage?.map((image) => (
+            {thumbImage?.map((image: string) => (
               <>
-                {image.slice(image.length - 3) === "png" ||
+                <div
+                  key={image}
+                  className="flex items-center justify-center mb-3 p-8"
+                >
+                  <img
+                    src={image}
+                    alt="uploaded image"
+                    className="object-contain"
+                  />
+                </div>
+
+                {/* {image.slice(image.length - 3) === "png" ||
                 image.slice(image.length - 3) === "jpg" ||
                 image.slice(image.length - 4) === "jpeg" ? (
                   <div
@@ -152,7 +163,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
                       className="w-full h-[500px]"
                     />
                   </div>
-                )}
+                )} */}
               </>
             ))}
           </div>

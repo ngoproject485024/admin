@@ -59,3 +59,27 @@ export const getSingleAdmin = async (id: string) => {
     return err?.response;
   }
 };
+
+export const getUserLogs = async () => {
+  try {
+    const { data } = await instance.get(`/users/log/all`);
+
+    return data;
+  } catch (err: any) {
+    console.error(err);
+
+    return err?.response;
+  }
+};
+
+export const getAdminLogs = async () => {
+  try {
+    const { data } = await instance.get(`/admin/log/all`);
+
+    return data;
+  } catch (err: any) {
+    console.error(err);
+
+    return err?.response;
+  }
+};

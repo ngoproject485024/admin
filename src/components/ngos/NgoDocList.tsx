@@ -17,7 +17,7 @@ import Confirm from "../confirm";
 import { changeStatusDoc, getNgoDocuments } from "../../server/ngos";
 import Button from "../ui/button/Button";
 import { Modal } from "../ui/modal";
-import { AcceptIcon, ArrowDownIcon, TimesIcon } from "../../icons";
+import { AcceptIcon, ArrowDownIcon, TimesIcon, WordIcon } from "../../icons";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -257,7 +257,8 @@ const DocsModal = ({
                         target="_blank"
                       >
                         <ArrowDownIcon />
-                        دانلود فایل
+                        <span>دانلود فایل</span>
+                        <WordIcon />
                       </a>
                     )}
                   </>

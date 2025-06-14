@@ -88,7 +88,11 @@ const navItems: NavItem[] = [
   {
     icon: <AdminIcon />,
     name: "ادمین",
-    path: "/admin",
+    subItems: [
+      { name: "مدیریت ادمین", path: "/admin", pro: false },
+      { name: "گزارشات ادمین", path: "/admin/admin-reports", pro: false },
+      { name: "گزارشات کاربران", path: "/admin/users-reports", pro: false },
+    ],
   },
 ];
 
