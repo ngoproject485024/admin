@@ -57,8 +57,6 @@ function useCreatePage(
           }
         }
         if (response?.data?.Children.length === 1) {
-          console.log("first condition >>>> ");
-
           if (createFormik.values.template === 1) {
             formikTemplateSubContent.values.id =
               response?.data?.Children[0]._id;
@@ -93,9 +91,6 @@ function useCreatePage(
             }
           }
         } else if (response?.data?.Children.length > 1) {
-          console.log("first children >>>>", response?.data?.Children[0]);
-          console.log("second children >>>>", response?.data?.Children[1]);
-
           //? اگر قالب اول برای صفحه فرعی انتخاب شده بود
           if (createFormik.values.template === 1) {
             formikTemplateSubContent.values.id =

@@ -4,6 +4,7 @@ import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import useTemplateOne from "../../hooks/useTemplateOne";
 import useCreatePage from "../../hooks/useCreatePage";
+import useTemplateThree from "../../hooks/useTemplteThree";
 
 function FormPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,6 +39,8 @@ function FormPage() {
     formikTemplateSecondPage,
   } = useTemplateOne();
 
+  const { formikTemplateThreePage } = useTemplateThree();
+
   const { createFormik } = useCreatePage(
     handleStartLoading,
     handleStopLoading,
@@ -65,6 +68,7 @@ function FormPage() {
             contentFormik={formikTemplateOne}
             formikTemplateSubContent={formikTemplateSubContent}
             formikTemplateSecondPage={formikTemplateSecondPage}
+            formikTemplateThreePage={formikTemplateThreePage}
             onStep={handleSetStep}
             onFile={handleSetImage}
             isLoading={isLoading}
@@ -92,8 +96,8 @@ function FormPage() {
         {step === 6 && (
           <StepTwo formik={createFormik} onStep={handleSetStep} step={step} />
         )}
-        {/* //? محتوای صفحه فرعی */}
 
+        {/* //? محتوای صفحه فرعی */}
         {step === 7 && (
           <StepThree
             formik={createFormik}

@@ -37,6 +37,8 @@ function ContentAboutUs() {
         formik.resetForm();
         setLoading(false);
         refetch();
+        setFirstBossFile([]);
+        setSecondBossFile([]);
       } else {
         toast.error(
           "متاسفانه محتوای صفحه درباره ما تغییر نکرد ، لطفا مجددا تلاش کنید"
@@ -88,8 +90,8 @@ function ContentAboutUs() {
         ?.ruFirstManagerFooterDescription
         ? data?.data?.ruFirstManagerFooterDescription
         : "",
-      premitedToShowFirstManager: data?.data?.premitedToShowFirstManager
-        ? data?.data?.premitedToShowFirstManager
+      permitedToShowFirstManager: data?.data?.permitedToShowFirstManager
+        ? data?.data?.permitedToShowFirstManager
         : true,
       secondManagerImage: data?.data?.firstManagerImage
         ? data?.data?.firstManagerImage
@@ -118,8 +120,8 @@ function ContentAboutUs() {
         ?.ruSecondManagerFooterDescription
         ? data?.data?.ruSecondManagerFooterDescription
         : "",
-      premitedToShowSecondManager: data?.data?.premitedToShowFirstManager
-        ? data?.data?.premitedToShowFirstManager
+      permitedToShowSecondManager: data?.data?.permitedToShowFirstManager
+        ? data?.data?.permitedToShowFirstManager
         : true,
     },
     validationSchema: Yup.object().shape({
@@ -255,6 +257,7 @@ function ContentAboutUs() {
           }
         }
         if (secondBossFile.length > 0) {
+          setLoading(true);
           const secondBossFormData = new FormData();
 
           secondBossFile.forEach((file) => {
@@ -276,6 +279,7 @@ function ContentAboutUs() {
         }
 
         setLoading(false);
+
         mutation.mutate(values);
       }
     },
@@ -574,7 +578,7 @@ function ContentAboutUs() {
               checked={formik.values.premitedToShowFirstManager}
               onChange={() => {
                 formik.setFieldValue(
-                  "premitedToShowFirstManager",
+                  "permitedToShowFirstManager",
                   !formik.values.premitedToShowFirstManager
                 );
               }}
@@ -717,7 +721,7 @@ function ContentAboutUs() {
               checked={formik.values.premitedToShowSecondManager}
               onChange={() => {
                 formik.setFieldValue(
-                  "premitedToShowSecondManager",
+                  "permitedToShowSecondManager",
                   !formik.values.premitedToShowSecondManager
                 );
               }}

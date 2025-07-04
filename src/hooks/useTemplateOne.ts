@@ -79,10 +79,28 @@ function useTemplateOne(stopLoading?: () => void) {
     },
   });
 
+  const formikTemplateThreePage = useFormik({
+    initialValues: {
+      id: "",
+      image: [],
+      peTitle: "",
+      enTitle: "",
+      ruTitle: "",
+      peDescription: "",
+      enDescription: "",
+      ruDescription: "",
+      table: [],
+    },
+    onSubmit: async (values: any) => {
+      mutation.mutate(values);
+    },
+  });
+
   return {
     formikTemplateOne,
     formikTemplateSubContent,
     formikTemplateSecondPage,
+    formikTemplateThreePage,
   };
 }
 

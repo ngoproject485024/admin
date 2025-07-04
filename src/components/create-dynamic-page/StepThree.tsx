@@ -1,4 +1,5 @@
 import TemplateOne from "./TemplateOne";
+import TemplteThree from "./TemplateThree";
 import TemplateTwo from "./TemplateTwo";
 
 function StepThree({
@@ -6,6 +7,7 @@ function StepThree({
   contentFormik,
   formikTemplateSubContent,
   formikTemplateSecondPage,
+  formikTemplateThreePage,
   onStep,
   onFile,
   isLoading,
@@ -15,6 +17,7 @@ function StepThree({
   contentFormik: any;
   formikTemplateSubContent: any;
   formikTemplateSecondPage: any;
+  formikTemplateThreePage: any;
   onStep: (step: number) => void;
   onFile: (image: File[]) => void;
   isLoading: boolean;
@@ -42,6 +45,17 @@ function StepThree({
               contentFormik={contentFormik}
               formikTemplateSubContent={formikTemplateSubContent}
               formikTemplateSecondPage={formikTemplateSecondPage}
+              onStep={onStep}
+              onFile={onFile}
+              isLoading={isLoading}
+              step={step}
+            />
+          )}
+          {formik.values.template === 3 && (
+            <TemplteThree
+              formik={formik}
+              contentFormik={contentFormik}
+              formikTemplateThreePage={formikTemplateThreePage}
               onStep={onStep}
               onFile={onFile}
               isLoading={isLoading}

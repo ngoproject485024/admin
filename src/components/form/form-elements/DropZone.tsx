@@ -32,6 +32,8 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
 }) => {
   const [thumbImage, setThumbImage] = useState<string[]>([]);
 
+  console.log("thumbImage", thumbImage);
+
   const onDrop = (acceptedFiles: File[]) => {
     // Handle file uploads here
     const paths: string[] = acceptedFiles.map((file: File) => {
@@ -131,23 +133,16 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center mb-3 w-full gap-5 flex-wrap">
             {thumbImage?.map((image: string) => (
               <>
-                <div
-                  key={image}
-                  className="flex items-center justify-center mb-3 p-8"
-                >
-                  <img
-                    src={image}
-                    alt="uploaded image"
-                    className="object-contain"
+                {Object.keys(accept).includes("application/pdf") ? (
+                  <object
+                    data={image}
+                    type="application/pdf"
+                    className="w-full h-[500px]"
                   />
-                </div>
-
-                {/* {image.slice(image.length - 3) === "png" ||
-                image.slice(image.length - 3) === "jpg" ||
-                image.slice(image.length - 4) === "jpeg" ? (
+                ) : (
                   <div
                     key={image}
-                    className="flex items-center justify-center mb-3 p-8"
+                    className="flex items-center justify-center mb-3 p-8 "
                   >
                     <img
                       src={image}
@@ -155,15 +150,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
                       className="object-contain"
                     />
                   </div>
-                ) : (
-                  <div className="w-full flex flex-col justify-center items-center gap-2 mt-2">
-                    <object
-                      data={image}
-                      type="application/pdf"
-                      className="w-full h-[500px]"
-                    />
-                  </div>
-                )} */}
+                )}
               </>
             ))}
           </div>
