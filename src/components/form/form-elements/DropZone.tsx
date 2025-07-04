@@ -32,8 +32,6 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
 }) => {
   const [thumbImage, setThumbImage] = useState<string[]>([]);
 
-  console.log("thumbImage", thumbImage);
-
   const onDrop = (acceptedFiles: File[]) => {
     // Handle file uploads here
     const paths: string[] = acceptedFiles.map((file: File) => {
@@ -131,21 +129,21 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
         </form>
         {thumbImage && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center mb-3 w-full gap-5 flex-wrap">
-            {thumbImage?.map((image: string) => (
+            {thumbImage?.map((file: string) => (
               <>
-                {Object.keys(accept).includes("application/pdf") ? (
+                {accept && Object?.keys(accept).includes("application/pdf") ? (
                   <object
-                    data={image}
+                    data={file || ""}
                     type="application/pdf"
                     className="w-full h-[500px]"
                   />
                 ) : (
                   <div
-                    key={image}
+                    key={file}
                     className="flex items-center justify-center mb-3 p-8 "
                   >
                     <img
-                      src={image}
+                      src={file}
                       alt="uploaded image"
                       className="object-contain"
                     />
