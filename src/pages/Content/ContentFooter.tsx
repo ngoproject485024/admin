@@ -24,8 +24,6 @@ const ContentFooter = () => {
     queryFn: () => getFooter(),
   });
 
-  console.log("fadfafad", data);
-
   const mutation = useMutation({
     mutationKey: ["createFooter"],
     mutationFn: createFooter,
@@ -115,6 +113,7 @@ const ContentFooter = () => {
           title="لوگو"
           multiple={false}
           onFiles={setLogo}
+          files={logo}
           formik={formik}
           formikImages={formik?.values?.logo}
           name="logo"

@@ -86,11 +86,7 @@ export default function App() {
               path="/content/about-us"
               element={<ContentAboutUs />}
             />
-            <Route
-              index
-              path="/content/contact-us"
-              element={<ContentContactUs />}
-            />
+
             <Route index path="/content/ngo" element={<ContentNgo />} />
             <Route
               index

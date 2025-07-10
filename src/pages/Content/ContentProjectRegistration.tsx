@@ -98,8 +98,9 @@ function ContentProjectRegistration() {
             multiple
             onFiles={setRegisterFile}
             formik={formik}
-            formikImages={formik?.values?.file}
-            name="file"
+            files={registerFile}
+            formikImages={formik?.values?.pdf}
+            name="pdf"
             dropTitle="فایل را بکشید و رها کنید"
             dropDescription="فایل PDF خود را اینجا بکشید و رها کنید"
           />

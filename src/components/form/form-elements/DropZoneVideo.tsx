@@ -1,24 +1,39 @@
 import { useState } from "react";
 import ComponentCard from "../../common/ComponentCard";
 import { useDropzone } from "react-dropzone";
-import { TrashBinIcon } from "../../../icons";
+import { TimesIcon, TrashBinIcon } from "../../../icons";
+import convertBlobToFile from "../../../utils/convertBlobToFile";
 
 interface IDropZoneComponent {
   title: string | undefined;
   multiple: boolean;
-  onFiles: (file: File[]) => void;
+  onFiles?: (files: File[]) => void;
+  files?: File[];
   update?: string;
   formik?: any;
   onDelete?: (url: string, name: string) => void;
+  name?: string;
+  formikVideos: string[];
+  dropTitle?: string;
+  dropDescription?: string;
+  accept?: any;
+  max?: number;
 }
 
 const DropzoneVideoComponent: React.FC<IDropZoneComponent> = ({
   title,
   multiple,
   onFiles,
+  files,
   update,
   formik,
   onDelete,
+  name,
+  formikVideos,
+  dropTitle,
+  dropDescription,
+  accept,
+  max,
 }) => {
   const [thumbVideo, setThumbVideo] = useState<string[]>([]);
 
@@ -31,8 +46,14 @@ const DropzoneVideoComponent: React.FC<IDropZoneComponent> = ({
       return path;
     });
 
-    onFiles(acceptedFiles);
-    setThumbVideo(paths);
+    if (multiple) {
+      setThumbVideo((prev: string[]) => [...prev, paths]);
+      onFiles?.((prev: File[]) => prev.concat(acceptedFiles));
+    } else {
+      setThumbVideo(paths);
+      onFiles?.(acceptedFiles);
+      formik.setFieldValue(name, []);
+    }
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -43,6 +64,7 @@ const DropzoneVideoComponent: React.FC<IDropZoneComponent> = ({
     multiple: multiple,
     maxFiles: 5,
   });
+
   return (
     <ComponentCard title={title ? title : ""}>
       <div className="transition border border-gray-300 border-dashed cursor-pointer dark:hover:border-brand-500 dark:border-gray-700 rounded-xl hover:border-brand-500">
@@ -100,13 +122,59 @@ const DropzoneVideoComponent: React.FC<IDropZoneComponent> = ({
             </span>
           </div>
         </form>
+
+        {formikVideos && (
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 items-center justify-center mb-3 w-full gap-5 flex-wrap">
+            {formikVideos?.map((video: string) => (
+              <div
+                key={video}
+                className="flex items-center justify-center mb-3 p-8 relative"
+              >
+                <div
+                  className="absolute top-0 right-0"
+                  onClick={() => {
+                    if (name) {
+                      const cpVideo = [...formik.values[name]];
+                      const filterd = cpVideo.filter((f) => f !== video);
+                      formik.setFieldValue(name, filterd);
+                    }
+                  }}
+                >
+                  <TimesIcon className="text-red-500" />
+                </div>
+                <video src={video} controls />
+              </div>
+            ))}
+          </div>
+        )}
+
         {thumbVideo && (
           <div className="flex items-center justify-center mb-3 w-full gap-5 flex-wrap">
             {thumbVideo?.map((video) => (
               <div
                 key={video}
-                className="flex items-center justify-center mb-3"
+                className="flex items-center justify-center mb-3 p-8 relative"
               >
+                <div
+                  className="absolute top-0 right-0"
+                  onClick={() => {
+                    const cpThumbImage = [...thumbVideo];
+                    const filtered = cpThumbImage.filter((f) => f !== video);
+                    setThumbVideo(filtered);
+
+                    convertBlobToFile(video).then((getFile: File) => {
+                      if (files) {
+                        const cpFiles = [...files];
+                        const filtered = cpFiles.filter(
+                          (f) => f.size !== getFile.size
+                        );
+                        onFiles?.(filtered);
+                      }
+                    });
+                  }}
+                >
+                  <TimesIcon className="text-red-500" />
+                </div>
                 <video src={video} className="w-full" controls />
               </div>
             ))}
@@ -121,7 +189,7 @@ const DropzoneVideoComponent: React.FC<IDropZoneComponent> = ({
                 className="flex items-center justify-center mb-3 "
               >
                 <div className="relative p-8 w-full">
-                  <video src={video} className="w-full h-full" />
+                  <video controls src={video} className="w-full h-full" />
                   <button
                     className="absolute top-0 z-10 bg-rose-500 p-1 rounded-full text-white"
                     onClick={() =>

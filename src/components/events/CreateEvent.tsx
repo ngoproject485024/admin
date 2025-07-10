@@ -6,7 +6,6 @@ import ComponentCard from "../common/ComponentCard";
 import Input from "../form/input/InputField";
 import Label from "../form/Label";
 import { useFormik } from "formik";
-import TextArea from "../form/input/TextArea";
 import DropzoneComponent from "../form/form-elements/DropZone";
 import DropzoneVideoComponent from "../form/form-elements/DropZoneVideo";
 import { uploadFiles } from "../../server/uploadFiles";
@@ -364,16 +363,28 @@ function CreateEvent({ refetch }: { refetch: () => void }) {
               multiple
               title="تصاویر رویداد فارسی"
               onFiles={setPeImageFiles}
+              files={peImageFiles}
+              name="pePictures"
+              formik={formik}
+              formikImages={formik?.values?.pePictures}
             />
             <DropzoneComponent
               multiple
               title="تصاویر رویداد انگلیسی"
               onFiles={entEnImageFiles}
+              files={enImageFiles}
+              name="enPictures"
+              formik={formik}
+              formikImages={formik?.values?.enPictures}
             />
             <DropzoneComponent
               multiple
               title="تصاویر رویداد روسی"
               onFiles={ruRuImageFiles}
+              files={ruImageFiles}
+              name="ruPictures"
+              formik={formik}
+              formikImages={formik?.values?.ruPictures}
             />
           </ComponentCard>
           <ComponentCard title="ویدیو رویداد">
@@ -381,16 +392,26 @@ function CreateEvent({ refetch }: { refetch: () => void }) {
               multiple
               title="ویدیو رویداد فارسی"
               onFiles={setPeVideoFiles}
+              files={peVideoFiles}
+              name="peVideo"
+              formik={formik}
+              formikVideos={formik?.values?.peVideo}
             />
             <DropzoneVideoComponent
               multiple
               title="ویدیو رویداد انگلیسی"
               onFiles={setEnVideoFiles}
+              name="enVideo"
+              formik={formik}
+              formikVideos={formik?.values?.enVideo}
             />
             <DropzoneVideoComponent
               multiple
               title="ویدیو رویداد روسی"
               onFiles={setRuVideoFiles}
+              name="ruVideo"
+              formik={formik}
+              formikVideos={formik?.values?.ruVideo}
             />
           </ComponentCard>
 

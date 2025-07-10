@@ -9,7 +9,6 @@ import { Modal } from "../ui/modal";
 import ComponentCard from "../common/ComponentCard";
 import Label from "../form/Label";
 import Input from "../form/input/InputField";
-import TextArea from "../form/input/TextArea";
 import DropzoneComponent from "../form/form-elements/DropZone";
 import DropzoneVideoComponent from "../form/form-elements/DropZoneVideo";
 import Button from "../ui/button/Button";
@@ -31,8 +30,8 @@ function UpdateEvent({
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [peImageFiles, setPeImageFiles] = useState<File[]>([]);
-  const [enImageFiles, entEnImageFiles] = useState<File[]>([]);
-  const [ruImageFiles, ruRuImageFiles] = useState<File[]>([]);
+  const [enImageFiles, setEnImageFiles] = useState<File[]>([]);
+  const [ruImageFiles, setRuImageFiles] = useState<File[]>([]);
 
   const [peVideoFiles, setPeVideoFiles] = useState<File[]>([]);
   const [enVideoFiles, setEnVideoFiles] = useState<File[]>([]);
@@ -59,8 +58,8 @@ function UpdateEvent({
         refetch();
         formik.resetForm();
         setPeImageFiles([]);
-        entEnImageFiles([]);
-        ruRuImageFiles([]);
+        setEnImageFiles([]);
+        setRuImageFiles([]);
         setPeVideoFiles([]);
         setEnVideoFiles([]);
         setRuVideoFiles([]);
@@ -69,8 +68,8 @@ function UpdateEvent({
         onClose();
         formik.resetForm();
         setPeImageFiles([]);
-        entEnImageFiles([]);
-        ruRuImageFiles([]);
+        setEnImageFiles([]);
+        setRuImageFiles([]);
         setPeVideoFiles([]);
         setEnVideoFiles([]);
         setRuVideoFiles([]);
@@ -374,24 +373,30 @@ function UpdateEvent({
               multiple
               title="تصاویر رویداد فارسی"
               onFiles={setPeImageFiles}
+              files={peImageFiles}
               update="pePictures"
               formik={formik}
+              formikImages={formik?.values?.pePictures}
               onDelete={(url, name) => handleDeleteFile(url, name)}
             />
             <DropzoneComponent
               multiple
               title="تصاویر رویداد انگلیسی"
-              onFiles={entEnImageFiles}
+              onFiles={setEnImageFiles}
+              files={enImageFiles}
               update="enPictures"
               formik={formik}
+              formikImages={formik?.values?.enPictures}
               onDelete={(url, name) => handleDeleteFile(url, name)}
             />
             <DropzoneComponent
               multiple
               title="تصاویر رویداد روسی"
-              onFiles={ruRuImageFiles}
+              onFiles={setRuImageFiles}
               update="ruPictures"
               formik={formik}
+              files={ruImageFiles}
+              formikImages={formik?.values?.ruPictures}
               onDelete={(url, name) => handleDeleteFile(url, name)}
             />
           </ComponentCard>
@@ -400,16 +405,28 @@ function UpdateEvent({
               multiple
               title="ویدیو رویداد فارسی"
               onFiles={setPeVideoFiles}
+              files={peVideoFiles}
+              formikVideos={formik?.values?.peVideo}
+              formik={formik}
+              name="peVideo"
             />
             <DropzoneVideoComponent
               multiple
               title="ویدیو رویداد انگلیسی"
               onFiles={setEnVideoFiles}
+              files={enVideoFiles}
+              formikVideos={formik?.values?.enVideo}
+              formik={formik}
+              name="enVideo"
             />
             <DropzoneVideoComponent
               multiple
               title="ویدیو رویداد روسی"
               onFiles={setRuVideoFiles}
+              formikVideos={formik?.values?.ruVideo}
+              files={ruVideoFiles}
+              formik={formik}
+              name="ruVideo"
             />
           </ComponentCard>
 

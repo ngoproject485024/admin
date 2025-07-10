@@ -224,7 +224,9 @@ function ContentAboutUs() {
           const responseMiddle = await uploadFiles(middleFormData);
 
           if (responseMiddle.success) {
-            values.middleImages = responseMiddle.data;
+            values.middleImages = values.middleImages.concat(
+              responseMiddle.data
+            );
             toast.success("تصاویر درباره ما آپلود شدند");
             setLoading(false);
           } else {
@@ -383,10 +385,12 @@ function ContentAboutUs() {
         <DropzoneComponent
           title="تصاویر"
           onFiles={setMiddleFiles}
+          files={middleFiles}
           formik={formik}
           formikImages={formik.values.middleImages}
           name="middleImages"
           multiple
+          max={2}
         />
         <ComponentCard title="">
           <div>
@@ -454,6 +458,7 @@ function ContentAboutUs() {
             title="تصویر مدیر اول"
             multiple={false}
             onFiles={setFirstBossFile}
+            files={firstBossFile}
             formik={formik}
             formikImages={formik?.values?.firstManagerImage}
             name="firstManagerImage"
@@ -591,9 +596,10 @@ function ContentAboutUs() {
             title="تصویر مدیر دوم"
             multiple={false}
             onFiles={setSecondBossFile}
+            files={secondBossFile}
             formik={formik}
             formikImages={formik?.values?.secondManagerImage}
-            name="firstManagerImage"
+            name="secondManagerImage"
           />
 
           <div>

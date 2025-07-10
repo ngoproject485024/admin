@@ -59,11 +59,12 @@ function ContentHome() {
     ngoAlgo,
   } = data?.data?.home ?? {};
 
+  console.log("afa", mainFile);
+
   const mutation = useMutation({
     mutationKey: ["homePage"],
     mutationFn: homePage,
     onSuccess: (data: any) => {
-      console.log("dddddddd", data);
       if (data.success) {
         toast.success("محتوای صفحه اصلی با موفقیت تغییر کرد");
         setMainFile([]);
@@ -145,7 +146,7 @@ function ContentHome() {
           const response = await uploadFiles(formData);
 
           if (response.success) {
-            values.mainImages = response.data;
+            values.mainImages = values.mainImages.concat(response.data);
             toast.success("تصاویر اصلی آپلود شدند");
           } else {
             toast.error("تصاویر اصلی آپلود نشدند ، لطفا دوباره امتحان کنید");
@@ -165,7 +166,9 @@ function ContentHome() {
           const responseMiddle = await uploadFiles(middleFormData);
 
           if (responseMiddle.success) {
-            values.middleImages = responseMiddle.data;
+            values.middleImages = values.middleImages.concat(
+              responseMiddle.data
+            );
             toast.success("تصاویر میانی آپلود شدند");
           } else {
             toast.error("تصاویر میانی آپلود نشدند ، لطفا دوباره امتحان کنید");
@@ -238,6 +241,7 @@ function ContentHome() {
           title="تصویر اصلی"
           multiple
           onFiles={setMainFile}
+          files={mainFile}
           formik={formik}
           formikImages={formik?.values?.mainImages}
           name="mainImages"
@@ -456,6 +460,7 @@ function ContentHome() {
             title="تصویر بنر دوم"
             multiple={false}
             onFiles={setSecondBannerFile}
+            files={secondBannerFile}
             formik={formik}
             formikImages={formik?.values?.secondBannerImage}
             name="secondBannerImage"

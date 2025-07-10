@@ -56,7 +56,6 @@ const navItems: NavItem[] = [
     subItems: [
       { name: "خانه", path: "/content/home", pro: false },
       { name: "درباره ما", path: "/content/about-us", pro: false },
-      { name: "ارتباط با ما", path: "/content/contact-us", pro: false },
       { name: "سمن", path: "/content/ngo", pro: false },
       { name: "ثبت نام سمن", path: "/content/ngos-registration", pro: false },
       { name: "آمار", path: "/content/statistics", pro: false },

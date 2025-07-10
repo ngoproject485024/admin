@@ -1,12 +1,14 @@
 import { useState } from "react";
 import ComponentCard from "../../common/ComponentCard";
 import { useDropzone } from "react-dropzone";
-import { TrashBinIcon } from "../../../icons";
+import { TimesIcon } from "../../../icons";
+import convertBlobToFile from "../../../utils/convertBlobToFile";
 
 interface IDropZoneComponent {
   title: string | undefined;
   multiple: boolean;
   onFiles?: (files: File[]) => void;
+  files?: File[];
   update?: string;
   formik?: any;
   onDelete?: (url: string, name: string) => void;
@@ -15,12 +17,14 @@ interface IDropZoneComponent {
   dropTitle?: string;
   dropDescription?: string;
   accept?: any;
+  max?: number;
 }
 
 const DropzoneComponent: React.FC<IDropZoneComponent> = ({
   title,
   multiple,
   onFiles,
+  files,
   update,
   formik,
   onDelete,
@@ -29,6 +33,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
   dropTitle,
   dropDescription,
   accept,
+  max,
 }) => {
   const [thumbImage, setThumbImage] = useState<string[]>([]);
 
@@ -39,9 +44,14 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
       return path;
     });
 
-    onFiles?.(acceptedFiles);
-    setThumbImage(paths);
-    formik.setFieldValue(name, []);
+    if (multiple) {
+      setThumbImage((prev: string[]) => [...prev, paths]);
+      onFiles?.((prev: File[]) => prev.concat(acceptedFiles));
+    } else {
+      setThumbImage(paths);
+      onFiles?.(acceptedFiles);
+      formik.setFieldValue(name, []);
+    }
   };
 
   const handleDelteFile = ({ url, name }: { url: string; name: string }) =>
@@ -56,7 +66,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
       "image/svg+xml": [],
     },
     multiple: multiple,
-    maxFiles: 5,
+    maxFiles: max || 5,
   });
   return (
     <ComponentCard title={title ? title : ""}>
@@ -75,7 +85,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
           {/* Hidden Input */}
           <input {...getInputProps()} />
 
-          <div className="dz-message flex flex-col items-center m-0!">
+          <div className="dz-message flex flex-col items-center m-0">
             {/* Icon Container */}
             <div className="mb-[22px] flex justify-center">
               <div className="flex h-[68px] w-[68px]  items-center justify-center rounded-full bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-400">
@@ -119,7 +129,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
               )}
             </span>
             <span className=" text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
-              حداکثر 5
+              {multiple ? <>حداکثر {max || 5}</> : <>حداکثر {max || 1}</>}
             </span>
 
             <span className="font-medium underline text-theme-sm text-brand-500">
@@ -127,23 +137,53 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
             </span>
           </div>
         </form>
-        {thumbImage && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center mb-3 w-full gap-5 flex-wrap">
-            {thumbImage?.map((file: string) => (
+
+        {formikImages && (
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 items-center justify-center mb-3 w-full gap-5 flex-wrap">
+            {formikImages?.map((image: string) => (
               <>
-                {accept && Object?.keys(accept).includes("application/pdf") ? (
-                  <object
-                    data={file || ""}
-                    type="application/pdf"
-                    className="w-full h-[500px]"
-                  />
+                {image?.slice(image.length - 3, image.length) === "pdf" ? (
+                  <div
+                    key={image}
+                    className="flex items-center justify-center mb-3 p-8 relative"
+                  >
+                    <div
+                      className="absolute top-0 right-0"
+                      onClick={() => {
+                        if (name) {
+                          const cpImages = [...formik.values[name]];
+                          const filterd = cpImages.filter((f) => f !== image);
+                          formik.setFieldValue(name, filterd);
+                        }
+                      }}
+                    >
+                      <TimesIcon className="text-red-500" />
+                    </div>
+                    <object
+                      data={image || ""}
+                      type="application/pdf"
+                      className="w-full h-[500px]"
+                    />
+                  </div>
                 ) : (
                   <div
-                    key={file}
-                    className="flex items-center justify-center mb-3 p-8 "
+                    key={image}
+                    className="flex items-center justify-center mb-3 p-8 relative"
                   >
+                    <div
+                      className="absolute top-0 right-0"
+                      onClick={() => {
+                        if (name) {
+                          const cpImages = [...formik.values[name]];
+                          const filterd = cpImages.filter((f) => f !== image);
+                          formik.setFieldValue(name, filterd);
+                        }
+                      }}
+                    >
+                      <TimesIcon className="text-red-500" />
+                    </div>
                     <img
-                      src={file}
+                      src={image}
                       alt="uploaded image"
                       className="object-contain"
                     />
@@ -153,19 +193,74 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
             ))}
           </div>
         )}
-        {formikImages && (
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 items-center justify-center mb-3 w-full gap-5 flex-wrap">
-            {formikImages?.map((image: string) => (
-              <div
-                key={image}
-                className="flex items-center justify-center mb-3 p-8"
-              >
-                <img
-                  src={image}
-                  alt="uploaded image"
-                  className="object-contain"
-                />
-              </div>
+
+        {thumbImage && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center mb-3 w-full gap-5 flex-wrap">
+            {thumbImage?.map((file: string) => (
+              <>
+                {accept && Object?.keys(accept).includes("application/pdf") ? (
+                  <div className="relative">
+                    <div
+                      className="absolute"
+                      onClick={() => {
+                        const cpThumbImage = [...thumbImage];
+                        const filtered = cpThumbImage.filter((f) => f !== file);
+                        setThumbImage(filtered);
+
+                        convertBlobToFile(file).then((getFile: File) => {
+                          if (files) {
+                            const cpFiles = [...files];
+                            const filtered = cpFiles.filter(
+                              (f) => f.size !== getFile.size
+                            );
+                            onFiles?.(filtered);
+                          }
+                        });
+                      }}
+                    >
+                      <TimesIcon color="red" />
+                    </div>
+                    <object
+                      data={file || ""}
+                      type="application/pdf"
+                      className="w-full h-[500px]"
+                    />
+                  </div>
+                ) : (
+                  <div className="relative">
+                    <div
+                      className="absolute"
+                      onClick={() => {
+                        const cpThumbImage = [...thumbImage];
+                        const filtered = cpThumbImage.filter((f) => f !== file);
+                        setThumbImage(filtered);
+
+                        convertBlobToFile(file).then((getFile: File) => {
+                          if (files) {
+                            const cpFiles = [...files];
+                            const filtered = cpFiles.filter(
+                              (f) => f.size !== getFile.size
+                            );
+                            onFiles?.(filtered);
+                          }
+                        });
+                      }}
+                    >
+                      <TimesIcon color="red" />
+                    </div>
+                    <div
+                      key={file}
+                      className="flex items-center justify-center mb-3 p-8 "
+                    >
+                      <img
+                        src={file}
+                        alt="uploaded image"
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
+                )}
+              </>
             ))}
           </div>
         )}
@@ -189,7 +284,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
                       handleDelteFile({ url: image, name: update })
                     }
                   >
-                    <TrashBinIcon fontSize={20} />
+                    <TimesIcon fontSize={20} />
                   </button>
                 </div>
               </div>
