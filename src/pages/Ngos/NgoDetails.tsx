@@ -111,7 +111,7 @@ function NgoDetails() {
         )}
         {data?.data?.ngo?.documentsFile?.length > 0 && (
           <ComponentCard title="مدارک و مستندات" className="col-span-3">
-            <div className="grid grid-cols-1 ">
+            <div className="grid grid-cols-1 gap-4">
               {data?.data?.ngo?.documentsFile?.map((file: string) => (
                 <div className="w-full flex flex-col justify-center items-center gap-2">
                   <object

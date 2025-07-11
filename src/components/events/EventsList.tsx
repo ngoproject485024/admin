@@ -27,12 +27,8 @@ interface IRow {
   peTitle: string;
   enTitle: string;
   ruTitle: string;
-  peDescription: string;
-  enDescription: string;
-  ruDescription: string;
-  peEventsBody: string;
-  enEventsBody: string;
-  ruEventsBody: string;
+  type: string;
+  ["admin.userName"]: string;
   actions: string;
 }
 
@@ -71,12 +67,32 @@ function EventsList() {
     { field: "peTitle", headerName: "عنوان فارسی" },
     { field: "enTitle", headerName: "عنوان انگلیسی" },
     { field: "ruTitle", headerName: "عنوان روسی" },
-    { field: "peDescription", headerName: "توضیحات فارسی" },
-    { field: "enDescription", headerName: "توضیحات انگلیسی" },
-    { field: "ruDescription", headerName: "توضیحات روسی" },
-    { field: "peEventsBody", headerName: "توضیحات تکمیلی فارسی" },
-    { field: "enEventsBody", headerName: "توضیحات تکمیلی انگلیسی" },
-    { field: "ruEventsBody", headerName: "توضیحات تکمیلی روسی" },
+    {
+      field: "type",
+      headerName: "محتوا",
+      cellRenderer: (params: any) => {
+        let isVideo = false;
+        let isPicture = false;
+        if (
+          params?.data?.peVideo?.length > 0 ||
+          params?.data?.enVideo?.length > 0 ||
+          params?.data?.ruVideo?.length > 0
+        ) {
+          isVideo = true;
+        }
+        if (
+          params?.data?.pePictures?.length > 0 ||
+          params?.data?.enPictures?.length > 0 ||
+          params?.data?.ruPictures?.length > 0
+        ) {
+          isPicture = true;
+        }
+
+        return `${isVideo ? "ویدیو" : " "} ${isPicture ? "تصویر" : " "}`;
+      },
+    },
+    { field: "admin.userName", headerName: "نام کاربری ادمین" },
+
     {
       field: "actions",
       headerName: "عملیات",
@@ -155,7 +171,7 @@ function EventsList() {
           enableRtl
           pagination
           localeText={AG_GRID_LOCALE_IR}
-          rowData={data && data.data}
+          rowData={data?.data?.event || []}
           columnDefs={colDefs}
           defaultColDef={defaultColDef}
         />

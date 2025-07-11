@@ -12,6 +12,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import TextAreaInput from "../../components/form/form-elements/TextAreaInput";
 import Loading from "../../components/loading";
+import Radio from "../../components/form/input/Radio";
 
 function ContentStatistics() {
   const { data, isLoading, refetch } = useQuery({
@@ -45,6 +46,9 @@ function ContentStatistics() {
       countriesPeDescription: data?.data?.countriesDescription?.peDescription,
       countriesEnDescription: data?.data?.countriesDescription?.enDescription,
       countriesRuDescription: data?.data?.countriesDescription?.ruDescription,
+      barChart: "",
+      pieChart: "",
+      mixChart: "",
     },
     validationSchema: Yup.object().shape({
       participationPeDescription: Yup.string().required(
@@ -200,6 +204,100 @@ function ContentStatistics() {
                   ? formik.errors.countriesRuDescription
                   : ""
               }
+            />
+          </div>
+        </ComponentCard>
+
+        <ComponentCard title="دیتای چارت ستونی">
+          <div>
+            <Radio
+              label="1"
+              className="my-2"
+              value={formik?.values.barChart}
+              onChange={() => formik.setFieldValue("barChart", "1")}
+              checked={formik?.values?.barChart === "1"}
+              id="1"
+              name="1"
+            />
+            <Radio
+              label="2"
+              className="my-2"
+              value={formik?.values.barChart}
+              onChange={() => formik.setFieldValue("barChart", "2")}
+              checked={formik?.values?.barChart === "2"}
+              id="2"
+              name="2"
+            />
+            <Radio
+              label="3"
+              className="my-2"
+              value={formik?.values.barChart}
+              onChange={() => formik.setFieldValue("barChart", "3")}
+              checked={formik?.values?.barChart === "3"}
+              id="3"
+              name="3"
+            />
+          </div>
+        </ComponentCard>
+        <ComponentCard title="دیتای چارت دایره ای">
+          <div>
+            <Radio
+              label="4"
+              className="my-2"
+              value={formik?.values.pieChart}
+              onChange={() => formik.setFieldValue("pieChart", "4")}
+              checked={formik?.values?.pieChart === "4"}
+              id="4"
+              name="4"
+            />
+            <Radio
+              label="5"
+              className="my-2"
+              value={formik?.values.pieChart}
+              onChange={() => formik.setFieldValue("pieChart", "5")}
+              checked={formik?.values?.pieChart === "5"}
+              id="5"
+              name="5"
+            />
+            <Radio
+              label="6"
+              className="my-2"
+              value={formik?.values.pieChart}
+              onChange={() => formik.setFieldValue("pieChart", "6")}
+              checked={formik?.values?.pieChart === "6"}
+              id="6"
+              name="6"
+            />
+          </div>
+        </ComponentCard>
+        <ComponentCard title="دیتای چارت ترکیبی">
+          <div>
+            <Radio
+              label="7"
+              className="my-2"
+              value={formik?.values.mixChart}
+              onChange={() => formik.setFieldValue("mixChart", "7")}
+              checked={formik?.values?.mixChart === "7"}
+              id="7"
+              name="7"
+            />
+            <Radio
+              label="8"
+              className="my-2"
+              value={formik?.values.mixChart}
+              onChange={() => formik.setFieldValue("mixChart", "8")}
+              checked={formik?.values?.mixChart === "8"}
+              id="8"
+              name="8"
+            />
+            <Radio
+              label="9"
+              className="my-2"
+              value={formik?.values.mixChart}
+              onChange={() => formik.setFieldValue("mixChart", "9")}
+              checked={formik?.values?.mixChart === "9"}
+              id="9"
+              name="9"
             />
           </div>
         </ComponentCard>

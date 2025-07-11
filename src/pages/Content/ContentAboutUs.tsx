@@ -303,7 +303,10 @@ function ContentAboutUs() {
       />
       <PageBreadcrumb pageTitle="محتوا" subMenu="درباه ما" />
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
-        <ComponentCard title="">
+        <ComponentCard
+          title="عنوان درباره ما"
+          desc="عنوان درباره ما عنوان درباره ما  توضیحات عنوان درباره ما"
+        >
           <div>
             <TextAreaInput
               // value={message}
@@ -319,8 +322,7 @@ function ContentAboutUs() {
               }
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+
           <div>
             <TextAreaInput
               // value={message}
@@ -336,8 +338,7 @@ function ContentAboutUs() {
               }
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+
           <div>
             <TextAreaInput
               // value={message}
@@ -354,6 +355,7 @@ function ContentAboutUs() {
             />
           </div>
         </ComponentCard>
+
         <ComponentCard title="">
           <div>
             <TextEditor

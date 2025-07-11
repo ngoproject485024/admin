@@ -26,12 +26,8 @@ interface IRow {
   peTitle: string;
   enTitle: string;
   ruTitle: string;
-  peDescription: string;
-  enDescription: string;
-  ruDescription: string;
-  peEducationBody: string;
-  enEducationBody: string;
-  ruEducationBody: string;
+  type: string;
+  ["admin.userName"]: string;
   actions: string;
 }
 
@@ -66,16 +62,38 @@ function EducationList() {
     queryFn: getEducations,
   });
 
+  console.log("adfaf", data);
+
   const [colDefs] = useState<ColDef<IRow>[]>([
     { field: "peTitle", headerName: "عنوان فارسی" },
     { field: "enTitle", headerName: "عنوان انگلیسی" },
     { field: "ruTitle", headerName: "عنوان روسی" },
-    { field: "peDescription", headerName: "توضیحات فارسی" },
-    { field: "enDescription", headerName: "توضیحات انگلیسی" },
-    { field: "ruDescription", headerName: "توضیحات روسی" },
-    { field: "peEducationBody", headerName: "توضیحات تکمیلی فارسی" },
-    { field: "enEducationBody", headerName: "توضیحات تکمیلی انگلیسی" },
-    { field: "ruEducationBody", headerName: "توضیحات تکمیلی روسی" },
+    {
+      field: "type",
+      headerName: "محتوا",
+      cellStyle: { display: "flex", justifyContent: "center" },
+      cellRenderer: (params: any) => {
+        let isVideo = false;
+        let isPicture = false;
+        if (
+          params?.data?.peVideo?.length > 0 ||
+          params?.data?.enVideo?.length > 0 ||
+          params?.data?.ruVideo?.length > 0
+        ) {
+          isVideo = true;
+        }
+        if (
+          params?.data?.pePictures?.length > 0 ||
+          params?.data?.enPictures?.length > 0 ||
+          params?.data?.ruPictures?.length > 0
+        ) {
+          isPicture = true;
+        }
+
+        return `${isVideo ? "ویدیو" : " "} ${isPicture ? "تصویر" : " "}`;
+      },
+    },
+    { field: "admin.userName", headerName: "نام کاربری ادمین" },
     {
       field: "actions",
       headerName: "عملیات",
@@ -154,7 +172,7 @@ function EducationList() {
           enableRtl
           pagination
           localeText={AG_GRID_LOCALE_IR}
-          rowData={data && data.data}
+          rowData={data?.data?.educations || []}
           columnDefs={colDefs}
           defaultColDef={defaultColDef}
         />
