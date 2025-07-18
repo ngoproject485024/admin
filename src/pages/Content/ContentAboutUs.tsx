@@ -353,6 +353,7 @@ function ContentAboutUs() {
             />
           </div>
         </ComponentCard>
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
         <ComponentCard title="متن درباره ما"  desc="متن درباره ما در وسط صفحه ی درباره ما به همراه عکسی که در بخش بعدی ست می شود.">
           <div>
             <TextEditor
@@ -379,6 +380,7 @@ function ContentAboutUs() {
           lang="en"
         />
       </ComponentCard>
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
         <DropzoneComponent
           title="تصاویر مربوط به متن درباره ما در وسط صفحه درباره ما."
           onFiles={setMiddleFiles}
@@ -389,6 +391,7 @@ function ContentAboutUs() {
           multiple
           max={2}
         />
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
         <ComponentCard title="توضیحات تکمیلی" 
         desc="توضیحات تکمیلی مربوط به درباره ما در وسط صفحه درباره ما در کنار عکس.">
           <div>
@@ -417,6 +420,7 @@ function ContentAboutUs() {
             />
           </div>
         </ComponentCard>
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
         <ComponentCard title="اهداف و دستاورد ها" 
         desc="اهداف و دستاورد ها در صفحه درباره ما در انتهای صفحه">
           <div>
@@ -446,7 +450,7 @@ function ContentAboutUs() {
             />
           </div>
         </ComponentCard>
-
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
         <ComponentCard title="بخش تنظیم پیام و عکس مدیر اول برای نشان دادن و همچنین نشان دادن یا ندادن پیام مدیر در انتهای بخش مشخص می شود.">
           <DropzoneComponent
             title="تصویر مدیر اول"
@@ -584,7 +588,7 @@ function ContentAboutUs() {
             />
           </div>
         </ComponentCard>
-
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
         <ComponentCard title="بخش تنظیم پیام و عکس مدیر دوم برای نشان دادن و همچنین نشان دادن یا ندادن پیام مدیر در انتهای بخش تعیین میشود">
           <DropzoneComponent
             title="تصویر مدیر دوم"
