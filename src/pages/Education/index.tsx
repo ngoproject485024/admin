@@ -5,8 +5,8 @@ import EducationList from "../../components/education/EducationLists";
 function EducationPage() {
   return (
     <div>
-      <PageMeta title="آموزش و پرورش " description="آموزش و پرورش" />
-      <PageBreadcrumb pageTitle="آموزش و پرورش" subMenu="لیست آموزش ها" />
+      <PageMeta title="آموزش " description="آموزش" />
+      <PageBreadcrumb pageTitle="آموزش" subMenu="لیست آموزش ها" />
       <EducationList />
     </div>
   );

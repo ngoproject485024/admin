@@ -27,12 +27,12 @@ function ContentEducation() {
     mutationFn: createDescriptionPage,
     onSuccess: (data: any) => {
       if (data.success) {
-        toast.success("محتوای صفحه آموزش و پرورش با موفقیت تغییر کرد");
+        toast.success("محتوای صفحه آموزش با موفقیت تغییر کرد");
         formik.resetForm();
         refetch();
       } else {
         toast.error(
-          "متاسفانه محتوای صفحه آموزش و پرورش تغییر نکرد ، لطفا مجددا تلاش کنید"
+          "متاسفانه محتوای صفحه آموزش تغییر نکرد ، لطفا مجددا تلاش کنید"
         );
       }
     },
@@ -70,15 +70,15 @@ function ContentEducation() {
   return (
     <div>
       <PageMeta
-        title="محتوا | آموزش و پرورش"
-        description="محتوای صفحه آموزش و پرورش"
+        title="محتوا | آموزش "
+        description="محتوای صفحه آموزش "
       />
-      <PageBreadcrumb pageTitle="محتوا" subMenu="آموزش و پرورش" />
+      <PageBreadcrumb pageTitle="محتوا" subMenu="آموزش " />
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-">
-        <ComponentCard title="توضیحات آموزش و پرورش">
+        <ComponentCard title="توضیحات آموزش ">
           <div>
             {/* <TextEditor
-              title="توضیحات آموزش و پرورش (فارسی)"
+              title="توضیحات آموزش (فارسی)"
               formik={formik}
               name="peDescription"
               lang="fa"
@@ -86,7 +86,7 @@ function ContentEducation() {
             <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}
-              title="توضیحات آموزش و پرورش (فارسی)"
+              title="توضیحات آموزش  (فارسی)"
               formik={formik}
               name="peDescription"
               error={formik.errors.peDescription ? true : false}
@@ -99,7 +99,7 @@ function ContentEducation() {
           </div>
           <div>
             {/* <TextEditor
-              title="توضیحات آموزش و پرورش (انگلیسی)"
+              title="توضیحات آموزش (انگلیسی)"
               formik={formik}
               name="enDescription"
               lang="en"
@@ -107,7 +107,7 @@ function ContentEducation() {
             <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}
-              title="توضیحات آموزش و پرورش (انگلیسی)"
+              title="توضیحات آموزش  (انگلیسی)"
               formik={formik}
               name="enDescription"
               error={formik.errors.enDescription ? true : false}
@@ -120,7 +120,7 @@ function ContentEducation() {
           </div>
           <div>
             {/* <TextEditor
-              title="توضیحات آموزش و پرورش (روسی)"
+              title="توضیحات آموزش (روسی)"
               formik={formik}
               name="ruDescription"
               lang="en"
@@ -128,7 +128,7 @@ function ContentEducation() {
             <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}
-              title="توضیحات آموزش و پرورش (روسی)"
+              title="توضیحات آموزش  (روسی)"
               formik={formik}
               name="ruDescription"
               error={formik.errors.ruDescription ? true : false}

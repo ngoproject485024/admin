@@ -30,7 +30,7 @@ const navItems: NavItem[] = [
   },
   {
     icon: <EducationIcon />,
-    name: "آموزش و پرورش",
+    name: "آموزش",
     path: "/education",
   },
   {
@@ -59,7 +59,7 @@ const navItems: NavItem[] = [
       { name: "سمن", path: "/content/ngo", pro: false },
       { name: "ثبت نام سمن", path: "/content/ngos-registration", pro: false },
       { name: "آمار", path: "/content/statistics", pro: false },
-      { name: "آموزش و پرورش", path: "/content/education", pro: false },
+      { name: "آموزش ", path: "/content/education", pro: false },
       { name: "رویداد ها", path: "/content/events", pro: false },
       { name: "ابتکارات مشترک", path: "/content/good-practice", pro: false },
       { name: "پروژه های فعال", path: "/content/ongoing-projects", pro: false },
