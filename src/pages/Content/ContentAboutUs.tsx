@@ -305,7 +305,7 @@ function ContentAboutUs() {
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
         <ComponentCard
           title="عنوان درباره ما"
-          desc="عنوان درباره ما عنوان درباره ما  توضیحات عنوان درباره ما"
+          desc="در این بخش توضیحات مختصری که در صفحه ی درباره ی ما در بالای صفحه قرار دارد وارد می شود."
         >
           <div>
             <TextAreaInput
@@ -322,7 +322,6 @@ function ContentAboutUs() {
               }
             />
           </div>
-
           <div>
             <TextAreaInput
               // value={message}
@@ -338,7 +337,6 @@ function ContentAboutUs() {
               }
             />
           </div>
-
           <div>
             <TextAreaInput
               // value={message}
@@ -355,8 +353,7 @@ function ContentAboutUs() {
             />
           </div>
         </ComponentCard>
-
-        <ComponentCard title="">
+        <ComponentCard title="متن درباره ما"  desc="متن درباره ما در وسط صفحه ی درباره ما به همراه عکسی که در بخش بعدی ست می شود.">
           <div>
             <TextEditor
               title="توضیحات درباه ما (فارسی)"
@@ -365,8 +362,7 @@ function ContentAboutUs() {
               lang="fa"
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+        
           <div>
             <TextEditor
               title="توضیحات درباه ما (انگلیسی)"
@@ -375,7 +371,6 @@ function ContentAboutUs() {
               lang="en"
             />
           </div>
-        </ComponentCard>
 
         <TextEditor
           title="توضیحات درباه ما (روسی)"
@@ -383,9 +378,9 @@ function ContentAboutUs() {
           name="ruDescription"
           lang="en"
         />
-
+      </ComponentCard>
         <DropzoneComponent
-          title="تصاویر"
+          title="تصاویر مربوط به متن درباره ما در وسط صفحه درباره ما."
           onFiles={setMiddleFiles}
           files={middleFiles}
           formik={formik}
@@ -394,7 +389,8 @@ function ContentAboutUs() {
           multiple
           max={2}
         />
-        <ComponentCard title="">
+        <ComponentCard title="توضیحات تکمیلی" 
+        desc="توضیحات تکمیلی مربوط به درباره ما در وسط صفحه درباره ما در کنار عکس.">
           <div>
             <TextEditor
               title="توضیحات تصاویر میانی (فارسی)"
@@ -403,8 +399,6 @@ function ContentAboutUs() {
               lang="fa"
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
           <div>
             <TextEditor
               title="توضیحات تصاویر میانی (انگلیسی)"
@@ -413,8 +407,7 @@ function ContentAboutUs() {
               lang="en"
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+
           <div>
             <TextEditor
               title="توضیحات تصاویر میانی (روسی)"
@@ -424,7 +417,8 @@ function ContentAboutUs() {
             />
           </div>
         </ComponentCard>
-        <ComponentCard title="">
+        <ComponentCard title="اهداف و دستاورد ها" 
+        desc="اهداف و دستاورد ها در صفحه درباره ما در انتهای صفحه">
           <div>
             <TextEditor
               title="توضیحات اهداف و دستاورد ها (فارسی)"
@@ -433,8 +427,7 @@ function ContentAboutUs() {
               lang="fa"
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+              
           <div>
             <TextEditor
               title="توضیحات اهداف و دستاورد ها (انگلیسی)"
@@ -443,8 +436,7 @@ function ContentAboutUs() {
               lang="en"
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+        
           <div>
             <TextEditor
               title="توضیحات اهداف و دستاورد ها (روسی)"
@@ -455,7 +447,7 @@ function ContentAboutUs() {
           </div>
         </ComponentCard>
 
-        <ComponentCard title="مدیر اول">
+        <ComponentCard title="بخش تنظیم پیام و عکس مدیر اول برای نشان دادن و همچنین نشان دادن یا ندادن پیام مدیر در انتهای بخش مشخص می شود.">
           <DropzoneComponent
             title="تصویر مدیر اول"
             multiple={false}
@@ -593,7 +585,7 @@ function ContentAboutUs() {
           </div>
         </ComponentCard>
 
-        <ComponentCard title="مدیر دوم">
+        <ComponentCard title="بخش تنظیم پیام و عکس مدیر دوم برای نشان دادن و همچنین نشان دادن یا ندادن پیام مدیر در انتهای بخش تعیین میشود">
           <DropzoneComponent
             title="تصویر مدیر دوم"
             multiple={false}
