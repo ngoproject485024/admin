@@ -92,6 +92,7 @@ function ContentNgosRegistration() {
       <PageBreadcrumb pageTitle="محتوا" subMenu="ثبت نام سمن" />
       <div className="flex flex-col gap-2">
         <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
+          <ComponentCard title="اطلاعات راهنمای ثبت نام سمن ها">
           <DropzoneComponent
             accept={{ "application/pdf": [] }}
             title="فایل راهنمای ثبت نام"
@@ -104,7 +105,7 @@ function ContentNgosRegistration() {
             dropTitle="فایل را بکشید و رها کنید"
             dropDescription="فایل PDF خود را اینجا بکشید و رها کنید"
           />
-          <ComponentCard title="">
+
             <div>
               <TextAreaInput
                 // value={message}
@@ -120,8 +121,7 @@ function ContentNgosRegistration() {
                 }
               />
             </div>
-          </ComponentCard>
-          <ComponentCard title="">
+        
             <div>
               <TextAreaInput
                 // value={message}
@@ -137,8 +137,7 @@ function ContentNgosRegistration() {
                 }
               />
             </div>
-          </ComponentCard>
-          <ComponentCard title="">
+         
             <div>
               <TextAreaInput
                 // value={message}

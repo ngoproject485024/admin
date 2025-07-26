@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getSpecificProject } from "../../server/ngos";
 import Loading from "../../components/loading";
 import ComponentCard from "../../components/common/ComponentCard";
+import { object } from "yup";
 
 function NgoProjectDetails() {
   const params = useParams<{ id?: string }>();
@@ -90,9 +91,9 @@ function NgoProjectDetails() {
             {data?.data?.visualDocuments?.map(
               (item: { files: string[]; title: string }) => (
                 <>
-                  {item?.files[0].slice(item?.files[0].length - 3) === "png" ||
-                  item?.files[0].slice(item?.files[0].length - 3) === "jpg" ||
-                  item?.files[0].slice(item?.files[0].length - 4) === "jpeg" ? (
+                  {Object.keys(item).length>0 && item?.files[0].slice(item?.files[0].length - 3) === "png" ||
+                   Object.keys(item).length>0 && item?.files[0].slice(item?.files[0].length - 3) === "jpg" ||
+                  Object.keys(item).length>0 && item?.files[0].slice(item?.files[0].length - 4) === "jpeg" ? (
                     <div
                       key={item?.files[0]}
                       className="flex flex-col justify-center items-center gap-2"

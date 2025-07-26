@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getSpecificNgo } from "../../server/ngos";
 import Loading from "../../components/loading";
 import ComponentCard from "../../components/common/ComponentCard";
+import Button from "../../components/ui/button/Button";
 
 function NgoDetails() {
   const params = useParams<{ id?: string }>();
@@ -27,6 +28,7 @@ function NgoDetails() {
         pageTitle="سمن ها"
         subMenu="مدیریت سمن ها"
         subTwoMenu="جزئیات سمن"
+        subMenuLink = "/ngos/manage-ngos"
       />
       <div className="flex justify-center py-10">
         <img
@@ -124,6 +126,14 @@ function NgoDetails() {
             </div>
           </ComponentCard>
         )}
+        <Button
+          // variant="outline"
+          onClick={() => {
+            console.log('its for testttttt')
+          }}
+        >
+          خروج
+        </Button>
       </div>
       {/* <NgosList /> */}
     </div>

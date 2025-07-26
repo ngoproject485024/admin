@@ -220,7 +220,7 @@ function ContentAboutUs() {
           middleFiles.forEach((file) => {
             middleFormData.append("picture", file);
           });
-
+          console.log('its hereeee' , middleFiles)
           const responseMiddle = await uploadFiles(middleFormData);
 
           if (responseMiddle.success) {

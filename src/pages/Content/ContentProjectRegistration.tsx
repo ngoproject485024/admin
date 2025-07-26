@@ -92,6 +92,7 @@ function ContentProjectRegistration() {
       <PageBreadcrumb pageTitle="محتوا" subMenu="ثبت پروژه" />
       <div className="flex flex-col gap-2">
         <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
+          <ComponentCard title="اطلاعات صفحه ثبت پروژه در دشبور سمن">
           <DropzoneComponent
             accept={{ "application/pdf": [] }}
             title="فایل راهنمای ثبت پروژه"
@@ -104,7 +105,7 @@ function ContentProjectRegistration() {
             dropTitle="فایل را بکشید و رها کنید"
             dropDescription="فایل PDF خود را اینجا بکشید و رها کنید"
           />
-          <ComponentCard title="">
+          
             <div>
               <TextAreaInput
                 // value={message}
@@ -120,8 +121,7 @@ function ContentProjectRegistration() {
                 }
               />
             </div>
-          </ComponentCard>
-          <ComponentCard title="">
+          
             <div>
               <TextAreaInput
                 // value={message}
@@ -137,8 +137,7 @@ function ContentProjectRegistration() {
                 }
               />
             </div>
-          </ComponentCard>
-          <ComponentCard title="">
+          
             <div>
               <TextAreaInput
                 // value={message}

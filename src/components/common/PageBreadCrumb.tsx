@@ -1,13 +1,17 @@
+import { Link } from "react-router";
+
 interface BreadcrumbProps {
   pageTitle: string;
   subMenu?: string | undefined;
   subTwoMenu?: string | undefined;
+  subMenuLink ?: string | undefined
 }
 
 const PageBreadcrumb: React.FC<BreadcrumbProps> = ({
   pageTitle,
   subMenu,
   subTwoMenu,
+  subMenuLink,
 }) => {
   return (
     <div className="flex flex-col juc flex-wrap items-start  gap-3 mb-6">
@@ -40,9 +44,9 @@ const PageBreadcrumb: React.FC<BreadcrumbProps> = ({
               />
             </svg>
           </li>
-          <li className="text-sm text-gray-800 dark:text-white/90">
+          <Link to={subMenuLink ? subMenuLink : ''} className="text-sm text-gray-800 dark:text-white/90">
             {subMenu}
-          </li>
+          </Link>
           {subTwoMenu && (
             <>
               <li className="text-sm text-gray-800 dark:text-white/90">

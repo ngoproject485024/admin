@@ -237,6 +237,7 @@ function ContentHome() {
       <PageMeta title="محتوا | خانه" description="محتوای صفحه اصلی سایت" />
       <PageBreadcrumb pageTitle="محتوا" subMenu="خانه" />
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
+        <ComponentCard title='عکس های مربوط به اسلایدر عکس موجود در صفحه ی اصلی سایت' desc="">
         <DropzoneComponent
           title="تصویر اصلی"
           multiple
@@ -246,7 +247,9 @@ function ContentHome() {
           formikImages={formik?.values?.mainImages}
           name="mainImages"
         />
-
+        </ComponentCard>
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
+        <ComponentCard title="توضیحات تگ شده بر روی اسلایدر عکس صفحه اصلی سایت" desc="">
         <TextAreaInput
           title="توضیحات صفحه اصلی (فارسی)"
           formik={formik}
@@ -282,7 +285,9 @@ function ContentHome() {
               : ""
           }
         />
-
+      </ComponentCard>
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
+        <ComponentCard title='توضیحات مربوط به بخش اسلایدر پروژه ها' desc="">
         <TextAreaInput
           title="توضیحات بخش پروژه ها (فارسی)"
           formik={formik}
@@ -318,7 +323,9 @@ function ContentHome() {
               : ""
           }
         />
-
+        </ComponentCard>
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
+        <ComponentCard title='توضیحات مربوط به بخش درباره ما در صفحه اصلی سایت' desc="">
         <TextAreaInput
           title="توضیحات درباره ما (فارسی)"
           formik={formik}
@@ -354,7 +361,9 @@ function ContentHome() {
               : ""
           }
         />
-
+        </ComponentCard>
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
+        <ComponentCard title="توضیحات مربوط به بخش اسلایدر سمن ها" desc="">
         <TextAreaInput
           title="توضیحات سمن ها (فارسی)"
           formik={formik}
@@ -390,8 +399,9 @@ function ContentHome() {
               : ""
           }
         />
-
-        <ComponentCard title="بنر اول">
+        </ComponentCard>
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
+        <ComponentCard title="اطلاعات بنر اول در صفحه اصلی سایت">
           <DropzoneComponent
             title="تصویر بنر اول"
             multiple={false}
@@ -455,7 +465,8 @@ function ContentHome() {
             </div>
           </div>
         </ComponentCard>
-        <ComponentCard title="بنر دوم">
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
+        <ComponentCard title="اطلاعات مربوط به بنر دوم در صفحه اصلی سایت">
           <DropzoneComponent
             title="تصویر بنر دوم"
             multiple={false}
@@ -532,8 +543,8 @@ function ContentHome() {
             </div>
           </div>
         </ComponentCard>
-
-        <ComponentCard title="ترتیب نمایش سمن ها">
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
+        <ComponentCard title="مشخص کردن ترتیب نمایش سمن ها در اسلایدر سمن ها در صفحه اصلی سایت">
           <div className="mt-4 flex flex-col gap-2">
             <Checkbox
               label="پر بازدید ترین"

@@ -62,7 +62,7 @@ function ContentOngoingProjects() {
       />
       <PageBreadcrumb pageTitle="محتوا" subMenu="پروژه های فعال" />
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
-        <ComponentCard title="">
+        <ComponentCard title="توضیحات نمایش داده شده در صفحه پروژه های فعال که در بالای صفحه نمایش داده می شود">
           <div>
             <TextAreaInput
               title="توضیحات پروژه های فعال (فارسی)"

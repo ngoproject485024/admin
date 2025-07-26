@@ -55,7 +55,7 @@ function ContentNgo() {
       <PageMeta title="محتوا | سمن" description="محتوای صفحه سمن" />
       <PageBreadcrumb pageTitle="محتوا" subMenu="سمن" />
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
-        <ComponentCard title="">
+        <ComponentCard title="توضیحات مربوط به صفحه سمن ها در بالای صفحه">
           <div>
             <TextAreaInput
               // value={message}
@@ -71,8 +71,7 @@ function ContentNgo() {
               }
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+       
           <div>
             <TextAreaInput
               // value={message}
@@ -88,8 +87,7 @@ function ContentNgo() {
               }
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+      
           <div>
             <TextAreaInput
               // value={message}

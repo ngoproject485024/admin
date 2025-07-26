@@ -89,6 +89,7 @@ function ContentDocumentRegistration() {
       <PageBreadcrumb pageTitle="محتوا" subMenu="ثبت اسناد و مدارک" />
       <div className="flex flex-col gap-2">
         <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
+          <ComponentCard title="اطلاعات آموزش ثبت اسناد و مدارک نمایش داده شده در صفحه ثبت اسناد در دشبورد سمن">
           <DropzoneComponent
             accept={{ "application/pdf": [] }}
             title="فایل راهنمای ثبت اسناد و مدارک"
@@ -101,7 +102,6 @@ function ContentDocumentRegistration() {
             dropTitle="فایل را بکشید و رها کنید"
             dropDescription="فایل PDF خود را اینجا بکشید و رها کنید"
           />
-          <ComponentCard title="">
             <div>
               <TextAreaInput
                 // value={message}
@@ -117,8 +117,7 @@ function ContentDocumentRegistration() {
                 }
               />
             </div>
-          </ComponentCard>
-          <ComponentCard title="">
+
             <div>
               <TextAreaInput
                 // value={message}
@@ -134,8 +133,7 @@ function ContentDocumentRegistration() {
                 }
               />
             </div>
-          </ComponentCard>
-          <ComponentCard title="">
+         
             <div>
               <TextAreaInput
                 // value={message}

@@ -438,7 +438,7 @@ function UpdateEvent({
               variant="outline"
               onClick={() => {
                 formik.resetForm();
-                onClose();
+                onClose();   
               }}
             >
               انصراف

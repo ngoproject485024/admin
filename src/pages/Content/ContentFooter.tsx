@@ -109,6 +109,7 @@ const ContentFooter = () => {
       <PageMeta title="محتوا | فوتر" description="محتوای صفحه فوتر" />
       <PageBreadcrumb pageTitle="محتوا" subMenu="فوتر" />
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
+        <ComponentCard title="عکس لوگوی فوتر سایت">
         <DropzoneComponent
           title="لوگو"
           multiple={false}
@@ -118,7 +119,9 @@ const ContentFooter = () => {
           formikImages={formik?.values?.logo}
           name="logo"
         />
-        <ComponentCard title="">
+        </ComponentCard>
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
+        <ComponentCard title="توضیحات بخش فوتر سایت">
           <div>
             <TextAreaInput
               // value={message}
@@ -134,8 +137,7 @@ const ContentFooter = () => {
               }
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+        
           <div>
             <TextAreaInput
               // value={message}
@@ -151,8 +153,7 @@ const ContentFooter = () => {
               }
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+        
           <div>
             <TextAreaInput
               // value={message}
@@ -169,7 +170,8 @@ const ContentFooter = () => {
             />
           </div>
         </ComponentCard>
-        <ComponentCard title="">
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
+        <ComponentCard title="آدرس نمایش داده شده در فوتر سایت">
           <div>
             <TextAreaInput
               // value={message}
@@ -185,8 +187,7 @@ const ContentFooter = () => {
               }
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+       
           <div>
             <TextAreaInput
               // value={message}
@@ -202,8 +203,7 @@ const ContentFooter = () => {
               }
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+       
           <div>
             <TextAreaInput
               // value={message}
@@ -219,8 +219,9 @@ const ContentFooter = () => {
               }
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+         </ComponentCard>
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
+        <ComponentCard title="اطلاعات تماس موجود در فوتر سایت">
           <div>
             <Label htmlFor="gmail">ایمیل</Label>
             <Input
@@ -235,8 +236,7 @@ const ContentFooter = () => {
               {...formik.getFieldProps("gmail")}
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+        
           <div>
             <Label htmlFor="phone">شماره تلفن</Label>
             <Input
@@ -251,8 +251,7 @@ const ContentFooter = () => {
               {...formik.getFieldProps("phone")}
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+
           <div>
             <Label htmlFor="instaLink">لینک اینستاگرام</Label>
             <Input
@@ -267,8 +266,7 @@ const ContentFooter = () => {
               {...formik.getFieldProps("instaLink")}
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+       
           <div>
             <Label htmlFor="xLink">لینک ایکس</Label>
             <Input
@@ -283,8 +281,7 @@ const ContentFooter = () => {
               {...formik.getFieldProps("xLink")}
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+       
           <div>
             <Label htmlFor="linkedInLink">لینک لینکدین</Label>
             <Input
@@ -299,8 +296,7 @@ const ContentFooter = () => {
               {...formik.getFieldProps("linkedInLink")}
             />
           </div>
-        </ComponentCard>
-        <ComponentCard title="">
+       
           <div>
             <Label htmlFor="faceBookLink">لینک فیس بوک</Label>
             <Input

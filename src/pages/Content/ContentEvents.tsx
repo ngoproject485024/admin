@@ -71,7 +71,7 @@ const ContentEvents = () => {
       <PageMeta title="محتوا | رویداد ها" description="محتوای صفحه رویداد ها" />
       <PageBreadcrumb pageTitle="محتوا" subMenu="رویداد ها" />
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
-        <ComponentCard title="توضیحات رویداد">
+        <ComponentCard title="توضیحات صفحه رویداد که در بالای صفحه نمایش داده میشود">
           <div>
             <TextAreaInput
               // value={message}

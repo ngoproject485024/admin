@@ -65,7 +65,7 @@ function ContentGoodPractice() {
       />
       <PageBreadcrumb pageTitle="محتوا" subMenu="ابتکارات مشترک" />
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
-        <ComponentCard title="">
+        <ComponentCard title="توضیحات نمایش داده شده در صفحه پروژه های ابتکارات مشترک در بالای صفحه">
           <div>
             <TextAreaInput
               title="توضیحات صفحه ابتکارات مشترک (فارسی)"

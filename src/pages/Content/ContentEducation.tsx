@@ -75,7 +75,7 @@ function ContentEducation() {
       />
       <PageBreadcrumb pageTitle="محتوا" subMenu="آموزش " />
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-">
-        <ComponentCard title="توضیحات آموزش ">
+        <ComponentCard title="توضیحات صفحه ی آموزش سایت در بالای صفحه">
           <div>
             {/* <TextEditor
               title="توضیحات آموزش (فارسی)"
