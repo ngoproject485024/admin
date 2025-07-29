@@ -8,7 +8,7 @@ const token = () => {
     return token;
   }
 };
-
+  console.log('its hereeee444' , import.meta.env.VITE_API_URL)
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {

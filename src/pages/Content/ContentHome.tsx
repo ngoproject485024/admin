@@ -574,7 +574,9 @@ function ContentHome() {
           <Button type="submit" isLoading={mutation.isPending || isLoading}>
             ثبت
           </Button>
-          <Button variant="outline">انصراف</Button>
+          <Button variant="outline" onClick={() =>{ 
+            console.log('hjello')
+            formik.resetForm()}}>انصراف</Button>
         </div>
       </form>
     </div>

@@ -13,13 +13,14 @@ import Input from "../form/input/InputField";
 import { useTheme } from "../../context/ThemeContext";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Button from "../ui/button/Button";
-import { PlusIcon, TrashBinIcon, UpdateIcon } from "../../icons";
+import { PlusIcon, TrashBinIcon, UpdateIcon ,AcceptIcon } from "../../icons";
 import Confirm from "../confirm";
 import toast from "react-hot-toast";
 import { deleteAdmin, getAdmin } from "../../server/admin";
 import moment from "jalali-moment";
 import CreateAdmin from "./createAdmin";
 import UpdateAdmin from "./updateAdmin";
+import UpdateAdminAccess from "./updateAdminAccess";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -39,9 +40,11 @@ function AdminList() {
   const [isOpenCreate, setIsOpenCreate] = useState<boolean>(false);
   const [isOpenDel, setIsOpenDel] = useState<string>("");
   const [isOpenUp, setIsOpenUp] = useState<string>("");
+  const [isOpenUpAccess, setIsOpenUpAccess] = useState<string>("");
 
   const handleCloseConfirm = () => setIsOpenDel("");
   const handleCloseUp = () => setIsOpenUp("");
+  const handleCloseUpAccess = () => setIsOpenUpAccess("");
   const handleCloseCreate = () => setIsOpenCreate(false);
 
   const deleteMutation = useMutation({
@@ -105,6 +108,19 @@ function AdminList() {
           >
             <UpdateIcon />
           </Button>
+          {/* its for accesspoint of the admin */}
+          <Button
+            variant="primary"
+            className="bg-yellow-400 hover:bg-yellow-500"
+            size="sm"
+            onClick={() => {
+              console.log('data issss >>>> ' , params.data._id)
+              setIsOpenUpAccess(params.data._id);
+            }}
+            >
+            <AcceptIcon />
+          </Button>
+          {/* its for accesspoint of the admin */}
         </div>
       ),
     },
@@ -189,6 +205,14 @@ function AdminList() {
         refetch={refetch}
         id={isOpenUp}
       />
+
+      <UpdateAdminAccess
+        isOpen={!!isOpenUpAccess}
+        onClose={handleCloseUpAccess}
+        refetch={refetch}
+        id={isOpenUpAccess}
+      />
+
     </>
   );
 }

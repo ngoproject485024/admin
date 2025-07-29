@@ -118,6 +118,10 @@ function NgoProjectsList() {
               <span className="bg-green-400 rounded-full text-sm p-1 text-gray-900">
                 تایید شده
               </span>
+            ) : params?.value === 3 ? (
+              <span className="bg-amber-300 rounded-full text-sm p-1 text-gray-900">
+                در انتظار تایید آپدیت
+              </span>
             ) : (
               <span className="bg-red-500 rounded-full text-sm p-1">
                 رد شده

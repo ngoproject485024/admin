@@ -60,6 +60,18 @@ export const getSingleAdmin = async (id: string) => {
   }
 };
 
+export const getAccessPoint = async (id: string) => {
+  try {
+    const { data } = await instance.get(`/admin/access/${id}`);
+
+    return data;
+  } catch (err: any) {
+    console.error(err);
+
+    return err?.response;
+  }
+};
+
 export const getUserLogs = async () => {
   try {
     const { data } = await instance.get(`/users/log/all`);

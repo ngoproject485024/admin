@@ -13,6 +13,7 @@ export const getAboutUs = async () => {
 
 export const createAboutUs = async (values: any) => {
   try {
+    console.log('value here isssss>>>>' , typeof(values))
     const { data } = await instance.post("/page/aboutus/create", values);
 
     return data;

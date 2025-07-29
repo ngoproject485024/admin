@@ -208,7 +208,7 @@ function ContentAboutUs() {
     enableReinitialize: true,
     onSubmit: async (values: any) => {
       setLoading(true);
-
+      console.log('111111')
       if (
         firstBossFile.length > 0 ||
         secondBossFile.length > 0 ||
@@ -280,8 +280,11 @@ function ContentAboutUs() {
           }
         }
 
-        setLoading(false);
+        // setLoading(false);
 
+        mutation.mutate(values);
+      }else {
+        console.log('valueeeees' , values)
         mutation.mutate(values);
       }
     },
@@ -734,7 +737,7 @@ function ContentAboutUs() {
         </ComponentCard>
 
         <div className="flex gap-2 mt-2">
-          <Button isLoading={mutation.isPending || loading} type="submit">
+          <Button type="submit" isLoading={mutation.isPending || loading} >
             ثبت
           </Button>
           <Button variant="outline" onClick={() => formik.resetForm()}>
