@@ -173,7 +173,7 @@ const formik = useFormik({
               </div>
               <hr className="border-black" />
               <div className="flex items-center">
-                <label className="inline-flex items-center bg-blue-300 p-2 rounded-md cursor-pointer">
+                <label className="inline-flex items-center bg-blue-300 p-2 gap-3 rounded-md cursor-pointer">
                   <input
                     type="checkbox"
                     checked={page.access}
