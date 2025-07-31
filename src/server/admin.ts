@@ -35,6 +35,17 @@ export const updateAdmin = async (id: string, values: any) => {
     return err?.response;
   }
 };
+export const updateAdminAccess = async (id: string, values: any) => {
+  try {
+    const { data } = await instance.post(`/admin/access/update/${id}`, values);
+
+    return data;
+  } catch (err: any) {
+    console.error(err);
+
+    return err?.response;
+  }
+};
 
 export const deleteAdmin = async (id: string) => {
   try {

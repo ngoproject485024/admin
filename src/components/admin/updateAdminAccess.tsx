@@ -6,7 +6,7 @@ import { Modal } from "../ui/modal";
 import Button from "../ui/button/Button";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { getAccessPoint, updateAdmin } from "../../server/admin";
+import { getAccessPoint , updateAdminAccess } from "../../server/admin";
 // import { adminSchema } from "../../utils/validation";
 
 function UpdateAdminAccess({
@@ -30,26 +30,27 @@ function UpdateAdminAccess({
 const formik = useFormik({
   initialValues:  {pages : data?.data},
   enableReinitialize: true,
-  validationSchema: {},
+  // validationSchema: {},
   onSubmit: (values: any) => {
-      console.log(values)
-  //   mutation.mutate({ id, values });
+      // console.log('after submit' , values)
+    mutation.mutate({ id, values });
   },
 });
 
  const handleAccessChange = (index : any, value : any) => {
+   console.log('val',value)
     const updatedPages = [...formik.values?.pages];
     updatedPages[index].access = value;
     formik.setFieldValue('pages', updatedPages);
   };
 //its herr for update 
   const mutation = useMutation({
-    mutationKey: ["updateAdmin"],
+    mutationKey: ["updateAdminAccrss"],
     mutationFn: ({ id, values }: { id: string; values: any }) =>
-      updateAdmin(id, values),
+      updateAdminAccess(id, values),
     onSuccess: (data: any) => {
       if (data?.success) {
-        toast.success("ادمین با موفقیت به روزرسانی شد");
+        toast.success("  سطح دسترسی ادمین با موفقیت به روزرسانی شد");
         formik.resetForm();
         onClose();
         refetch();
