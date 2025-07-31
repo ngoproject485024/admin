@@ -14,14 +14,10 @@ function TextEditor({ title, formik, name, lang }: Props) {
   const editorRef = useRef<any | null>(null);
   const { theme } = useTheme();
 
-  console.log(lang);
-
   const init = useMemo(() => {
     return {
       height: 500,
       language: lang === "fa" ? "fa" : "en",
-      skin: theme === "dark" ? "oxide-dark" : "oxide",
-      content_css: theme === "dark" ? "dark" : "default",
 
       skin: window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "oxide-dark"
@@ -34,7 +30,7 @@ function TextEditor({ title, formik, name, lang }: Props) {
       toolbar:
         "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat",
     };
-  }, []);
+  }, [theme]);
 
   useEffect(() => {
     if (editorRef.current) {
@@ -52,9 +48,6 @@ function TextEditor({ title, formik, name, lang }: Props) {
       editorRef.current.setContent(content);
     }
   }, [theme, init, lang]);
-
-
-  console.log(formik?.values?.[name])
 
   return (
     <ComponentCard title={title ? title : ""}>

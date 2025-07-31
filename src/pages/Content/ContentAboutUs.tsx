@@ -208,7 +208,6 @@ function ContentAboutUs() {
     enableReinitialize: true,
     onSubmit: async (values: any) => {
       setLoading(true);
-      console.log('111111')
       if (
         firstBossFile.length > 0 ||
         secondBossFile.length > 0 ||
@@ -220,7 +219,7 @@ function ContentAboutUs() {
           middleFiles.forEach((file) => {
             middleFormData.append("picture", file);
           });
-          console.log('its hereeee' , middleFiles)
+          console.log("its hereeee", middleFiles);
           const responseMiddle = await uploadFiles(middleFormData);
 
           if (responseMiddle.success) {
@@ -283,9 +282,10 @@ function ContentAboutUs() {
         // setLoading(false);
 
         mutation.mutate(values);
-      }else {
-        console.log('valueeeees' , values)
-        mutation.mutate(values);
+      } else {
+        // console.log("vvvv", values);
+
+        mutation.mutate(JSON.stringify(values));
       }
     },
   });
@@ -357,7 +357,10 @@ function ContentAboutUs() {
           </div>
         </ComponentCard>
         <hr className="border-t border-black-200 dark:border-white-800 my-8" />
-        <ComponentCard title="متن درباره ما"  desc="متن درباره ما در وسط صفحه ی درباره ما به همراه عکسی که در بخش بعدی ست می شود.">
+        <ComponentCard
+          title="متن درباره ما"
+          desc="متن درباره ما در وسط صفحه ی درباره ما به همراه عکسی که در بخش بعدی ست می شود."
+        >
           <div>
             <TextEditor
               title="توضیحات درباه ما (فارسی)"
@@ -366,7 +369,7 @@ function ContentAboutUs() {
               lang="fa"
             />
           </div>
-        
+
           <div>
             <TextEditor
               title="توضیحات درباه ما (انگلیسی)"
@@ -376,13 +379,13 @@ function ContentAboutUs() {
             />
           </div>
 
-        <TextEditor
-          title="توضیحات درباه ما (روسی)"
-          formik={formik}
-          name="ruDescription"
-          lang="en"
-        />
-      </ComponentCard>
+          <TextEditor
+            title="توضیحات درباه ما (روسی)"
+            formik={formik}
+            name="ruDescription"
+            lang="en"
+          />
+        </ComponentCard>
         <hr className="border-t border-black-200 dark:border-white-800 my-8" />
         <DropzoneComponent
           title="تصاویر مربوط به متن درباره ما در وسط صفحه درباره ما."
@@ -395,8 +398,10 @@ function ContentAboutUs() {
           max={2}
         />
         <hr className="border-t border-black-200 dark:border-white-800 my-8" />
-        <ComponentCard title="توضیحات تکمیلی" 
-        desc="توضیحات تکمیلی مربوط به درباره ما در وسط صفحه درباره ما در کنار عکس.">
+        <ComponentCard
+          title="توضیحات تکمیلی"
+          desc="توضیحات تکمیلی مربوط به درباره ما در وسط صفحه درباره ما در کنار عکس."
+        >
           <div>
             <TextEditor
               title="توضیحات تصاویر میانی (فارسی)"
@@ -424,8 +429,10 @@ function ContentAboutUs() {
           </div>
         </ComponentCard>
         <hr className="border-t border-black-200 dark:border-white-800 my-8" />
-        <ComponentCard title="اهداف و دستاورد ها" 
-        desc="اهداف و دستاورد ها در صفحه درباره ما در انتهای صفحه">
+        <ComponentCard
+          title="اهداف و دستاورد ها"
+          desc="اهداف و دستاورد ها در صفحه درباره ما در انتهای صفحه"
+        >
           <div>
             <TextEditor
               title="توضیحات اهداف و دستاورد ها (فارسی)"
@@ -434,7 +441,7 @@ function ContentAboutUs() {
               lang="fa"
             />
           </div>
-              
+
           <div>
             <TextEditor
               title="توضیحات اهداف و دستاورد ها (انگلیسی)"
@@ -443,7 +450,7 @@ function ContentAboutUs() {
               lang="en"
             />
           </div>
-        
+
           <div>
             <TextEditor
               title="توضیحات اهداف و دستاورد ها (روسی)"
@@ -737,7 +744,7 @@ function ContentAboutUs() {
         </ComponentCard>
 
         <div className="flex gap-2 mt-2">
-          <Button type="submit" isLoading={mutation.isPending || loading} >
+          <Button type="submit" isLoading={mutation.isPending || loading}>
             ثبت
           </Button>
           <Button variant="outline" onClick={() => formik.resetForm()}>
