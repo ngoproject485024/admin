@@ -37,8 +37,12 @@ import DynamicPages from "./pages/DynamicPages/DynamicPages";
 import CreateDynamicPage from "./pages/CreateDynamicPage";
 import ContentProjectRegistration from "./pages/Content/ContentProjectRegistration";
 import ContentDocumentRegistration from "./pages/Content/ContentDocumentRegistration";
+import {getCookie} from "./utils/cookie";
+
 
 export default function App() {
+  let allAccess = getCookie('admin-miras-access')
+  console.log('allAccresss' , allAccess)
   return (
     <>
       <Router>

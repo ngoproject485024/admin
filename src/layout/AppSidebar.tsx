@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
+import {getCookie} from "../utils/cookie";
+
+
+let allAccess = getCookie('admin-miras-access')
+console.log('allAccresss', allAccess)
+
 
 // Assume these icons are imported from an icon library
 import {
@@ -19,6 +25,7 @@ type NavItem = {
   name: string;
   icon: React.ReactNode;
   path?: string;
+  englishName : string;
   subItems?: { name: string; path: string; pro?: boolean; new?: boolean }[];
 };
 
@@ -27,21 +34,25 @@ const navItems: NavItem[] = [
     icon: <GridIcon />,
     name: "داشبورد",
     path: "/",
+    englishName : 'dashboard'
   },
   {
     icon: <EducationIcon />,
     name: "آموزش",
     path: "/education",
+    englishName : 'education'
   },
   {
     icon: <EventsIcon />,
     name: "رویدادها",
     path: "/events",
+    englishName : 'events'
   },
   {
     icon: <ManageIcon />,
     name: "سمن ها",
     path: "/ngos",
+    englishName : 'ngos',
     subItems: [
       { name: "مدیریت سمن ها", path: "/ngos/manage-ngos", pro: false },
       { name: "مدیریت مدارک ها", path: "/ngos/manage-docs", pro: false },
@@ -53,6 +64,7 @@ const navItems: NavItem[] = [
     icon: <ContentIcon />,
     name: "محتوا",
     path: "/content",
+    englishName : 'content',
     subItems: [
       { name: "خانه", path: "/content/home", pro: false },
       { name: "درباره ما", path: "/content/about-us", pro: false },
@@ -89,6 +101,7 @@ const navItems: NavItem[] = [
   {
     icon: <DynamicPageIcon />,
     name: "صفحات داینامیک",
+    englishName : 'dynamic-pages',
     subItems: [
       { name: "صفحات", path: "/dynamic-pages", pro: false },
       { name: "صفحه جدید", path: "/dynamic-pages/new-page", pro: false },
@@ -97,6 +110,7 @@ const navItems: NavItem[] = [
   {
     icon: <AdminIcon />,
     name: "ادمین",
+    englishName : 'admin',
     subItems: [
       { name: "مدیریت ادمین", path: "/admin", pro: false },
       { name: "گزارشات ادمین", path: "/admin/admin-reports", pro: false },
@@ -104,6 +118,20 @@ const navItems: NavItem[] = [
     ],
   },
 ];
+
+let validNavItems = []
+
+for (let i of navItems){
+  console.log('replages')
+  if (allAccess.includes(i.englishName) || i.englishName === 'dashboard' ){
+    validNavItems.push(i)
+  }
+}
+
+
+console.log('validNavItems' , validNavItems)
+
+
 
 const othersItems: NavItem[] = [
   // {
@@ -140,6 +168,7 @@ const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen } = useSidebar();
   const location = useLocation();
 
+
   const [openSubmenu, setOpenSubmenu] = useState<{
     type: "main" | "others";
     index: number;
@@ -158,7 +187,7 @@ const AppSidebar: React.FC = () => {
   useEffect(() => {
     let submenuMatched = false;
     ["main", "others"].forEach((menuType) => {
-      const items = menuType === "main" ? navItems : othersItems;
+      const items = menuType === "main" ? validNavItems : othersItems;
       items.forEach((nav, index) => {
         if (nav.subItems) {
           nav.subItems.forEach((subItem) => {
@@ -206,7 +235,9 @@ const AppSidebar: React.FC = () => {
 
   const renderMenuItems = (items: NavItem[], menuType: "main" | "others") => (
     <ul className="flex flex-col gap-4">
-      {items.map((nav, index) => (
+
+      {items.map((nav, index) => 
+      (
         <li key={nav.name}>
           {nav.subItems ? (
             <button
@@ -358,7 +389,7 @@ const AppSidebar: React.FC = () => {
                   <HorizontaLDots className="size-6" />
                 )}
               </h2>
-              {renderMenuItems(navItems, "main")}
+              {renderMenuItems(validNavItems, "main")}
             </div>
             {/* <div className="">
               <h2

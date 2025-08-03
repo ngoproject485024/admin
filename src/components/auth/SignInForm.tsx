@@ -24,6 +24,7 @@ export default function SignInForm() {
     onSuccess: (data) => {
       if (data.success) {
         setCookie("admin-miras-token", data.data.token, 7);
+        setCookie("admin-miras-access", data.data.access, 7);
         navigate("/", { replace: true });
       } else {
         toast.error(data?.error);
