@@ -3,9 +3,6 @@ import { Link, useLocation } from "react-router";
 import {getCookie} from "../utils/cookie";
 
 
-let allAccess = getCookie('admin-miras-access')
-console.log('allAccresss', allAccess)
-
 
 // Assume these icons are imported from an icon library
 import {
@@ -119,19 +116,6 @@ const navItems: NavItem[] = [
   },
 ];
 
-let validNavItems = []
-
-for (let i of navItems){
-  console.log('replages')
-  if (allAccess.includes(i.englishName) || i.englishName === 'dashboard' ){
-    validNavItems.push(i)
-  }
-}
-
-
-console.log('validNavItems' , validNavItems)
-
-
 
 const othersItems: NavItem[] = [
   // {
@@ -163,10 +147,25 @@ const othersItems: NavItem[] = [
   //   ],
   // },
 ];
+let validNavItems :any = []
 
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen } = useSidebar();
   const location = useLocation();
+  
+  useEffect(() => {
+    let allAccess = getCookie('admin-miras-access')
+    console.log('allAccresss', allAccess)
+    validNavItems = []
+    for (let i of navItems) {
+      console.log('replages')
+      if (allAccess?.includes(i.englishName) || i.englishName === 'dashboard') {
+        validNavItems.push(i)
+      } else {
+        console.log('ggg')
+      }
+    }
+  })
 
 
   const [openSubmenu, setOpenSubmenu] = useState<{
@@ -188,9 +187,9 @@ const AppSidebar: React.FC = () => {
     let submenuMatched = false;
     ["main", "others"].forEach((menuType) => {
       const items = menuType === "main" ? validNavItems : othersItems;
-      items.forEach((nav, index) => {
+      items.forEach((nav : any, index : any) => {
         if (nav.subItems) {
-          nav.subItems.forEach((subItem) => {
+          nav.subItems.forEach((subItem : any) => {
             if (isActive(subItem.path)) {
               setOpenSubmenu({
                 type: menuType as "main" | "others",

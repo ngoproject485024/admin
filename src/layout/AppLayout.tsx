@@ -14,7 +14,7 @@ const LayoutContent: React.FC = () => {
 
   useEffect(() => {
     const cookie = getCookie("admin-miras-token");
-
+    
     if (cookie) {
       navigate("/", { replace: true });
     } else {
