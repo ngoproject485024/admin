@@ -92,7 +92,7 @@ function ContentAboutUs() {
         : "",
       permitedToShowFirstManager: data?.data?.permitedToShowFirstManager
         ? data?.data?.permitedToShowFirstManager
-        : true,
+        : false,
       secondManagerImage: data?.data?.secondManagerImage
         ? data?.data?.secondManagerImage
         : [],
