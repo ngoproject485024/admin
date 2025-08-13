@@ -92,7 +92,7 @@ function ContentAboutUs() {
         : "",
       permitedToShowFirstManager: data?.data?.permitedToShowFirstManager
         ? data?.data?.permitedToShowFirstManager
-        : true,
+        : false,
       secondManagerImage: data?.data?.secondManagerImage
         ? data?.data?.secondManagerImage
         : [],
@@ -120,9 +120,9 @@ function ContentAboutUs() {
         ?.ruSecondManagerFooterDescription
         ? data?.data?.ruSecondManagerFooterDescription
         : "",
-      permitedToShowSecondManager: data?.data?.permitedToShowFirstManager
-        ? data?.data?.permitedToShowFirstManager
-        : true,
+      permitedToShowSecondManager: data?.data?.permitedToShowSecondManager
+        ? data?.data?.permitedToShowSecondManager
+        : false,
     },
     validationSchema: Yup.object().shape({
       peDescription: Yup.string().required("لطفا توضیحات فارسی را وارد کنید"),
@@ -208,6 +208,7 @@ function ContentAboutUs() {
     enableReinitialize: true,
     onSubmit: async (values: any) => {
       setLoading(true);
+      console.log('seted value isss>>>>' , values )
       if (
         firstBossFile.length > 0 ||
         secondBossFile.length > 0 ||
@@ -588,11 +589,11 @@ function ContentAboutUs() {
           <div className="mt-4 flex flex-col gap-2">
             <Checkbox
               label="نمایش پیام مدیر"
-              checked={formik.values.premitedToShowFirstManager}
+              checked={formik.values.permitedToShowFirstManager}
               onChange={() => {
                 formik.setFieldValue(
                   "permitedToShowFirstManager",
-                  !formik.values.premitedToShowFirstManager
+                  !formik.values.permitedToShowFirstManager
                 );
               }}
             />
@@ -732,11 +733,11 @@ function ContentAboutUs() {
           <div className="mt-4 flex flex-col gap-2">
             <Checkbox
               label="نمایش پیام مدیر"
-              checked={formik.values.premitedToShowSecondManager}
+              checked={formik.values.permitedToShowSecondManager}
               onChange={() => {
                 formik.setFieldValue(
                   "permitedToShowSecondManager",
-                  !formik.values.premitedToShowSecondManager
+                  !formik.values.permitedToShowSecondManager
                 );
               }}
             />
