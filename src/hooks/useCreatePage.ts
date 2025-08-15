@@ -179,21 +179,6 @@ function useCreatePage(
       path: "",
       hasSubPage: false,
       hasSecondSubPage: false,
-      template: 1,
-      subPage: {
-        peTitle: "",
-        enTitle: "",
-        ruTitle: "",
-        path: "",
-        template: 1,
-      },
-      secondSubPage: {
-        peTitle: "",
-        enTitle: "",
-        ruTitle: "",
-        path: "",
-        template: 1,
-      },
     },
     onSubmit: async (values: any) => {
       startLoading();

@@ -8,15 +8,16 @@ interface Props {
   formik: any;
   name: string;
   lang: "fa" | "en";
+  onChange?: (value: string) => void;
 }
 
-function TextEditor({ title, formik, name, lang }: Props) {
+function TextEditor({ title, formik, name, lang, onChange }: Props) {
   const editorRef = useRef<any | null>(null);
   const { theme } = useTheme();
 
   const init = useMemo(() => {
     return {
-      height: 500,
+      height: 350,
       language: lang === "fa" ? "fa" : "en",
 
       skin: window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -59,7 +60,11 @@ function TextEditor({ title, formik, name, lang }: Props) {
         onInit={(evt, editor) => (editorRef.current = editor)}
         // initialValue={formik?.values?.[name] || formik?.values?.[name]}
         onEditorChange={(e) => {
-          formik.setFieldValue(name, e);
+          if (onChange) {
+            onChange(e);
+          } else {
+            formik.setFieldValue(name, e);
+          }
         }}
       />
     </ComponentCard>

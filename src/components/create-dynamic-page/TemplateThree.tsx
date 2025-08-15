@@ -79,7 +79,199 @@ function TemplteThree({
 
   return (
     <>
-      <ComponentCard title="عنوان صفحه" className="mt-4">
+      <div className="flex dark:text-white gap-2">
+        <div
+          className="flex-1 justify-center flex p-5 border-1 rounded-md font-bold text-lg items-center cursor-pointer shadow-md"
+          onClick={() => {
+            const peTitles = [
+              ...(formikTemplateThreePage.values.peTitles || []),
+            ];
+            peTitles.push("");
+            formikTemplateThreePage.setFieldValue("peTitles", peTitles);
+            const enTitles = [
+              ...(formikTemplateThreePage.values.enTitles || []),
+            ];
+            enTitles.push("");
+            formikTemplateThreePage.setFieldValue("enTitles", enTitles);
+            const ruTitles = [
+              ...(formikTemplateThreePage.values.ruTitles || []),
+            ];
+            ruTitles.push("");
+            formikTemplateThreePage.setFieldValue("ruTitles", ruTitles);
+          }}
+        >
+          <PlusIcon />
+          <span>افزودن عنوان</span>
+        </div>
+
+        <div
+          className="flex-1 justify-center flex p-5 border-1 rounded-md font-bold text-lg items-center cursor-pointer shadow-md"
+          onClick={() => {
+            const peDescriptions = [
+              ...(formikTemplateThreePage.values.peDescriptions || []),
+            ];
+            peDescriptions.push("");
+            formikTemplateThreePage.setFieldValue(
+              "peDescriptions",
+              peDescriptions
+            );
+            const enDescriptions = [
+              ...(formikTemplateThreePage.values.enDescriptions || []),
+            ];
+            enDescriptions.push("");
+            formikTemplateThreePage.setFieldValue(
+              "enDescriptions",
+              enDescriptions
+            );
+            const ruDescriptions = [
+              ...(formikTemplateThreePage.values.ruDescriptions || []),
+            ];
+            ruDescriptions.push("");
+            formikTemplateThreePage.setFieldValue(
+              "ruDescriptions",
+              ruDescriptions
+            );
+          }}
+        >
+          <PlusIcon />
+          <span>افزودن توضیحات</span>
+        </div>
+        <div className="flex-1 justify-center flex p-5 border-1 rounded-md font-bold text-lg items-center cursor-pointer shadow-md">
+          <PlusIcon />
+          <span>افزودن تصویر</span>
+        </div>
+      </div>
+
+      <div className="flex mt-5 items-center">
+        {formikTemplateThreePage.values.peTitles?.map((title, index) => (
+          <div key={index} className="w-full mt-5 flex gap-2 ">
+            <Input
+              type="text"
+              placeholder="عنوان فارسی را وارد کنید"
+              value={title}
+              onChange={(e) => {
+                const peTitles = [...formikTemplateThreePage.values.peTitles];
+                peTitles[index] = e.target.value;
+                formikTemplateThreePage.setFieldValue("peTitles", peTitles);
+              }}
+            />
+          </div>
+        ))}
+        {formikTemplateThreePage.values.enTitles?.map((title, index) => (
+          <div key={index} className="w-full mt-5 flex gap-2 ">
+            <Input
+              type="text"
+              placeholder="عنوان انگلیسی را وارد کنید"
+              value={title}
+              onChange={(e) => {
+                const enTitles = [...formikTemplateThreePage.values.enTitles];
+                enTitles[index] = e.target.value;
+                formikTemplateThreePage.setFieldValue("enTitles", enTitles);
+              }}
+            />
+          </div>
+        ))}
+        {formikTemplateThreePage.values.ruTitles?.map((title, index) => (
+          <div key={index} className="w-full mt-5 flex gap-2">
+            <Input
+              type="text"
+              placeholder="عنوان روسی را وارد کنید"
+              value={title}
+              onChange={(e) => {
+                const ruTitles = [...formikTemplateThreePage.values.ruTitles];
+                ruTitles[index] = e.target.value;
+                formikTemplateThreePage.setFieldValue("ruTitles", ruTitles);
+              }}
+            />
+          </div>
+        ))}
+        {formikTemplateThreePage.values.peTitles && (
+          <Button
+            className="bg-red-500 hover:bg-red-800 h-min"
+            size="sm"
+            startIcon={<TrashBinIcon />}
+          >
+            حذف
+          </Button>
+        )}
+      </div>
+
+      <div className="flex flex-col mt-5 items-center">
+        {formikTemplateThreePage.values.peDescriptions?.map((title, index) => (
+          <div key={index} className="w-full mt-14 flex gap-2 ">
+            <TextEditor
+              formik={formikTemplateThreePage}
+              lang="fa"
+              name="peDescriptions"
+              title="توضیحات فارسی را وارد کنید"
+              onChange={(e: string) => {
+                const peDescriptions = [
+                  ...formikTemplateThreePage.values.peDescriptions,
+                ];
+                peDescriptions[index] = e;
+                formikTemplateThreePage.setFieldValue(
+                  "peDescriptions",
+                  peDescriptions
+                );
+              }}
+            />
+          </div>
+        ))}
+        {formikTemplateThreePage.values.enDescriptions?.map((title, index) => (
+          <div key={index} className="w-full mt-5 flex gap-2 ">
+            <TextEditor
+              formik={formikTemplateThreePage}
+              lang="en"
+              name="enDescriptions"
+              title="توضیحات انگلیسی را وارد کنید"
+              onChange={(e: string) => {
+                const enDescriptions = [
+                  ...formikTemplateThreePage.values.enDescriptions,
+                ];
+                enDescriptions[index] = e;
+                formikTemplateThreePage.setFieldValue(
+                  "enDescriptions",
+                  enDescriptions
+                );
+              }}
+            />
+          </div>
+        ))}
+        {formikTemplateThreePage.values.ruDescriptions?.map((title, index) => (
+          <div key={index} className="w-full mt-5 flex gap-2">
+            <TextEditor
+              formik={formikTemplateThreePage}
+              lang="en"
+              name="ruDescriptions"
+              title="توضیحات روسی را وارد کنید"
+              onChange={(e: string) => {
+                const ruDescriptions = [
+                  ...formikTemplateThreePage.values.ruDescriptions,
+                ];
+                ruDescriptions[index] = e;
+                formikTemplateThreePage.setFieldValue(
+                  "ruDescriptions",
+                  ruDescriptions
+                );
+              }}
+            />
+          </div>
+        ))}
+        {formikTemplateThreePage.values.peDescriptions && (
+          <Button
+            className="bg-red-500 hover:bg-red-800 h-min absolute left-6"
+            size="sm"
+            startIcon={<TrashBinIcon />}
+          >
+            حذف
+          </Button>
+        )}
+      </div>
+      <hr className="my-5" />
+      <div className="dark:text-white font-bold text-2xl">
+        <h2>پیش نمایش</h2>
+      </div>
+      {/* <ComponentCard title="عنوان صفحه" className="mt-4">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <Label htmlFor="pe-input">عنوان فارسی</Label>
@@ -182,7 +374,7 @@ function TemplteThree({
               )}
           </div>
         </div>
-      </ComponentCard>
+      </ComponentCard> */}
       {/* <ComponentCard title="ستون های جدول" className="mt-4 relative">
         <Button
           className="absolute top-2 left-2"
@@ -489,7 +681,7 @@ function TemplteThree({
             </ComponentCard>
           )
         )} */}
-      <div className="mt-4 flex gap-2">
+      {/* <div className="mt-4 flex gap-2">
         <Button
           type={formik?.values?.hasSubPage ? "button" : "submit"}
           onClick={() => {
@@ -509,7 +701,7 @@ function TemplteThree({
         >
           قبلی
         </Button>
-      </div>
+      </div> */}
     </>
   );
 }

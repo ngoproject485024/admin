@@ -12,9 +12,9 @@ export const uploadFiles = async (valuse: FormData) => {
     );
 
     return data;
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
-    return false;
+    return err?.response?.data;
   }
 };
 

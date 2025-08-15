@@ -13,13 +13,13 @@ export const getAllDynamicPages = async () => {
 };
 export const createPage = async (values: any) => {
   try {
-    const { data } = await instance.post("page/create", values);
+    const { data } = await instance.post("page/v2/create", values);
 
     return data;
   } catch (err: any) {
     console.log(err);
 
-    return err;
+    return err?.response?.data;
   }
 };
 
