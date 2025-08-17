@@ -205,7 +205,6 @@ function StepOne({
           </ComponentCard>
         </>
       )}
-      {/* 09052477823 */}
       {formik.values.hasSecondSubPage && (
         <>
           <ComponentCard title="عنوان صفحه فرعی" className="mt-4">
