@@ -87,11 +87,20 @@ function FormPage() {
 
   return (
     <>
+      Step {step}
       <form onSubmit={formik.handleSubmit}>
         {/* //? عنوان و مسیر صفحه */}
         {step === 1 && <StepOne formik={formik} onStep={handleSetStep} />}
         {/* //? قالب صفحه */}
         {step === 2 && (
+          <StepTwo
+            formik={formik}
+            onStep={handleSetStep}
+            step={step}
+            isLoading={isLoading}
+          />
+        )}
+        {step === 3 && (
           <StepTwo
             formik={formik}
             onStep={handleSetStep}

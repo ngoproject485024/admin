@@ -10,6 +10,10 @@ function StepOne({
   formik: any;
   onStep: (step: number) => void;
 }) {
+  console.log("iiiiiiiii", formik.values);
+
+  const { peTitle, enTitle, ruTitle, path } = formik.values;
+
   return (
     <>
       <ComponentCard title="عنوان صفحه">
@@ -297,7 +301,23 @@ function StepOne({
         </>
       )}
       <div className="mt-4">
-        <Button onClick={() => onStep(2)}>بعدی</Button>
+        <Button
+          disabled={
+            peTitle.length !== 0 &&
+            enTitle.length !== 0 &&
+            ruTitle.length !== 0 &&
+            path.length !== 0
+              ? false
+              : true
+          }
+          onClick={() => {
+            if(formik?.values?.hasSubPage) {
+              // onStep(2)
+            }
+          }}
+        >
+          بعدی
+        </Button>
       </div>
     </>
   );
