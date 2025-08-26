@@ -8,6 +8,7 @@ interface FormPageType {
   peContent: any[];
   enContent: any[];
   ruContent: any[];
+  show: boolean;
 }
 
 export default FormPageType;

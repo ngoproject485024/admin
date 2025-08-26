@@ -1,4 +1,5 @@
 import { ReactComponent as PlusIcon } from "./plus.svg?react";
+import { ReactComponent as TreeIcon } from "./tree.svg?react";
 import { ReactComponent as WordIcon } from "./word.svg?react";
 import { ReactComponent as DynamicPageIcon } from "./dynamic-page.svg?react";
 import { ReactComponent as AdminIcon } from "./admin.svg?react";
@@ -65,6 +66,7 @@ import { ReactComponent as UpdateIcon } from "./update.svg?react";
 
 export {
   UpdateIcon,
+  TreeIcon,
   WordIcon,
   DynamicPageIcon,
   AdminIcon,
