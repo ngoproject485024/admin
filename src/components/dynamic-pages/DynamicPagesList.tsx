@@ -14,10 +14,11 @@ import { useTheme } from "../../context/ThemeContext";
 // import CreateEducation from "./CreateEducation";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Button from "../ui/button/Button";
-import { TrashBinIcon, UpdateIcon } from "../../icons";
+import { TrashBinIcon, TreeIcon, UpdateIcon } from "../../icons";
 import Confirm from "../confirm";
 import toast from "react-hot-toast";
 import { deletePage, getAllDynamicPages } from "../../server/dynamic-page";
+import { useNavigate } from "react-router";
 // import UpdateEducation from "./UpdateEducation";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -43,6 +44,8 @@ function DynamicPagesList() {
   const handleCloseConfirm = () => setIsOpenDel("");
   const handleCloseUp = () => setIsOpenUp("");
 
+  const navigate = useNavigate();
+
   const mutation = useMutation({
     mutationKey: ["deletePage"],
     mutationFn: deletePage,
@@ -63,53 +66,76 @@ function DynamicPagesList() {
     queryFn: getAllDynamicPages,
   });
 
-  console.log("cccccc", data);
-
   const [colDefs] = useState<ColDef<IRow>[]>([
     { field: "peTitle", headerName: "عنوان فارسی" },
-    { field: "enTitle", headerName: "عنوان انگلیسی" },
-    { field: "ruTitle", headerName: "عنوان روسی" },
-    { field: "path", headerName: "مسیر صفحه" },
+    {
+      field: "enTitle",
+      headerName: "عنوان انگلیسی",
+      cellStyle: { textAlign: "left" },
+    },
+    {
+      field: "ruTitle",
+      headerName: "عنوان روسی",
+      cellStyle: { textAlign: "left" },
+    },
+    {
+      field: "path",
+      headerName: "مسیر صفحه",
+      cellStyle: { textAlign: "center" },
+    },
     {
       field: "hasSubPage",
       headerName: "مسیر فرعی",
-      cellRenderer: (params: { value: boolean }) =>
-        params?.value ? "دارد" : "ندارد",
-    },
-    {
-      field: "template",
-      headerName: "قالب صفحه",
-      cellRenderer: (params: { value: number }) =>
-        params?.value === 1 ? "قالب اول" : params?.value === 2 ? "قالب دوم" : "قالب سوم",
+      cellRenderer: (params: { value: boolean }) => (
+        <div className="checkbox-wrapper-14 mt-3 flex gap-2 items-center justify-center">
+          <input
+            id="s1-14"
+            type="checkbox"
+            className="switch"
+            defaultChecked={params.value}
+            checked={params.value}
+          />
+        </div>
+      ),
     },
 
     {
       field: "actions",
       headerName: "عملیات",
       cellRenderer: (params: any) => (
-        <div className="flex gap-2">
+        <div className="flex gap-2 mt-1">
           <Button
             variant="primary"
             className="bg-rose-500 hover:bg-rose-800"
             size="sm"
-            startIcon={<TrashBinIcon />}
             onClick={() => {
               setIsOpenDel(params.data._id);
             }}
           >
-            حذف
+            <TrashBinIcon />
           </Button>
           <Button
             variant="primary"
             className="bg-yellow-400 hover:bg-yellow-500"
             size="sm"
-            startIcon={<UpdateIcon />}
             onClick={() => {
               setIsOpenUp(params.data._id);
               setUpdateValues(params.data);
             }}
           >
-            به روز رسانی
+            <UpdateIcon />
+          </Button>
+          <Button
+            variant="primary"
+            className="bg-indigo-400 hover:bg-indigo-500"
+            size="sm"
+            onClick={() => {
+              navigate("/dynamic-pages/new-sub-page", {
+                state: { id: params.data._id },
+              });
+            }}
+          >
+            <TreeIcon />
           </Button>
         </div>
       ),

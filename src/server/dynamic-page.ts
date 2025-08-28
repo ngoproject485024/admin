@@ -11,9 +11,12 @@ export const getAllDynamicPages = async () => {
     return err;
   }
 };
-export const createPage = async (values: any) => {
+export const createPage = async (values: any, subPage?: string) => {
   try {
-    const { data } = await instance.post("page/v2/create", values);
+    const { data } = await instance.post(
+      `page/v2/create?pageId=${subPage}`,
+      values
+    );
 
     return data;
   } catch (err: any) {

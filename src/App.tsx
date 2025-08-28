@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route  } from "react-router";
+import { BrowserRouter as Router, Routes, Route } from "react-router";
 import SignIn from "./pages/AuthPages/SignIn";
 import SignUp from "./pages/AuthPages/SignUp";
 import NotFound from "./pages/OtherPage/NotFound";
@@ -35,14 +35,14 @@ import AdminReportsPage from "./pages/Admin/AdminReports";
 import UserReportsPage from "./pages/Admin/UsersReports";
 import DynamicPages from "./pages/DynamicPages/DynamicPages";
 import CreateDynamicPage from "./pages/CreateDynamicPage";
+import CreateSubPage from "./pages/CreateSubPage";
 import ContentProjectRegistration from "./pages/Content/ContentProjectRegistration";
 import ContentDocumentRegistration from "./pages/Content/ContentDocumentRegistration";
-import {getCookie} from "./utils/cookie";
-
+import { getCookie } from "./utils/cookie";
 
 export default function App() {
-  let allAccess = getCookie('admin-miras-access')
-  console.log('allAccresss' , allAccess)
+  let allAccess = getCookie("admin-miras-access");
+
   return (
     <>
       <Router>
@@ -51,95 +51,66 @@ export default function App() {
           {/* Dashboard Layout */}
           <Route element={<AppLayout />}>
             <Route index path="/" element={<Home />} />
-            <Route index path="/education" element={<EducationPage />} />
-            <Route index path="/events" element={<EventsPage />} />
-            <Route index path="/ngos/manage-ngos" element={<ManageNgoPage />} />
+            <Route path="/education" element={<EducationPage />} />
+            <Route path="/events" element={<EventsPage />} />
+            <Route path="/ngos/manage-ngos" element={<ManageNgoPage />} />
+            <Route path="/ngos/manage-ngos/:id" element={<NgoDetailsPage />} />
+            <Route path="/ngos/manage-projects" element={<ManageProjects />} />
             <Route
-              index
-              path="/ngos/manage-ngos/:id"
-              element={<NgoDetailsPage />}
-            />
-            <Route
-              index
-              path="/ngos/manage-projects"
-              element={<ManageProjects />}
-            />
-            <Route
-              index
               path="/ngos/manage-project/:id"
               element={<NgoProjectDetailsPage />}
             />
-            <Route
-              index
-              path="/ngos/manage-docs"
-              element={<ManageDocsPage />}
-            />
+            <Route path="/ngos/manage-docs" element={<ManageDocsPage />} />
 
             {/* Content */}
-            <Route index path="/content/home" element={<ContentHome />} />
-            <Route
-              index
-              path="/content/about-us"
-              element={<ContentAboutUs />}
-            />
+            <Route path="/content/home" element={<ContentHome />} />
+            <Route path="/content/about-us" element={<ContentAboutUs />} />
 
-            <Route index path="/content/ngo" element={<ContentNgo />} />
+            <Route path="/content/ngo" element={<ContentNgo />} />
             <Route
-              index
               path="/content/ngos-registration"
               element={<ContentNgosRegistration />}
             />
-            <Route
-              index
-              path="/content/statistics"
-              element={<ContentStatistics />}
-            />
-            <Route
-              index
-              path="/content/education"
-              element={<ContentEducation />}
-            />
-            <Route index path="/content/events" element={<ContentEvents />} />
+            <Route path="/content/statistics" element={<ContentStatistics />} />
+            <Route path="/content/education" element={<ContentEducation />} />
+            <Route path="/content/events" element={<ContentEvents />} />
 
             <Route
-              index
               path="/content/good-practice"
               element={<ContentGoodPractice />}
             />
             <Route
-              index
               path="/content/ongoing-projects"
               element={<ContentOngoingProjects />}
             />
             <Route
-              index
               path="/content/completed-projects"
               element={<ContentCompletedProjects />}
             />
             <Route
-              index
               path="/content/collaboration-opportunities"
               element={<ContentCollaborationOpportunities />}
             />
             <Route
-              index
               path="/content/project-registration"
               element={<ContentProjectRegistration />}
             />
             <Route
-              index
               path="/content/document-registration"
               element={<ContentDocumentRegistration />}
             />
 
-            <Route index path="/content/footer" element={<ContentFooter />} />
+            <Route path="/content/footer" element={<ContentFooter />} />
 
             {/* Dynamic Pages */}
-            <Route index path="/dynamic-pages" element={<DynamicPages />} />
+            <Route path="/dynamic-pages" element={<DynamicPages />} />
             <Route
-              index
               path="/dynamic-pages/new-page"
               element={<CreateDynamicPage />}
+            />
+            <Route
+              path="/dynamic-pages/new-sub-page"
+              element={<CreateSubPage />}
             />
 
             {/* Others Page */}
@@ -147,14 +118,14 @@ export default function App() {
             <Route path="/admin/admin-reports" element={<AdminReportsPage />} />
             <Route path="/admin/users-reports" element={<UserReportsPage />} />
 
-            <Route path="/calendar" element={<Calendar />} />
+            {/* <Route path="/calendar" element={<Calendar />} /> */}
             <Route path="/blank" element={<Blank />} />
 
             {/* Forms */}
-            <Route path="/form-elements" element={<FormElements />} />
+            {/* <Route path="/form-elements" element={<FormElements />} /> */}
 
             {/* Tables */}
-            <Route path="/basic-tables" element={<BasicTables />} />
+            {/* <Route path="/basic-tables" element={<BasicTables />} /> */}
 
             {/* Ui Elements */}
             {/* <Route path="/alerts" element={<Alerts />} />

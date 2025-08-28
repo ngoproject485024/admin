@@ -20,6 +20,8 @@ function StepTwo({ formik, onStep, step, isLoading }: Props) {
   const [updateValue, setUpdateValue] = useState<any>({});
   const [id, setId] = useState<number>(0);
 
+  console.log('ffff' , formik?.values)
+
   return (
     <>
       <div className="w-full border-b py-2">
@@ -196,7 +198,7 @@ function StepTwo({ formik, onStep, step, isLoading }: Props) {
           }
           onClick={() => {
             if (
-              formik?.values?.hasSubPage ||
+              formik?.values?.hasSubPage &&
               formik?.values?.hasSecondSubPage
             ) {
               onStep(step + 1);
@@ -204,7 +206,7 @@ function StepTwo({ formik, onStep, step, isLoading }: Props) {
           }}
           isLoading={isLoading}
         >
-          {!formik?.values?.hasSubPage || !formik?.values?.hasSecondSubPage
+          {!formik?.values?.hasSubPage && !formik?.values?.hasSecondSubPage
             ? "تایید و ساخت صفحه"
             : "بعدی"}
         </Button>

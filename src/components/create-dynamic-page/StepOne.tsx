@@ -10,6 +10,8 @@ function StepOne({
   formik: any;
   onStep: (step: number) => void;
 }) {
+  const { peTitle, enTitle, ruTitle, path } = formik.values;
+
   return (
     <>
       <ComponentCard title="عنوان صفحه">
@@ -87,18 +89,17 @@ function StepOne({
               id="s1-14"
               type="checkbox"
               className="switch"
-              defaultChecked={formik.values.hasSubPage}
-              checked={formik.values.hasSubPage}
+              defaultChecked={formik.values.show}
+              checked={formik.values.show}
               onChange={() => {
-                formik.setFieldValue("hasSubPage", !formik.values.hasSubPage);
-                formik.setFieldValue("hasSecondSubPage", false);
+                formik.setFieldValue("show", !formik.values.show);
               }}
             />
-            <Label>آیا این صفحه شامل صفحه ی فرعی است؟</Label>
+            <Label>این صفحه نمایش داده شود؟</Label>
           </div>
         </div>
       </ComponentCard>
-      {formik.values.hasSubPage && (
+      {/* {formik.values.hasSubPage && (
         <>
           <ComponentCard title="عنوان صفحه فرعی" className="mt-4">
             <div className="flex gap-5 flex-col md:flex-row">
@@ -295,9 +296,23 @@ function StepOne({
             </div>
           </ComponentCard>
         </>
-      )}
+      )} */}
       <div className="mt-4">
-        <Button onClick={() => onStep(2)}>بعدی</Button>
+        <Button
+          disabled={
+            peTitle.length !== 0 &&
+            enTitle.length !== 0 &&
+            ruTitle.length !== 0 &&
+            path.length !== 0
+              ? false
+              : true
+          }
+          onClick={() => {
+            onStep(2);
+          }}
+        >
+          بعدی
+        </Button>
       </div>
     </>
   );

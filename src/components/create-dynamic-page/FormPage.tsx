@@ -15,7 +15,11 @@ import { useNavigate } from "react-router";
 // import useCreatePage from "../../hooks/useCreatePage";
 // import useTemplateThree from "../../hooks/useTemplteThree";
 
-function FormPage() {
+interface Props {
+  subPage?: string;
+}
+
+function FormPage({ subPage }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(1);
 
@@ -23,9 +27,8 @@ function FormPage() {
 
   const mutation = useMutation({
     mutationKey: ["createPage"],
-    mutationFn: createPage,
+    mutationFn: (values: FormPageType) => createPage(values, subPage),
     onSuccess: (response: any) => {
-      console.log(response);
       if (response?.success) {
         toast.success("صفحه با موفقیت ایجاد شد");
         navigate("/dynamic-pages");
@@ -50,6 +53,7 @@ function FormPage() {
       peContent: [],
       enContent: [],
       ruContent: [],
+      show : true,
     },
     onSubmit: async (values: FormPageType) => {
       if (Object.keys(values?.peContent).length > 0) {
@@ -99,55 +103,6 @@ function FormPage() {
             isLoading={isLoading}
           />
         )}
-
-        {/* //? محتوای صفحه */}
-        {/* {step === 3 && (
-          <StepThree
-            formik={createFormik}
-            contentFormik={formikTemplateOne}
-            formikTemplateSubContent={formikTemplateSubContent}
-            formikTemplateSecondPage={formikTemplateSecondPage}
-            formikTemplateThreePage={formikTemplateThreePage}
-            onStep={handleSetStep}
-            onFile={handleSetImage}
-            isLoading={isLoading}
-            step={step}
-          />
-        )} */}
-        {/* //? قالب صفحه فرعی */}
-        {/* {step === 4 && (
-          <StepTwo formik={createFormik} onStep={handleSetStep} step={step} />
-        )} */}
-        {/* //? محتوای صفحه فرعی */}
-        {/* {step === 5 && (
-          <StepThree
-            formik={createFormik}
-            contentFormik={formikTemplateOne}
-            formikTemplateSubContent={formikTemplateSubContent}
-            formikTemplateSecondPage={formikTemplateSecondPage}
-            onStep={handleSetStep}
-            onFile={handleSetSubImage}
-            isLoading={isLoading}
-            step={step}
-          />
-        )} */}
-        {/* //? قالب صفحه فرعی دوم*/}
-        {/* {step === 6 && (
-          <StepTwo formik={createFormik} onStep={handleSetStep} step={step} />
-        )} */}
-        {/* //? محتوای صفحه فرعی */}
-        {/* {step === 7 && (
-          <StepThree
-            formik={createFormik}
-            contentFormik={formikTemplateOne}
-            formikTemplateSubContent={formikTemplateSubContent}
-            formikTemplateSecondPage={formikTemplateSecondPage}
-            onStep={handleSetStep}
-            onFile={handleSetSecondImage}
-            isLoading={isLoading}
-            step={step}
-          />
-        )} */}
       </form>
     </>
   );
