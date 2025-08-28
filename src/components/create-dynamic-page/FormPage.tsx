@@ -53,10 +53,11 @@ function FormPage({ subPage }: Props) {
       peContent: [],
       enContent: [],
       ruContent: [],
-      show : true,
+      show: true,
     },
     onSubmit: async (values: FormPageType) => {
       if (Object.keys(values?.peContent).length > 0) {
+        console.log(values.peContent);
         setIsLoading(true);
         for (let i = 0; i < values.peContent.length; i++) {
           const item = values.peContent[i];
@@ -65,7 +66,9 @@ function FormPage({ subPage }: Props) {
             for (let j = 0; j < item.content.length; j++) {
               formData.append("picture", item.content[j]);
             }
+            console.log(formData.getAll("picture"));
             const res = await uploadFiles(formData);
+            console.log('rrrrrrrrrr',res)
             setIsLoading(false);
 
             if (res?.success) {

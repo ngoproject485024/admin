@@ -11,6 +11,8 @@ export const uploadFiles = async (valuse: FormData) => {
       }
     );
 
+    console.log("ddd", data);
+
     return data;
   } catch (err: any) {
     console.log(err);

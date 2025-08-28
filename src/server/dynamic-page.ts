@@ -49,3 +49,13 @@ export const deletePage = async (id: string) => {
     return err;
   }
 };
+
+export const UpdateContentPageRequest = async (pageId: string , values : any) => {
+  try {
+    const { data } = await instance.post(`page/v2/update/${pageId}` , values);
+
+    return data;
+  } catch (err: any) {
+    return err?.response?.data;
+  }
+};

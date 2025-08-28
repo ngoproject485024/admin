@@ -78,6 +78,7 @@ function ImageModal({ isOpen, onClose, formik, update, id }: Props) {
           content: selectedFiles,
         },
       ]);
+      console.log("selected", selectedFiles);
     }
 
     setSelectedFiles([]);
