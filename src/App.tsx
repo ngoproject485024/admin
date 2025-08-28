@@ -36,6 +36,7 @@ import UserReportsPage from "./pages/Admin/UsersReports";
 import DynamicPages from "./pages/DynamicPages/DynamicPages";
 import CreateDynamicPage from "./pages/CreateDynamicPage";
 import CreateSubPage from "./pages/CreateSubPage";
+import UpdateDynamicPage from "./pages/UpdateDynamicPage";
 import ContentProjectRegistration from "./pages/Content/ContentProjectRegistration";
 import ContentDocumentRegistration from "./pages/Content/ContentDocumentRegistration";
 import { getCookie } from "./utils/cookie";
@@ -111,6 +112,10 @@ export default function App() {
             <Route
               path="/dynamic-pages/new-sub-page"
               element={<CreateSubPage />}
+            />
+            <Route
+              path="/dynamic-pages/update-dynamic-page"
+              element={<UpdateDynamicPage />}
             />
 
             {/* Others Page */}

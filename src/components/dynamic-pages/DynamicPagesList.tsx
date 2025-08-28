@@ -38,11 +38,8 @@ const themeLight = themeAlpine.withPart(colorSchemeLight);
 
 function DynamicPagesList() {
   const [isOpenDel, setIsOpenDel] = useState<string>("");
-  const [isOpenUp, setIsOpenUp] = useState<string>("");
-  const [updateValues, setUpdateValues] = useState<any>({});
 
   const handleCloseConfirm = () => setIsOpenDel("");
-  const handleCloseUp = () => setIsOpenUp("");
 
   const navigate = useNavigate();
 
@@ -65,6 +62,8 @@ function DynamicPagesList() {
     queryKey: ["getAllDynamicPages"],
     queryFn: getAllDynamicPages,
   });
+
+  console.log("dddddasdf", data);
 
   const [colDefs] = useState<ColDef<IRow>[]>([
     { field: "peTitle", headerName: "عنوان فارسی" },
@@ -102,6 +101,10 @@ function DynamicPagesList() {
     {
       field: "actions",
       headerName: "عملیات",
+      cellStyle: {
+        display: "flex",
+        justifyContent: "center",
+      },
       cellRenderer: (params: any) => (
         <div className="flex gap-2 mt-1">
           <Button
@@ -119,8 +122,9 @@ function DynamicPagesList() {
             className="bg-yellow-400 hover:bg-yellow-500"
             size="sm"
             onClick={() => {
-              setIsOpenUp(params.data._id);
-              setUpdateValues(params.data);
+              navigate("/dynamic-pages/update-dynamic-page", {
+                state: { data: params.data },
+              });
             }}
           >
             <UpdateIcon />
