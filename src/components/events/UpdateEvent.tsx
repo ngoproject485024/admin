@@ -77,6 +77,8 @@ function UpdateEvent({
     },
   });
 
+  console.log("dddddddd", data);
+
   const formik = useFormik<IEvents>({
     initialValues: {
       peTitle: data.peTitle,
@@ -183,8 +185,6 @@ function UpdateEvent({
       }
 
       setIsLoading(false);
-      console.log(values);
-      console.log(data);
       mutation.mutate({ id: data?._id, values });
     },
   });
@@ -438,7 +438,7 @@ function UpdateEvent({
               variant="outline"
               onClick={() => {
                 formik.resetForm();
-                onClose();   
+                onClose();
               }}
             >
               انصراف

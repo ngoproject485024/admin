@@ -48,8 +48,6 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
       setThumbImage((prev: string[]) => [...prev, ...paths]);
       if (files) {
         onFiles?.([...files, ...acceptedFiles]);
-      } else {
-        onFiles?.(acceptedFiles);
       }
     } else {
       setThumbImage(paths);
@@ -273,7 +271,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
           </div>
         )}
 
-        {!!update && (
+        {/* {!!update && (
           <>
             {formik.values[update]?.map((image: string) => (
               <div
@@ -298,7 +296,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
               </div>
             ))}
           </>
-        )}
+        )} */}
       </div>
     </ComponentCard>
   );

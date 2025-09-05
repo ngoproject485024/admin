@@ -28,6 +28,8 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
   const [enVideoFiles, setEnVideoFiles] = useState<File[]>([]);
   const [ruVideoFiles, setRuVideoFiles] = useState<File[]>([]);
 
+  console.log("asfasf", peImageFiles);
+
   const handleClose = () => setIsOpen(false);
 
   const mutation = useMutation({
@@ -93,12 +95,16 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
       enVideo: [],
       ruVideo: [],
     },
-    // validationSchema: educationSchema,
+    validationSchema: educationSchema,
     onSubmit: async (values) => {
       setIsLoading(true);
       if (peImageFiles.length) {
         const formData = new FormData();
-        peImageFiles.forEach((file) => formData.append("picture", file));
+        // peImageFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < peImageFiles.length; i++) {
+          formData.append("picture", peImageFiles[i]);
+        }
 
         const response = await uploadFiles(formData);
 
@@ -111,7 +117,11 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
       }
       if (enImageFiles.length) {
         const formData = new FormData();
-        enImageFiles.forEach((file) => formData.append("picture", file));
+        // enImageFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < enImageFiles.length; i++) {
+          formData.append("picture", enImageFiles[i]);
+        }
 
         const response = await uploadFiles(formData);
 
@@ -124,7 +134,11 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
       }
       if (ruImageFiles.length) {
         const formData = new FormData();
-        ruImageFiles.forEach((file) => formData.append("picture", file));
+        // ruImageFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < ruImageFiles.length; i++) {
+          formData.append("picture", ruImageFiles[i]);
+        }
 
         const response = await uploadFiles(formData);
 
@@ -138,7 +152,11 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
 
       if (peVideoFiles.length) {
         const formData = new FormData();
-        peVideoFiles.forEach((file) => formData.append("picture", file));
+        // peVideoFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < peVideoFiles.length; i++) {
+          formData.append("picture", peVideoFiles[i]);
+        }
 
         const response = await uploadFiles(formData);
 
@@ -152,7 +170,11 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
 
       if (enVideoFiles.length) {
         const formData = new FormData();
-        enVideoFiles.forEach((file) => formData.append("picture", file));
+        // enVideoFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < enVideoFiles.length; i++) {
+          formData.append("picture", enVideoFiles[i]);
+        }
 
         const response = await uploadFiles(formData);
 
@@ -166,7 +188,11 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
 
       if (ruVideoFiles.length) {
         const formData = new FormData();
-        ruVideoFiles.forEach((file) => formData.append("picture", file));
+        // ruVideoFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < ruVideoFiles.length; i++) {
+          formData.append("picture", ruVideoFiles[i]);
+        }
 
         const response = await uploadFiles(formData);
 
@@ -183,7 +209,8 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
     },
   });
 
-  console.log("aaaaaaaa", formik.values);
+  // console.log("aaaaaaaa", enImageFiles);
+  // console.log("aaaaaaaa", ruImageFiles);
 
   return (
     <>
@@ -375,18 +402,21 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
               multiple
               title="تصاویر آموزش فارسی"
               onFiles={setPeImageFiles}
+              files={peImageFiles}
               formikImages={formik.values.pePictures}
             />
             <DropzoneComponent
               multiple
               title="تصاویر آموزش انگلیسی"
               onFiles={setEnImageFiles}
+              files={enImageFiles}
               formikImages={formik.values.enPictures}
             />
             <DropzoneComponent
               multiple
               title="تصاویر آموزش روسی"
               onFiles={setRuImageFiles}
+              files={ruImageFiles}
               formikImages={formik.values.ruPictures}
             />
           </ComponentCard>
@@ -395,16 +425,22 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
               multiple
               title="ویدیو آموزش فارسی"
               onFiles={setPeVideoFiles}
+              files={peVideoFiles}
+              formikVideos={formik.values.peVideo}
             />
             <DropzoneVideoComponent
               multiple
               title="ویدیو آموزش انگلیسی"
               onFiles={setEnVideoFiles}
+              files={enVideoFiles}
+              formikVideos={formik.values.enVideo}
             />
             <DropzoneVideoComponent
               multiple
               title="ویدیو آموزش روسی"
               onFiles={setRuVideoFiles}
+              files={ruVideoFiles}
+              formikVideos={formik.values.ruVideo}
             />
           </ComponentCard>
 

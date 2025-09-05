@@ -47,11 +47,18 @@ const DropzoneVideoComponent: React.FC<IDropZoneComponent> = ({
     });
 
     if (multiple) {
-      setThumbVideo((prev: string[]) => [...prev, paths]);
-      onFiles?.((prev: File[]) => prev.concat(acceptedFiles));
+      setThumbVideo((prev: string[]) => [...prev, ...paths]);
+      if (files) {
+        onFiles?.([...files, ...acceptedFiles]);
+      }
     } else {
       setThumbVideo(paths);
-      onFiles?.(acceptedFiles);
+
+      if (files) {
+        onFiles?.([...files, ...acceptedFiles]);
+      } else {
+        onFiles?.(acceptedFiles);
+      }
       formik.setFieldValue(name, []);
     }
   };
@@ -62,7 +69,7 @@ const DropzoneVideoComponent: React.FC<IDropZoneComponent> = ({
       "video/*": [],
     },
     multiple: multiple,
-    maxFiles: 5,
+    maxFiles: max ? max : 5,
   });
 
   return (

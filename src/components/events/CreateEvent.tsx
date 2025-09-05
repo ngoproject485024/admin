@@ -86,12 +86,16 @@ function CreateEvent({ refetch }: { refetch: () => void }) {
       enVideo: [],
       ruVideo: [],
     },
-    validationSchema: eventsSchema,
+    // validationSchema: eventsSchema,
     onSubmit: async (values) => {
       setIsLoading(true);
       if (peImageFiles.length) {
         const formData = new FormData();
-        peImageFiles.forEach((file) => formData.append("picture", file));
+        // peImageFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < peImageFiles.length; i++) {
+          formData.append("picture", peImageFiles[i]);
+        }
 
         const response = await uploadFiles(formData);
 
@@ -104,7 +108,11 @@ function CreateEvent({ refetch }: { refetch: () => void }) {
       }
       if (enImageFiles.length) {
         const formData = new FormData();
-        enImageFiles.forEach((file) => formData.append("picture", file));
+        // enImageFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < enImageFiles.length; i++) {
+          formData.append("picture", enImageFiles[i]);
+        }
 
         const response = await uploadFiles(formData);
 
@@ -117,7 +125,11 @@ function CreateEvent({ refetch }: { refetch: () => void }) {
       }
       if (ruImageFiles.length) {
         const formData = new FormData();
-        ruImageFiles.forEach((file) => formData.append("picture", file));
+        // ruImageFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < ruImageFiles.length; i++) {
+          formData.append("picture", ruImageFiles[i]);
+        }
 
         const response = await uploadFiles(formData);
 
@@ -131,7 +143,11 @@ function CreateEvent({ refetch }: { refetch: () => void }) {
 
       if (peVideoFiles.length) {
         const formData = new FormData();
-        peVideoFiles.forEach((file) => formData.append("picture", file));
+        // peVideoFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < peVideoFiles.length; i++) {
+          formData.append("picture", peVideoFiles[i]);
+        }
 
         const response = await uploadFiles(formData);
 
@@ -145,7 +161,11 @@ function CreateEvent({ refetch }: { refetch: () => void }) {
 
       if (enVideoFiles.length) {
         const formData = new FormData();
-        enVideoFiles.forEach((file) => formData.append("picture", file));
+        // enVideoFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < enVideoFiles.length; i++) {
+          formData.append("picture", enVideoFiles[i]);
+        }
 
         const response = await uploadFiles(formData);
 
@@ -159,7 +179,11 @@ function CreateEvent({ refetch }: { refetch: () => void }) {
 
       if (ruVideoFiles.length) {
         const formData = new FormData();
-        ruVideoFiles.forEach((file) => formData.append("picture", file));
+        // ruVideoFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < ruVideoFiles.length; i++) {
+          formData.append("picture", ruVideoFiles[i]);
+        }
 
         const response = await uploadFiles(formData);
 

@@ -106,7 +106,11 @@ function UpdateEducation({
       setIsLoading(true);
       if (peImageFiles.length) {
         const formData = new FormData();
-        peImageFiles.forEach((file) => formData.append("picture", file));
+        // peImageFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < peImageFiles.length; i++) {
+          formData.append("picture", peImageFiles[i]);
+        }
 
         const response: { data: string[]; success: boolean } =
           await uploadFiles(formData);
@@ -120,7 +124,11 @@ function UpdateEducation({
       }
       if (enImageFiles.length) {
         const formData = new FormData();
-        enImageFiles.forEach((file) => formData.append("picture", file));
+        // enImageFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < enImageFiles.length; i++) {
+          formData.append("picture", enImageFiles[i]);
+        }
 
         const response = await uploadFiles(formData);
 
@@ -133,7 +141,11 @@ function UpdateEducation({
       }
       if (ruImageFiles.length) {
         const formData = new FormData();
-        ruImageFiles.forEach((file) => formData.append("picture", file));
+        // ruImageFiles.forEach((file) => formData.append("picture", file));
+
+        for (let i = 0; i < ruImageFiles.length; i++) {
+          formData.append("picture", ruImageFiles[i]);
+        }
 
         const response = await uploadFiles(formData);
 
@@ -379,24 +391,30 @@ function UpdateEducation({
               multiple
               title="تصاویر آموزش فارسی"
               onFiles={setPeImageFiles}
+              files={peImageFiles}
               update="pePictures"
               formik={formik}
+              formikImages={formik.values.pePictures}
               onDelete={(url, name) => handleDeleteFile(url, name)}
             />
             <DropzoneComponent
               multiple
               title="تصاویر آموزش انگلیسی"
               onFiles={entEnImageFiles}
+              files={enImageFiles}
               update="enPictures"
               formik={formik}
+              formikImages={formik.values.enPictures}
               onDelete={(url, name) => handleDeleteFile(url, name)}
             />
             <DropzoneComponent
               multiple
               title="تصاویر آموزش روسی"
               onFiles={ruRuImageFiles}
+              files={ruImageFiles}
               update="ruPictures"
               formik={formik}
+              formikImages={formik.values.ruPictures}
               onDelete={(url, name) => handleDeleteFile(url, name)}
             />
           </ComponentCard>
@@ -405,24 +423,30 @@ function UpdateEducation({
               multiple
               title="ویدیو آموزش فارسی"
               onFiles={setPeVideoFiles}
+              files={peVideoFiles}
               update="peVideo"
               formik={formik}
+              formikVideos={formik.values.peVideo}
               onDelete={(url, name) => handleDeleteFile(url, name)}
             />
             <DropzoneVideoComponent
               multiple
               title="ویدیو آموزش انگلیسی"
               onFiles={setEnVideoFiles}
+              files={enVideoFiles}
               update="enVideo"
               formik={formik}
+              formikVideos={formik.values.enVideo}
               onDelete={(url, name) => handleDeleteFile(url, name)}
             />
             <DropzoneVideoComponent
               multiple
               title="ویدیو آموزش روسی"
               onFiles={setRuVideoFiles}
+              files={ruVideoFiles}
               update="ruVideo"
               formik={formik}
+              formikVideos={formik.values.ruVideo}
               onDelete={(url, name) => handleDeleteFile(url, name)}
             />
           </ComponentCard>
