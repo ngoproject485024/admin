@@ -188,8 +188,6 @@ function UpdateEducation({
       }
 
       setIsLoading(false);
-      console.log(values);
-      console.log(data);
       mutation.mutate({ id: data?._id, values });
     },
   });

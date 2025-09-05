@@ -20,8 +20,6 @@ function ContentEducation() {
     queryFn: () => getDescriptionPage("educations"),
   });
 
-  console.log("ddd", data);
-
   const mutation = useMutation({
     mutationKey: ["createDescriptionPage"],
     mutationFn: createDescriptionPage,
@@ -69,10 +67,7 @@ function ContentEducation() {
 
   return (
     <div>
-      <PageMeta
-        title="محتوا | آموزش "
-        description="محتوای صفحه آموزش "
-      />
+      <PageMeta title="محتوا | آموزش " description="محتوای صفحه آموزش " />
       <PageBreadcrumb pageTitle="محتوا" subMenu="آموزش " />
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-">
         <ComponentCard title="توضیحات صفحه ی آموزش سایت در بالای صفحه">
@@ -86,7 +81,7 @@ function ContentEducation() {
             <TextAreaInput
               // value={message}
               // onChange={(value) => setMessage(value)}
-              title="توضیحات آموزش  (فارسی)"
+              title="توضیحات آموزش (فارسی)"
               formik={formik}
               name="peDescription"
               error={formik.errors.peDescription ? true : false}

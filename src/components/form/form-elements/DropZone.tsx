@@ -45,11 +45,19 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
     });
 
     if (multiple) {
-      setThumbImage((prev: string[]) => [...prev, paths]);
-      onFiles?.((prev: File[]) => prev.concat(acceptedFiles));
+      setThumbImage((prev: string[]) => [...prev, ...paths]);
+      if (files) {
+        onFiles?.([...files, ...acceptedFiles]);
+      } else {
+        onFiles?.(acceptedFiles);
+      }
     } else {
       setThumbImage(paths);
-      onFiles?.(acceptedFiles);
+      if (files) {
+        onFiles?.([...files, ...acceptedFiles]);
+      } else {
+        onFiles?.(acceptedFiles);
+      }
       formik.setFieldValue(name, []);
     }
   };
@@ -84,7 +92,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
         >
           {/* Hidden Input */}
           <input {...getInputProps()} />
-          
+
           <div className="dz-message flex flex-col items-center m-0">
             {/* Icon Container */}
             <div className="mb-[22px] flex justify-center">

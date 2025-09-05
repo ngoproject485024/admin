@@ -21,8 +21,8 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [peImageFiles, setPeImageFiles] = useState<File[]>([]);
-  const [enImageFiles, entEnImageFiles] = useState<File[]>([]);
-  const [ruImageFiles, ruRuImageFiles] = useState<File[]>([]);
+  const [enImageFiles, setEnImageFiles] = useState<File[]>([]);
+  const [ruImageFiles, setRuImageFiles] = useState<File[]>([]);
 
   const [peVideoFiles, setPeVideoFiles] = useState<File[]>([]);
   const [enVideoFiles, setEnVideoFiles] = useState<File[]>([]);
@@ -40,8 +40,8 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
         refetch();
         formik.resetForm();
         setPeImageFiles([]);
-        entEnImageFiles([]);
-        ruRuImageFiles([]);
+        setEnImageFiles([]);
+        setRuImageFiles([]);
         setPeVideoFiles([]);
         setEnVideoFiles([]);
         setRuVideoFiles([]);
@@ -50,8 +50,8 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
         handleClose();
         formik.resetForm();
         setPeImageFiles([]);
-        entEnImageFiles([]);
-        ruRuImageFiles([]);
+        setEnImageFiles([]);
+        setRuImageFiles([]);
         setPeVideoFiles([]);
         setEnVideoFiles([]);
         setRuVideoFiles([]);
@@ -93,7 +93,7 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
       enVideo: [],
       ruVideo: [],
     },
-    validationSchema: educationSchema,
+    // validationSchema: educationSchema,
     onSubmit: async (values) => {
       setIsLoading(true);
       if (peImageFiles.length) {
@@ -182,6 +182,8 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
       mutation.mutate(values);
     },
   });
+
+  console.log("aaaaaaaa", formik.values);
 
   return (
     <>
@@ -373,16 +375,19 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
               multiple
               title="تصاویر آموزش فارسی"
               onFiles={setPeImageFiles}
+              formikImages={formik.values.pePictures}
             />
             <DropzoneComponent
               multiple
               title="تصاویر آموزش انگلیسی"
-              onFiles={entEnImageFiles}
+              onFiles={setEnImageFiles}
+              formikImages={formik.values.enPictures}
             />
             <DropzoneComponent
               multiple
               title="تصاویر آموزش روسی"
-              onFiles={ruRuImageFiles}
+              onFiles={setRuImageFiles}
+              formikImages={formik.values.ruPictures}
             />
           </ComponentCard>
           <ComponentCard title="ویدیو آموزش">

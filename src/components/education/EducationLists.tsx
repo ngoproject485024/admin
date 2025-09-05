@@ -62,8 +62,6 @@ function EducationList() {
     queryFn: getEducations,
   });
 
-  console.log("adfaf", data);
-
   const [colDefs] = useState<ColDef<IRow>[]>([
     { field: "peTitle", headerName: "عنوان فارسی" },
     { field: "enTitle", headerName: "عنوان انگلیسی" },
@@ -177,6 +175,7 @@ function EducationList() {
           defaultColDef={defaultColDef}
         />
       </div>
+
       <Confirm
         isOpen={!!isOpenDel}
         onClose={handleCloseConfirm}
