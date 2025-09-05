@@ -86,7 +86,7 @@ function CreateEvent({ refetch }: { refetch: () => void }) {
       enVideo: [],
       ruVideo: [],
     },
-    // validationSchema: eventsSchema,
+    validationSchema: eventsSchema,
     onSubmit: async (values) => {
       setIsLoading(true);
       if (peImageFiles.length) {
@@ -440,7 +440,11 @@ function CreateEvent({ refetch }: { refetch: () => void }) {
           </ComponentCard>
 
           <div className="flex gap-4 p-4 m-4">
-            <Button type="submit" isLoading={mutation.isPending || isLoading}>
+            <Button
+              type="submit"
+              isLoading={mutation.isPending || isLoading}
+              disabled={formik.values.peTitle ? false : true}
+            >
               ثبت
             </Button>
             <Button

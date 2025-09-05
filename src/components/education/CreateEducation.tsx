@@ -28,8 +28,6 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
   const [enVideoFiles, setEnVideoFiles] = useState<File[]>([]);
   const [ruVideoFiles, setRuVideoFiles] = useState<File[]>([]);
 
-  console.log("asfasf", peImageFiles);
-
   const handleClose = () => setIsOpen(false);
 
   const mutation = useMutation({
@@ -280,18 +278,12 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
                 name="peDescription"
                 lang="fa"
               />
-              {/* <Label htmlFor="ru-input">توضیحات فارسی</Label>
-              <TextArea
-                placeholder="توضیحات فارسی را وارد کنید"
-                error={formik.errors.peDescription ? true : false}
-                name="peDescription"
-                formik={formik}
-              />
+
               {formik.errors.peDescription && formik.touched.peDescription && (
                 <span className="text-sm text-error-500">
                   {formik.errors.peDescription}
                 </span>
-              )} */}
+              )}
             </div>
             <div>
               <TextEditor
@@ -445,7 +437,11 @@ function CreateEducation({ refetch }: { refetch: () => void }) {
           </ComponentCard>
 
           <div className="flex gap-4 p-4 m-4">
-            <Button type="submit" isLoading={mutation.isPending || isLoading}>
+            <Button
+              type="submit"
+              isLoading={mutation.isPending || isLoading}
+              disabled={formik.values.peTitle ? false : true}
+            >
               ثبت
             </Button>
             <Button

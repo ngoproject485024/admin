@@ -23,6 +23,7 @@ export const educationSchema = Yup.object().shape({
     .min(150, "توضیحات تکمیلی نباید کوتاه در از 200 کاراکتر باشد")
     .required(" توضیحات تکلمیلی روسی الزامی است"),
 });
+
 export const eventsSchema = Yup.object().shape({
   peTitle: Yup.string().required("عنوان فارسی الزامی است"),
   enTitle: Yup.string().required("عنوان انگلیسی الزامی است"),
