@@ -84,7 +84,7 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
         >
           {/* Hidden Input */}
           <input {...getInputProps()} />
-
+          
           <div className="dz-message flex flex-col items-center m-0">
             {/* Icon Container */}
             <div className="mb-[22px] flex justify-center">

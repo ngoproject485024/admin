@@ -83,6 +83,19 @@ function NgoProjectDetails() {
           <span className="dark:text-white">{data?.data?.moreInformation}</span>
         </ComponentCard>
 
+
+        {data?.data?.documentsAndReport && data?.data?.documentsAndReport?.file.length > 0 && (
+          <>
+            {data?.data?.documentsAndReport?.file.map((item:string) => {
+              <object
+                data={item}
+                type="application/pdf"
+                className="w-full h-[300px]"
+              />
+            })}
+          </>
+        )}
+
         {data?.data?.visualDocuments && (
           <ComponentCard
             title="اسناد تصویری"

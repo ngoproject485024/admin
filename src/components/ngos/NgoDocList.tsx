@@ -47,7 +47,7 @@ function NgoDocList() {
 
   const handleCloseDocs = () => setIsOpenDocs(false);
   const handleCloseChangeStatus = () => setChangeStatus("");
-
+  
   const mutation = useMutation({
     mutationKey: ["changeStatusDoc"],
     mutationFn: () => changeStatusDoc(changeStatus, status),
