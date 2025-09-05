@@ -47,7 +47,7 @@ function NgoDocList() {
 
   const handleCloseDocs = () => setIsOpenDocs(false);
   const handleCloseChangeStatus = () => setChangeStatus("");
-  
+
   const mutation = useMutation({
     mutationKey: ["changeStatusDoc"],
     mutationFn: () => changeStatusDoc(changeStatus, status),
@@ -232,38 +232,65 @@ const DocsModal = ({
         {docs?.map((doc: string) => (
           <div key={doc}>
             {doc.slice(doc.length - 3) === "png" ||
-            doc.slice(doc.length - 3) === "jpg" ||
-            doc.slice(doc.length - 4) === "jpeg" ? (
-              <img
-                alt="doc"
-                src={doc}
-                className="max-w-2/3 object-contain mx-auto"
-              />
+              doc.slice(doc.length - 3) === "jpg" ||
+              doc.slice(doc.length - 4) === "jpeg" ? (
+              <>
+                <h1 className="flex flex-col justify-center item-center text-2xl text-center font-bold">
+                  تصاویر
+                </h1>
+                <hr className="my-5" />
+                <img
+                  alt="doc"
+                  src={doc}
+                  className="max-w-2/3 object-contain mx-auto"
+                />
+              </>
             ) : (
               <>
                 {doc.slice(doc.length - 3) === "mp4" ||
-                doc.slice(doc.length - 4) === "jpeg" ||
-                doc.slice(doc.length - 3) === "mov" ? (
-                  <video src={doc} controls className="max-w-2/3 " />
+                  doc.slice(doc.length - 4) === "jpeg" ||
+                  doc.slice(doc.length - 3) === "mov" ? (
+                  <>
+                    <h1 className="flex flex-col justify-center item-center text-2xl text-center font-bold">
+                      ویدیو
+                    </h1>
+                    <hr className="my-5" />
+                    <video src={doc} controls className="flex flex-col justify-center item-center" />
+                  </>
                 ) : (
                   <>
                     {doc.slice(doc.length - 3) === "pdf" ? (
-                      <object
-                        data={doc}
-                        type="application/pdf"
-                        className="w-full h-[300px]"
-                      />
+                      <>
+                        <h1 className="flex flex-col justify-center item-center text-2xl text-center font-bold">
+                          پی دی اف
+                        </h1>
+                        <hr className="my-5" />
+
+                        <object
+                          data={doc}
+                          type="application/pdf"
+                          className="w-full h-[300px]"
+                        />
+
+                      </>
                     ) : (
-                      <a
-                        href={doc}
-                        download={doc}
-                        className="bg-blue-500 p-2 rounded-full  mx-auto flex items-center gap-2"
-                        target="_blank"
-                      >
-                        <ArrowDownIcon />
-                        <span>دانلود فایل</span>
-                        <WordIcon />
-                      </a>
+                      <>
+                        <h1 className="flex flex-col justify-center item-center text-2xl text-center font-bold">
+                          فایل ورد
+                        </h1>
+                        <hr className="my-5" />
+                        <a
+                          href={doc}
+                          download={doc}
+                          className="bg-blue-500 p-2 rounded-full  mx-auto flex items-center gap-2"
+                          target="_blank"
+                        >
+                          <ArrowDownIcon />
+                          <span>دانلود فایل</span>
+                          <WordIcon />
+                        </a>
+
+                      </>
                     )}
                   </>
                 )}
