@@ -83,19 +83,24 @@ function NgoProjectDetails() {
           <span className="dark:text-white">{data?.data?.moreInformation}</span>
         </ComponentCard>
 
-
-        {data?.data?.documentsAndReport && data?.data?.documentsAndReport?.file.length > 0 && (
-          <>
-            {data?.data?.documentsAndReport?.file.map((item:string) => {
+        {data?.data?.documentsAndReport && (
+          <ComponentCard
+            title="اسناد متنی"
+            className="col-span-1 md:col-span-2 lg:col-span-3"
+            >
+            {data?.data?.documentsAndReport?.files.map((item: string) => 
+              <>
+              {/* <h1>{item}</h1> */}
               <object
                 data={item}
                 type="application/pdf"
-                className="w-full h-[300px]"
+                className="w-full h-[500px]"
               />
-            })}
-          </>
+              </>
+            )}
+          </ComponentCard>
         )}
-
+        
         {data?.data?.visualDocuments && (
           <ComponentCard
             title="اسناد تصویری"
