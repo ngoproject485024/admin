@@ -56,6 +56,19 @@ export const deleteEvent = async (id: string) => {
   }
 };
 
+export const homeEvent = async (id: string) => {
+  try {
+    const { data } = await instance.put(
+      `events-educations/event/show/home/${id}`
+    );
+
+    return data;
+  } catch (err) {
+    console.error("Error fetching events:", err);
+    return false;
+  }
+};
+
 export const updateEvent = async (id: string, values: any) => {
   try {
     const { data } = await instance.post(

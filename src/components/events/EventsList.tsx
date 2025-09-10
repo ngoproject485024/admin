@@ -17,7 +17,7 @@ import { useTheme } from "../../context/ThemeContext";
 import Button from "../ui/button/Button";
 import { TrashBinIcon, UpdateIcon } from "../../icons";
 import CreateEvent from "./CreateEvent";
-import { deleteEvent, getEvents } from "../../server/events";
+import { deleteEvent, getEvents, homeEvent } from "../../server/events";
 import Confirm from "../confirm";
 import UpdateEvent from "./UpdateEvent";
 
@@ -28,6 +28,7 @@ interface IRow {
   enTitle: string;
   ruTitle: string;
   type: string;
+  homeEvenets : string;
   ["admin.userName"]: string;
   actions: string;
 }
@@ -39,9 +40,14 @@ function EventsList() {
   const [isOpenDel, setIsOpenDel] = useState<string>("");
   const [isOpenUp, setIsOpenUp] = useState<string>("");
   const [updateValues, setUpdateValues] = useState<any>({});
+  
+  const [isOpenHomeEvent, setIsOpenHomeEvent] =
+    useState<string>("");
+
 
   const handleCloseConfirm = () => setIsOpenDel("");
   const handleCloseUp = () => setIsOpenUp("");
+  const handleCloseHomeEvent = () => setIsOpenHomeEvent("");
 
   const mutation = useMutation({
     mutationKey: ["deleteEvent"],
@@ -58,6 +64,22 @@ function EventsList() {
     },
   });
 
+
+  const homeEventMutation = useMutation({
+    mutationKey: ["showHomeEvent"],
+    mutationFn: homeEvent,
+    onSuccess: (data) => {
+      if (data.success) {
+        toast.success(`${data.message}`);
+        refetch();
+        handleCloseHomeEvent();
+      } else {
+        toast.error(data.message ? `${data.message}` : 'خطای ناشناخته');
+        handleCloseHomeEvent();
+      }
+    },
+  });
+
   const { data, refetch } = useQuery({
     queryKey: ["getEvents"],
     queryFn: getEvents,
@@ -67,6 +89,7 @@ function EventsList() {
     { field: "peTitle", headerName: "عنوان فارسی" },
     { field: "enTitle", headerName: "عنوان انگلیسی" },
     { field: "ruTitle", headerName: "عنوان روسی" },
+
     {
       field: "type",
       headerName: "محتوا",
@@ -92,7 +115,48 @@ function EventsList() {
       },
     },
     { field: "admin.userName", headerName: "نام کاربری ادمین" },
-
+    {
+      field: "homeEvenets",
+      headerName: "نمایش در صفحه اصلی سایت",
+      cellRenderer: (params: any) => {
+        return (
+          <>
+            {params?.value ? (
+              <span className="bg-gray-200 rounded-full text-sm p-1 text-gray-900">
+                نمایش در صفحه خانه
+              </span>
+            ) : (
+              <span className="bg-gray-200 rounded-full text-sm p-1 text-gray-900">
+                عدم نمایش در صفحه خانه
+              </span>
+            )}
+          </>
+        );
+      },
+    },
+    {
+      field: "homeEvenets",
+      width: 150,
+      headerName: "نمایش در صفحه خانه",
+      cellRenderer: (params: any) => {
+        console.log("ppp", params.value);
+        return (
+          <div className="checkbox-wrapper-14 mt-4">
+            <input
+              id="s1-14"
+              type="checkbox"
+              className="switch"
+              // disabled={params.value == true}
+              defaultChecked={params?.value}
+              checked={params?.value}
+              onChange={() => {
+                setIsOpenHomeEvent(params.data?._id);
+              }}
+            />
+          </div>
+        );
+      },
+    },
     {
       field: "actions",
       headerName: "عملیات",
@@ -176,7 +240,13 @@ function EventsList() {
           defaultColDef={defaultColDef}
         />
       </div>
-
+      <Confirm
+        isOpen={!!isOpenHomeEvent}
+        onClose={handleCloseHomeEvent}
+        isLoading={homeEventMutation.isPending}
+        onSubmit={() => homeEventMutation.mutate(isOpenHomeEvent)}
+        message="آیا می خواهید این سمن  در صفحه اصلی سایت(خانه) نمایش داده شود؟"
+      />
       <Confirm
         isOpen={!!isOpenDel}
         onClose={handleCloseConfirm}
