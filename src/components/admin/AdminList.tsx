@@ -104,7 +104,7 @@ function AdminList() {
             size="sm"
             onClick={() => {
               setIsOpenUp(params.data._id);
-            }}
+            }}   
           >
             <UpdateIcon />
           </Button>
@@ -114,7 +114,6 @@ function AdminList() {
             className="bg-yellow-400 hover:bg-yellow-500"
             size="sm"
             onClick={() => {
-              console.log('data issss >>>> ' , params.data._id)
               setIsOpenUpAccess(params.data._id);
             }}
             >

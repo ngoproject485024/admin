@@ -14,14 +14,14 @@ function UpdateAdminAccess({
   onClose,
   refetch,
   id,
-}: {
+}: {    
   isOpen: boolean;
   onClose: () => void;
   refetch: () => void;
   id: string;
 }) {
   const { data } = useQuery({
-    queryKey: ["getAccessPoint"],
+    queryKey: ["getAccessPoint" , id],
     queryFn: () => getAccessPoint(id),
   });
 
