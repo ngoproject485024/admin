@@ -14,6 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 import { createEvent } from "../../server/events";
 import { eventsSchema } from "../../utils/validation";
 import TextEditor from "../common/TextEditor";
+import Checkbox from "../form/input/Checkbox";
 
 function CreateEvent({ refetch }: { refetch: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,6 +63,7 @@ function CreateEvent({ refetch }: { refetch: () => void }) {
     peEventsBody: string;
     enEventsBody: string;
     ruEventsBody: string;
+    eventSubject : number[];
     pePictures: [];
     enPictures: [];
     ruPictures: [];
@@ -79,6 +81,7 @@ function CreateEvent({ refetch }: { refetch: () => void }) {
       peEventsBody: "",
       enEventsBody: "",
       ruEventsBody: "",
+      eventSubject : [0],
       pePictures: [],
       enPictures: [],
       ruPictures: [],
@@ -260,6 +263,62 @@ function CreateEvent({ refetch }: { refetch: () => void }) {
               </div>
             </div>
           </ComponentCard>
+          <ComponentCard className="my-2" title="مشخص کردن موضوع و محوریت رویداد">
+          <div className="mt-4  flex flex-col gap-4">
+            <Checkbox
+              label="آموزش"
+              checked={formik.values.eventSubject.includes(0)}
+              onChange={() => {
+                let newData = formik.getFieldProps("eventSubject").value
+                if (newData.includes(0)){
+                  newData.splice(newData.indexOf(0) , 1)
+                }else{
+                  newData.push(0)
+                }
+                formik.setFieldValue("eventSubject", newData);
+              }}
+            />
+            <Checkbox
+              label="جوانان"
+              checked={formik.values.eventSubject.includes(1)}
+              onChange={() => {
+                let newData = formik.getFieldProps("eventSubject").value
+                if (newData.includes(1)){
+                  newData.splice(newData.indexOf(1) , 1)
+                }else{
+                  newData.push(1)
+                }
+                formik.setFieldValue("eventSubject", newData);
+              }}
+            />
+            <Checkbox
+              label="زنان"
+              checked={formik.values.eventSubject.includes(2)}
+              onChange={() => {
+                let newData = formik.getFieldProps("eventSubject").value
+                if (newData.includes(2)){
+                  newData.splice(newData.indexOf(2) , 1)
+                }else{
+                  newData.push(2)
+                }
+                formik.setFieldValue("eventSubject", newData);
+              }}
+            />
+            <Checkbox
+              label="تغییر اقلیم"
+              checked={formik.values.eventSubject.includes(3)}
+              onChange={() => {
+                let newData = formik.getFieldProps("eventSubject").value
+                if (newData.includes(3)){
+                  newData.splice(newData.indexOf(3) , 1)
+                }else{
+                  newData.push(3)
+                }
+                formik.setFieldValue("eventSubject", newData);
+              }}
+            />
+          </div>
+        </ComponentCard>
           <ComponentCard title="توضیحات آموزش" className="my-2">
             <div>
               <TextEditor
