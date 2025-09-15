@@ -302,7 +302,7 @@ function ContentAboutUs() {
   return (
     <div>
       <PageMeta
-        title="محتوا | درباه ما"
+        title="محتوا | درباره ما"
         description="محتوای صفحه درباه ما سایت"
       />
       <PageBreadcrumb pageTitle="محتوا" subMenu="درباه ما" />
