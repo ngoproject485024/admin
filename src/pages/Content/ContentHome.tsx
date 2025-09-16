@@ -35,6 +35,9 @@ function ContentHome() {
     peDescription,
     enDescription,
     ruDescription,
+    peEventPartDescription,
+enEventPartDescription,
+ruEventPartDescription,
     peMiddleImageDescription,
     enMiddleImageDescription,
     ruMiddleImageDescription,
@@ -83,6 +86,9 @@ function ContentHome() {
       peDescription: peDescription ? peDescription : "",
       enDescription: enDescription ? enDescription : "",
       ruDescription: ruDescription ? ruDescription : "",
+      peEventPartDescription: peEventPartDescription ? peEventPartDescription : '',
+      enEventPartDescription: enEventPartDescription ? enEventPartDescription : '',
+      ruEventPartDescription: ruEventPartDescription ? ruEventPartDescription : '' ,
       peMiddleImageDescription: peMiddleImageDescription
         ? peMiddleImageDescription
         : " ",
@@ -287,6 +293,42 @@ function ContentHome() {
         />
       </ComponentCard>
         <hr className="border-t border-black-200 dark:border-white-800 my-8" />
+        <ComponentCard title='توضیحات مربوط به بخش اسلایدر رویداد ها' desc="">
+        <TextAreaInput
+          title="توضیحات بخش رویداد ها (فارسی)"
+          formik={formik}
+          name="peEventPartDescription"
+          error={formik.errors.peEventPartDescription ? true : false}
+          hint={
+            typeof formik.errors.peEventPartDescription === "string"
+              ? formik.errors.peEventPartDescription
+              : ""
+          }
+        />
+
+        <TextAreaInput
+          title="توضیحات بخش رویداد ها (انگلیسی)"
+          formik={formik}
+          name="enEventPartDescription"
+          error={formik.errors.enEventPartDescription ? true : false}
+          hint={
+            typeof formik.errors.enEventPartDescription === "string"
+              ? formik.errors.enEventPartDescription
+              : ""
+          }
+        />
+        <TextAreaInput
+          title="توضیحات بخش رویداد ها (روسی)"
+          formik={formik}
+          name="ruEventPartDescription"
+          error={formik.errors.ruEventPartDescription ? true : false}
+          hint={
+            typeof formik.errors.ruEventPartDescription === "string"
+              ? formik.errors.ruEventPartDescription
+              : ""
+          }
+        />
+        </ComponentCard>
         <ComponentCard title='توضیحات مربوط به بخش اسلایدر پروژه ها' desc="">
         <TextAreaInput
           title="توضیحات بخش پروژه ها (فارسی)"

@@ -11,6 +11,7 @@ export interface IEvents {
     pePictures: string[];
     enPictures: string[];
     ruPictures: string[];
+    eventSubject : number[];
     peVideo: string[];
     enVideo: string[];
     ruVideo: string[];

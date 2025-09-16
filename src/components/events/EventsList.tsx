@@ -139,7 +139,7 @@ function EventsList() {
       width: 150,
       headerName: "نمایش در صفحه خانه",
       cellRenderer: (params: any) => {
-        console.log("ppp", params.value);
+        // console.log("ppp", params.value);
         return (
           <div className="checkbox-wrapper-14 mt-4">
             <input
@@ -245,7 +245,7 @@ function EventsList() {
         onClose={handleCloseHomeEvent}
         isLoading={homeEventMutation.isPending}
         onSubmit={() => homeEventMutation.mutate(isOpenHomeEvent)}
-        message="آیا می خواهید این سمن  در صفحه اصلی سایت(خانه) نمایش داده شود؟"
+        message="آیا می خواهید این رویداد  در صفحه اصلی سایت(خانه) نمایش داده شود؟"
       />
       <Confirm
         isOpen={!!isOpenDel}

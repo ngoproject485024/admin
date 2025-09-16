@@ -58,7 +58,7 @@ function CreateEvent({ refetch }: { refetch: () => void }) {
     enTitle: string;
     ruTitle: string;
     peDescription: string;
-    enDescription: string;
+    enDescription: string;  
     ruDescription: string;
     peEventsBody: string;
     enEventsBody: string;
