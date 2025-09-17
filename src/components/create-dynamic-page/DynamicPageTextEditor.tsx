@@ -52,8 +52,8 @@ function DynamicPageTextEditor({ title, value, lang, onChange }: Props) {
   return (
     <ComponentCard title={title ? title : ""}>
       <Editor
-        apiKey="b1l0dr2vsao1zfzn9a90sj6nojthzf6zs5hfyo0rnnt2dqx4"
-        licenseKey="b1l0dr2vsao1zfzn9a90sj6nojthzf6zs5hfyo0rnnt2dqx4"
+        apiKey="yjqh5mu8sat5h3tdbeih3ocnob7yo6sdxrnecr3y3bfqv50y"
+        licenseKey="yjqh5mu8sat5h3tdbeih3ocnob7yo6sdxrnecr3y3bfqv50y"
         init={init}
         value={value}
         onInit={(evt, editor) => (editorRef.current = editor)}
