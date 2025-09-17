@@ -36,8 +36,8 @@ function ContentHome() {
     enDescription,
     ruDescription,
     peEventPartDescription,
-enEventPartDescription,
-ruEventPartDescription,
+    enEventPartDescription,
+    ruEventPartDescription,
     peMiddleImageDescription,
     enMiddleImageDescription,
     ruMiddleImageDescription,
@@ -51,10 +51,12 @@ ruEventPartDescription,
     enNgoDescription,
     ruNgoDescription,
     firstBannerImage,
+    firstBannerLink,
     peFirstBannerDescription,
     enFirstBannerDescription,
     ruFirstBannerDescription,
     secondBannerImage,
+    secondBannerLink,
     peSecondBannerDescription,
     enSecondBannerDescription,
     ruSecondBannerDescription,
@@ -505,6 +507,23 @@ ruEventPartDescription,
                   </span>
                 )}
             </div>
+            <div>
+              <Label htmlFor="ru-link">لینک بنر</Label>
+              <Input
+                type="text"
+                id="ru-link"
+                placeholder="لینک انتقال دهنده روی بنر"
+                error={formik.errors.firstBannerLink ? true : false}
+                {...formik.getFieldProps("firstBannerLink")}
+              />
+              {formik.errors.firstBannerLink &&
+                formik.touched.firstBannerLink && (
+                  <span className="text-sm text-error-500">
+                    {typeof formik.errors.firstBannerLink ===
+                      "string" && formik.errors.firstBannerLink}
+                  </span>
+                )}
+            </div>
           </div>
         </ComponentCard>
         <hr className="border-t border-black-200 dark:border-white-800 my-8" />
@@ -571,7 +590,24 @@ ruEventPartDescription,
                   </span>
                 )}
             </div>
-            <div className="mt-4">
+            <div>
+              <Label htmlFor="ru-link">لینک بنر</Label>
+              <Input
+                type="text"
+                id="ru-link"
+                placeholder="لینک انتقال دهنده روی بنر"
+                error={formik.errors.secondBannerLink ? true : false}
+                {...formik.getFieldProps("secondBannerLink")}
+              />
+              {formik.errors.secondBannerLink &&
+                formik.touched.secondBannerLink && (
+                  <span className="text-sm text-error-500">
+                    {typeof formik.errors.secondBannerLink ===
+                      "string" && formik.errors.secondBannerLink}
+                  </span>
+                )}
+            </div>
+            <div className="mt-4 p-5">
               <Checkbox
                 label="نمایش بنر دوم"
                 checked={formik.values.permitedToShowSecondBanner}

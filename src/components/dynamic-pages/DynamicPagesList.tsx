@@ -79,7 +79,7 @@ function DynamicPagesList() {
     },
     {
       field: "path",
-      headerName: "مسیر صفحه",
+      headerName: "لینک صفحه",
       cellStyle: { textAlign: "center" },
     },
     {
