@@ -66,7 +66,7 @@ export default function App() {
             {/* Content */}
             <Route path="/content/home" element={<ContentHome />} />
             <Route path="/content/about-us" element={<ContentAboutUs />} />
-
+           
             <Route path="/content/ngo" element={<ContentNgo />} />
             <Route
               path="/content/ngos-registration"
@@ -102,7 +102,6 @@ export default function App() {
             />
 
             <Route path="/content/footer" element={<ContentFooter />} />
-
             {/* Dynamic Pages */}
             <Route path="/dynamic-pages" element={<DynamicPages />} />
             <Route

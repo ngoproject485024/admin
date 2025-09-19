@@ -123,6 +123,10 @@ function ContentAboutUs() {
       permitedToShowSecondManager: data?.data?.permitedToShowSecondManager
         ? data?.data?.permitedToShowSecondManager
         : false,
+      EducationCardLink: data?.data?.EducationCardLink,
+      YouthCardLink: data?.data?.YouthCardLink,
+      WomenCardLink: data?.data?.WomenCardLink,
+      climateChangeCardLink: data?.data?.climateChangeCardLink,
     },
     validationSchema: Yup.object().shape({
       peDescription: Yup.string().required("لطفا توضیحات فارسی را وارد کنید"),
@@ -461,6 +465,85 @@ function ContentAboutUs() {
             />
           </div>
         </ComponentCard>
+                   
+        <hr className="border-t border-black-200 dark:border-white-800 my-8" />
+        <ComponentCard
+          title="لینک کارت های رنگی"
+          desc="لینک های مرتبط به مطالعه بیشتر بر روی کارت های رنگی"
+        >
+          <div>
+            <Label htmlFor="pe-input"> لینک کارت آموزش در صفحه درباره ما </Label>
+            <Input
+              type="text"
+              id="pe-input"
+              placeholder="لینک کارت آموزش در صفحه درباره ما"
+              error={formik.errors.EducationCardLink ? true : false}
+              {...formik.getFieldProps("EducationCardLink")}
+            />
+            {formik.errors.EducationCardLink &&
+              formik.touched.EducationCardLink && (
+                <span className="text-sm text-error-500">
+                  {typeof formik.errors.EducationCardLink ===
+                    "string" && formik.errors.EducationCardLink}
+                </span>
+              )}
+          </div>
+
+          <div>
+            <Label htmlFor="pe-input"> لینک کارت جوانان در صفحه درباره ما </Label>
+            <Input
+              type="text"
+              id="pe-input"
+              placeholder="لینک کارت جوانان در صفحه درباره ما"
+              error={formik.errors.YouthCardLink ? true : false}
+              {...formik.getFieldProps("YouthCardLink")}
+            />
+            {formik.errors.YouthCardLink &&
+              formik.touched.YouthCardLink && (
+                <span className="text-sm text-error-500">
+                  {typeof formik.errors.YouthCardLink ===
+                    "string" && formik.errors.YouthCardLink}
+                </span>
+              )}
+          </div>
+
+
+           <div>
+            <Label htmlFor="pe-input"> لینک کارت زنان در صفحه درباره ما </Label>
+            <Input
+              type="text"
+              id="pe-input"
+              placeholder="لینک کارت زنان در صفحه درباره ما"
+              error={formik.errors.WomenCardLink ? true : false}
+              {...formik.getFieldProps("WomenCardLink")}
+            />
+            {formik.errors.WomenCardLink &&
+              formik.touched.WomenCardLink && (
+                <span className="text-sm text-error-500">
+                  {typeof formik.errors.WomenCardLink ===
+                    "string" && formik.errors.WomenCardLink}
+                </span>
+              )}
+          </div>
+           <div>
+            <Label htmlFor="pe-input"> لینک کارت زنان در صفحه درباره ما </Label>
+            <Input
+              type="text"
+              id="pe-input"
+              placeholder="لینک کارت زنان در صفحه درباره ما"
+              error={formik.errors.climateChangeCardLink ? true : false}
+              {...formik.getFieldProps("climateChangeCardLink")}
+            />
+            {formik.errors.climateChangeCardLink &&
+              formik.touched.climateChangeCardLink && (
+                <span className="text-sm text-error-500">
+                  {typeof formik.errors.climateChangeCardLink ===
+                    "string" && formik.errors.climateChangeCardLink}
+                </span>
+              )}
+          </div>
+        </ComponentCard>
+
         <hr className="border-t border-black-200 dark:border-white-800 my-8" />
         <ComponentCard title="بخش تنظیم پیام و عکس مدیر اول برای نشان دادن و همچنین نشان دادن یا ندادن پیام مدیر در انتهای بخش مشخص می شود.">
           <DropzoneComponent
