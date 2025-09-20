@@ -86,7 +86,7 @@ function ImageModal({ isOpen, onClose, formik, update, id }: Props) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} >
       <div
         {...getRootProps()}
         className={`dropzone rounded-xl   border-dashed border-gray-300 p-7 lg:p-10
@@ -131,6 +131,11 @@ function ImageModal({ isOpen, onClose, formik, update, id }: Props) {
           <span className=" text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
             تصاویر PNG, JPG, WebP, SVG خود را اینجا بکشید و رها کنید و یا انتخاب
             کنید
+          </span>
+          <span className="bg-red-300 rounded-xl p-1 text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
+              برای آپلود بهتر عکس ها حداکثر حجم فایل ها مجموعا 
+              5MB
+              باشد
           </span>
 
           <span className="font-medium underline text-theme-sm text-brand-500">

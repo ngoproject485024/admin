@@ -126,11 +126,25 @@ const DropzoneComponent: React.FC<IDropZoneComponent> = ({
 
             <span className=" text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
               {dropDescription ? (
-                <>{dropDescription}</>
+                <>{dropDescription}
+                <span className="bg-red-100 rounded-xl p-1 text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
+                      برای آپلود بهتر عکس ها حداکثر حجم فایل ها مجموعا
+                      5MB
+                      باشد
+                    </span>
+                </>
               ) : (
                 <>
-                  تصاویر PNG, JPG, WebP, SVG خود را اینجا بکشید و رها کنید و یا
+                  <span className="py-5">
+                     تصاویر PNG, JPG, WebP, SVG خود را اینجا بکشید و رها کنید و یا
                   انتخاب کنید
+                  </span>
+
+                    <span className="bg-red-100 rounded-xl p-1 text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
+                      برای آپلود بهتر عکس ها حداکثر حجم فایل ها مجموعا
+                      5MB
+                      باشد
+                    </span>
                 </>
               )}
             </span>
