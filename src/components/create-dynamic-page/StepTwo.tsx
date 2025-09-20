@@ -5,6 +5,7 @@ import { useState } from "react";
 import TitleModal from "./title-modal";
 import DescriptionModal from "./DescriptionModal";
 import ImageModal from "./ImageModal";
+import { Divider } from "@heroui/divider";
 
 interface Props {
   formik: FormikProps<any>;
@@ -68,9 +69,10 @@ function StepTwo({ formik, onStep, step, isLoading }: Props) {
       {step === 2 && formik.values.peContent?.length > 0 && (
         <div className="dark:text-white mt-5 flex-col gap-5 flex">
           <hr />
-          <h2 className="font-bold text-2xl">پیش نمایش</h2>
+          <h2 className="font-bold text-2xl text-center">پیش نمایش</h2>
+          <Divider className="py-5 mt-5 border-black"/>
           {formik.values.peContent?.map((item: any, index: number) => (
-            <div key={index} className="flex items-center gap-2">
+            <div key={index} className="flex items-center py-10 gap-2">
               <Button
                 size="sm"
                 className="bg-red-500 hover:bg-red-800"

@@ -113,7 +113,7 @@ function DynamicPagesList() {
             size="sm"
             onClick={() => {
               setIsOpenDel(params.data._id);
-            }}
+            }}   
           >
             <TrashBinIcon />
           </Button>

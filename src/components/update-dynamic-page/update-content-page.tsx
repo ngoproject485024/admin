@@ -1,11 +1,12 @@
 import { FormikProps } from "formik";
 import { useState } from "react";
-import { PlusIcon, TrashBinIcon } from "../../icons";
+import { PlusIcon, TrashBinIcon, UpdateIcon } from "../../icons";
 import Button from "../ui/button/Button";
 import TitleModal from "../create-dynamic-page/title-modal";
-import DescriptionModal from "../create-dynamic-page/DescriptionModal";
 import ImageModal from "../create-dynamic-page/ImageModal";
 import Label from "../form/Label";
+import {Divider} from "@heroui/divider";
+import DescriptionModalUpdate from "../create-dynamic-page/descriptionUpdatModal";
 
 interface Props {
   formik: FormikProps<any>;
@@ -69,9 +70,10 @@ function UpdateContentPage({ formik, isLoading }: Props) {
       {formik.values.peContent?.length > 0 && (
         <div className="dark:text-white mt-5 flex-col gap-5 flex">
           <hr />
-          <h2 className="font-bold text-2xl">پیش نمایش</h2>
+          <h2 className="font-bold text-2xl py-5 text-center mb-5">پیش نمایش</h2>
+          <Divider className="flex flex-col border-black py-5"/>
           {formik.values.peContent?.map((item: any, index: number) => (
-            <div key={index} className="flex items-center gap-2">
+            <div key={index} className="flex items-center gap-2 py-20">
               <Button
                 size="sm"
                 className="bg-red-500 hover:bg-red-800"
@@ -99,31 +101,32 @@ function UpdateContentPage({ formik, isLoading }: Props) {
               >
                 <span className="sr-only">حذف</span>
               </Button>
-              {/* <Button
+              <Button
                 size="sm"
                 className="bg-yellow-500 hover:bg-yellow-800"
                 startIcon={<UpdateIcon />}
                 onClick={() => {
+                  console.log('item isss' , item)
                   if (item?.title === "title") {
                     setUpdateValue(item);
-                    setId(item.id);
+                    setId(item._id);
                     setIsOpenTitle(true);
                   }
 
                   if (item?.title === "description") {
                     setUpdateValue(item);
-                    setId(item.id);
+                    setId(item._id);
                     setIsOpenDescription(true);
                   }
                   if (item?.title === "images") {
                     setUpdateValue(item);
-                    setId(item.id);
+                    setId(item._id);
                     setIsOpenImage(true);
                   }
                 }}
               >
                 <span className="sr-only">اصلاح</span>
-              </Button> */}
+              </Button>
               {item?.title === "title" && (
                 <h1 className="font-bold text-2xl">{item.content}</h1>
               )}
@@ -164,7 +167,7 @@ function UpdateContentPage({ formik, isLoading }: Props) {
         update={updateValue}
         id={id}
       />
-      <DescriptionModal
+      <DescriptionModalUpdate
         formik={formik}
         isOpen={isOpenDescription}
         onClose={() => {
