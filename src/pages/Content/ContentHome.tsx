@@ -109,6 +109,8 @@ function ContentHome() {
       peNgoDescription: peNgoDescription ? peNgoDescription : "",
       enNgoDescription: enNgoDescription ? enNgoDescription : "",
       ruNgoDescription: ruNgoDescription ? ruNgoDescription : "",
+      firstBannerLink : firstBannerLink,
+      secondBannerLink : firstBannerLink,
       firstBannerImage: firstBannerImage ? firstBannerImage : [],
       peFirstBannerDescription: peFirstBannerDescription
         ? peFirstBannerDescription
@@ -512,6 +514,7 @@ function ContentHome() {
               <Input
                 type="text"
                 id="ru-link"
+                
                 placeholder="لینک انتقال دهنده روی بنر"
                 error={formik.errors.firstBannerLink ? true : false}
                 {...formik.getFieldProps("firstBannerLink")}
