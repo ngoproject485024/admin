@@ -36,6 +36,12 @@ function ContentHome() {
     enDescription,
     ruDescription,
     peEventPartDescription,
+    firstPeEventPartDescription,
+    firstEnEventPartDescription,
+    firstRuEventPartDescription,
+    secondPeEventPartDescription,
+    secondEnEventPartDescription,
+    secondRuEventPartDescription,
     enEventPartDescription,
     ruEventPartDescription,
     peMiddleImageDescription,
@@ -91,6 +97,12 @@ function ContentHome() {
       peEventPartDescription: peEventPartDescription ? peEventPartDescription : '',
       enEventPartDescription: enEventPartDescription ? enEventPartDescription : '',
       ruEventPartDescription: ruEventPartDescription ? ruEventPartDescription : '' ,
+      firstPeEventPartDescription: firstPeEventPartDescription ? firstPeEventPartDescription : '',
+      firstEnEventPartDescription: firstEnEventPartDescription ? firstEnEventPartDescription : '',
+      firstRuEventPartDescription: firstRuEventPartDescription ? firstRuEventPartDescription : '' ,
+      secondPeEventPartDescription: secondPeEventPartDescription ? secondPeEventPartDescription : '',
+      secondEnEventPartDescription: secondEnEventPartDescription ? secondEnEventPartDescription : '',
+      secondRuEventPartDescription: secondRuEventPartDescription ? secondRuEventPartDescription : '' ,
       peMiddleImageDescription: peMiddleImageDescription
         ? peMiddleImageDescription
         : " ",
@@ -298,40 +310,159 @@ function ContentHome() {
       </ComponentCard>
         <hr className="border-t border-black-200 dark:border-white-800 my-8" />
         <ComponentCard title='توضیحات مربوط به بخش اسلایدر رویداد ها' desc="">
-        <TextAreaInput
-          title="توضیحات بخش رویداد ها (فارسی)"
-          formik={formik}
-          name="peEventPartDescription"
-          error={formik.errors.peEventPartDescription ? true : false}
-          hint={
-            typeof formik.errors.peEventPartDescription === "string"
-              ? formik.errors.peEventPartDescription
-              : ""
-          }
-        />
+          <div>
+            <Label htmlFor="pe-input">توضیحات رویداد اول در صفحه خانه</Label>
+            <Input
+              type="text"
+              id="pe-input"
+              placeholder="توضیحات رویداد اول (فارسی) در صفحه خانه را وارد کنید"
+              error={formik.errors.peEventPartDescription ? true : false}
+              {...formik.getFieldProps("peEventPartDescription")}
+            />
+            {formik.errors.peEventPartDescription &&
+              formik.touched.peEventPartDescription && (
+                <span className="text-sm text-error-500">
+                  {typeof formik.errors.peEventPartDescription ===
+                    "string" && formik.errors.peEventPartDescription}
+                </span>
+              )}
+          </div>
+          <div>
+            <Input
+              type="text"
+              id="pe-input"
+              placeholder="توضیحات رویداد اول (انگلیسی) در صفحه خانه را وارد کنید"
+              error={formik.errors.enEventPartDescription ? true : false}
+              {...formik.getFieldProps("enEventPartDescription")}
+            />
+            {formik.errors.enEventPartDescription &&
+              formik.touched.enEventPartDescription && (
+                <span className="text-sm text-error-500">
+                  {typeof formik.errors.enEventPartDescription ===
+                    "string" && formik.errors.enEventPartDescription}
+                </span>
+              )}
+          </div>
+          <div>
+            <Input
+              type="text"
+              id="pe-input"
+              placeholder="توضیحات رویداد اول (روسی) در صفحه خانه را وارد کنید"
+              error={formik.errors.ruEventPartDescription ? true : false}
+              {...formik.getFieldProps("ruEventPartDescription")}
+            />
+            {formik.errors.ruEventPartDescription &&
+              formik.touched.ruEventPartDescription && (
+                <span className="text-sm text-error-500">
+                  {typeof formik.errors.ruEventPartDescription ===
+                    "string" && formik.errors.ruEventPartDescription}
+                </span>
+              )}
+          </div>
 
-        <TextAreaInput
-          title="توضیحات بخش رویداد ها (انگلیسی)"
-          formik={formik}
-          name="enEventPartDescription"
-          error={formik.errors.enEventPartDescription ? true : false}
-          hint={
-            typeof formik.errors.enEventPartDescription === "string"
-              ? formik.errors.enEventPartDescription
-              : ""
-          }
-        />
-        <TextAreaInput
-          title="توضیحات بخش رویداد ها (روسی)"
-          formik={formik}
-          name="ruEventPartDescription"
-          error={formik.errors.ruEventPartDescription ? true : false}
-          hint={
-            typeof formik.errors.ruEventPartDescription === "string"
-              ? formik.errors.ruEventPartDescription
-              : ""
-          }
-        />
+          <hr className="border-t border-black-200 dark:border-white-800 my-8" />
+          <div>
+            <Label htmlFor="pe-input">توضیحات رویداد دوم در صفحه خانه</Label>
+            <Input
+              type="text"
+              id="pe-input"
+              placeholder="توضیحات رویداد دوم (فارسی) در صفحه خانه را وارد کنید"
+              error={formik.errors.firstPeEventPartDescription ? true : false}
+              {...formik.getFieldProps("firstPeEventPartDescription")}
+            />
+            {formik.errors.firstPeEventPartDescription &&
+              formik.touched.firstPeEventPartDescription && (
+                <span className="text-sm text-error-500">
+                  {typeof formik.errors.firstPeEventPartDescription ===
+                    "string" && formik.errors.firstPeEventPartDescription}
+                </span>
+              )}
+          </div>
+          <div>
+            <Input
+              type="text"
+              id="pe-input"
+              placeholder="توضیحات رویداد دوم (انگلیسی) در صفحه خانه را وارد کنید"
+              error={formik.errors.firstEnEventPartDescription ? true : false}
+              {...formik.getFieldProps("firstEnEventPartDescription")}
+            />
+            {formik.errors.firstEnEventPartDescription &&
+              formik.touched.firstEnEventPartDescription && (
+                <span className="text-sm text-error-500">
+                  {typeof formik.errors.firstEnEventPartDescription ===
+                    "string" && formik.errors.firstEnEventPartDescription}
+                </span>
+              )}
+          </div>
+          <div>
+            <Input
+              type="text"
+              id="pe-input"
+              placeholder="توضیحات رویداد دوم (روسی) در صفحه خانه را وارد کنید"
+              error={formik.errors.firstRuEventPartDescription ? true : false}
+              {...formik.getFieldProps("firstRuEventPartDescription")}
+            />
+            {formik.errors.firstRuEventPartDescription &&
+              formik.touched.firstRuEventPartDescription && (
+                <span className="text-sm text-error-500">
+                  {typeof formik.errors.firstRuEventPartDescription ===
+                    "string" && formik.errors.firstRuEventPartDescription}
+                </span>
+              )}
+          </div>
+
+            
+          <hr className="border-t border-black-200 dark:border-white-800 my-8" />
+          <div>
+            <Label htmlFor="pe-input">توضیحات رویداد سوم در صفحه خانه</Label>
+            <Input
+              type="text"
+              id="pe-input"
+              placeholder="توضیحات رویداد سوم (فارسی) در صفحه خانه را وارد کنید"
+              error={formik.errors.secondPeEventPartDescription ? true : false}
+              {...formik.getFieldProps("secondPeEventPartDescription")}
+            />
+            {formik.errors.secondPeEventPartDescription &&
+              formik.touched.secondPeEventPartDescription && (
+                <span className="text-sm text-error-500">
+                  {typeof formik.errors.secondPeEventPartDescription ===
+                    "string" && formik.errors.secondPeEventPartDescription}
+                </span>
+              )}
+          </div>
+          <div>
+            <Input
+              type="text"
+              id="pe-input"
+              placeholder="توضیحات رویداد سوم (انگلیسی) در صفحه خانه را وارد کنید"
+              error={formik.errors.secondEnEventPartDescription ? true : false}
+              {...formik.getFieldProps("secondEnEventPartDescription")}
+            />
+            {formik.errors.secondEnEventPartDescription &&
+              formik.touched.secondEnEventPartDescription && (
+                <span className="text-sm text-error-500">
+                  {typeof formik.errors.secondEnEventPartDescription ===
+                    "string" && formik.errors.secondEnEventPartDescription}
+                </span>
+              )}
+          </div>
+          <div>
+            <Input
+              type="text"
+              id="pe-input"
+              placeholder="توضیحات رویداد سوم (روسی) در صفحه خانه را وارد کنید"
+              error={formik.errors.secondRuEventPartDescription ? true : false}
+              {...formik.getFieldProps("secondRuEventPartDescription")}
+            />
+            {formik.errors.secondRuEventPartDescription &&
+              formik.touched.secondRuEventPartDescription && (
+                <span className="text-sm text-error-500">
+                  {typeof formik.errors.secondRuEventPartDescription ===
+                    "string" && formik.errors.secondRuEventPartDescription}
+                </span>
+              )}
+          </div>
+
         </ComponentCard>
         <ComponentCard title='توضیحات مربوط به بخش اسلایدر پروژه ها' desc="">
         <TextAreaInput
