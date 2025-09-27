@@ -16,7 +16,7 @@ function UpdateDynamicPage() {
   const { state } = useLocation();
 
   const mutation = useMutation({
-    mutationKey: ["createPage"],
+    mutationKey: ["updatePage"],
     mutationFn: (values) => UpdateContentPageRequest(state?.data?._id, values),
     onSuccess: (response: any) => {
       if (response?.success) {
@@ -33,10 +33,11 @@ function UpdateDynamicPage() {
       peContent: state?.data?.content?.peContent || [],
       enContent: state?.data?.content?.enContent || [],
       ruContent: state?.data?.content?.ruContent || [],
-      show: true,
+      show: state?.data?.show,
     },
     enableReinitialize: true,
     onSubmit: async (values: any) => {
+      console.log('is this here????')
       if (Object.keys(values?.peContent).length > 0) {
         setIsLoading(true);
         for (let i = 0; i < values.peContent.length; i++) {
@@ -46,9 +47,12 @@ function UpdateDynamicPage() {
             for (let j = 0; j < item.content.length; j++) {
               formData.append("picture", item.content[j]);
             }
+// till here i had a problem with updating pictures in dynamic pages
+// till here i had a problem with updating pictures in dynamic pages
+            console.log('it comes till here' , formData.getAll('picture'))
             const res = await uploadFiles(formData);
             setIsLoading(false);
-
+            console.log('its a data'  , res)
             if (res?.success) {
               values.peContent[i].content = res?.data;
               values.enContent[i].content = res?.data;
@@ -61,6 +65,7 @@ function UpdateDynamicPage() {
         }
 
         setIsLoading(false);
+        console.log('values after fucking uploading >>>> ' , values)
         mutation.mutate(values);
       } else {
         toast.error("لطفا محتوای صفحه را وارد کنید");

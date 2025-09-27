@@ -68,7 +68,7 @@ function UpdateContentPage({ formik, isLoading }: Props) {
       </div>
 
       {formik.values.peContent?.length > 0 && (
-        <div className="dark:text-white mt-5 flex-col gap-5 flex">
+        <div className="dark:text-white bg-gray-300 rounded-lg mt-5 flex-col gap-5 flex">
           <hr />
           <h2 className="font-bold text-2xl py-5 text-center mb-5">پیش نمایش</h2>
           <Divider className="flex flex-col border-black py-5"/>
@@ -185,6 +185,7 @@ function UpdateContentPage({ formik, isLoading }: Props) {
           onClose={() => {
             setIsOpenImage(false);
             setId(0);
+            console.log('after closing >>>> ' , formik.values)
           }}
           update={updateValue}
           id={id}

@@ -29,8 +29,10 @@ interface IRow {
   ruTitle: string;
   path: string;
   hasSubPage: boolean;
+  Children:string[];
   template: number;
   actions: string;
+  show : boolean;
 }
 
 const themeDark = themeAlpine.withPart(colorSchemeDarkBlue);
@@ -83,8 +85,23 @@ function DynamicPagesList() {
       cellStyle: { textAlign: "center" },
     },
     {
-      field: "hasSubPage",
+      field: "Children",
       headerName: "مسیر فرعی",
+      cellRenderer: (params: { value: string[] }) => (
+        <div className="checkbox-wrapper-14 mt-3 flex gap-2 items-center justify-center">
+          <input
+            id="s1-14"
+            type="checkbox"
+            className="switch"
+            defaultChecked={params.value.length > 0 ? true : false}
+            checked={params.value.length > 0 ? true : false}
+          />
+        </div>
+      ),
+    },
+    {
+      field: "show",
+      headerName: "منوی اصلی",
       cellRenderer: (params: { value: boolean }) => (
         <div className="checkbox-wrapper-14 mt-3 flex gap-2 items-center justify-center">
           <input

@@ -57,6 +57,7 @@ function ImageModal({ isOpen, onClose, formik, update, id }: Props) {
         formik.setFieldValue("enContent", cpItem);
         formik.setFieldValue("ruContent", cpItem);
       }
+      console.log("selected", selectedFiles);
     } else {
       formik.setFieldValue("peContent", [
         ...formik.values.peContent,
@@ -66,6 +67,7 @@ function ImageModal({ isOpen, onClose, formik, update, id }: Props) {
           content: selectedFiles,
         },
       ]);
+      
       formik.setFieldValue("enContent", [
         ...formik.values.enContent,
         {
@@ -161,6 +163,7 @@ function ImageModal({ isOpen, onClose, formik, update, id }: Props) {
                   size="sm"
                   onClick={() => {
                     if (id) {
+                      console.log('its idddd' , id)
                       const cpItem: any = [...formik.values.peContent];
 
                       const filterItem = update.content?.filter(

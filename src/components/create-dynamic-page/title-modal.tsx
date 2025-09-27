@@ -16,17 +16,23 @@ function TitleModal({ isOpen, onClose, formik, update, id }: Props) {
   const [peValue, setPeValue] = useState<string>("");
   const [enValue, setEnValue] = useState<string>("");
   const [ruValue, setRuValue] = useState<string>("");
+  console.log('its formik ' , formik.values)
+  let data = formik?.values?.peContent?.find((f: any) => f._id === id)
+  let index = formik.values.peContent.indexOf(data)
+  let englishOne = formik.values.enContent[index]?.content
+  let russianOne = formik.values.ruContent[index]?.content
+
 
   useEffect(() => {
-    if (id !== 0) {
+     if (id !== 0) {
       setPeValue(
-        formik?.values?.peContent?.find((f: any) => f.id === id)?.content || ""
+        formik?.values?.peContent?.find((f: any) => f._id === id)?.content || ""
       );
       setEnValue(
-        formik?.values?.enContent?.find((f: any) => f.id === id)?.content || ""
+        englishOne || ""
       );
       setRuValue(
-        formik?.values?.ruContent?.find((f: any) => f.id === id)?.content || ""
+        russianOne || ""
       );
     } else {
       setPeValue("");
