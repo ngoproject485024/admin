@@ -37,7 +37,7 @@ function UpdateDynamicPage() {
     },
     enableReinitialize: true,
     onSubmit: async (values: any) => {
-      console.log('is this here????')
+      console.log('is this here????' , 'HERE IS FOR CREATE??????')
       if (Object.keys(values?.peContent).length > 0) {
         setIsLoading(true);
         for (let i = 0; i < values.peContent.length; i++) {
@@ -47,10 +47,10 @@ function UpdateDynamicPage() {
             for (let j = 0; j < item.content.length; j++) {
               formData.append("picture", item.content[j]);
             }
-// till here i had a problem with updating pictures in dynamic pages
-// till here i had a problem with updating pictures in dynamic pages
+              // till here i had a problem with updating pictures in dynamic pages
+              // till here i had a problem with updating pictures in dynamic pages
             console.log('it comes till here' , formData.getAll('picture'))
-            const res = await uploadFiles(formData);
+            const res = await uploadFiles(formData);  
             setIsLoading(false);
             console.log('its a data'  , res)
             if (res?.success) {

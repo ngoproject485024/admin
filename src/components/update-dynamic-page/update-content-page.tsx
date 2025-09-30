@@ -7,6 +7,7 @@ import ImageModal from "../create-dynamic-page/ImageModal";
 import Label from "../form/Label";
 import {Divider} from "@heroui/divider";
 import DescriptionModalUpdate from "../create-dynamic-page/descriptionUpdatModal";
+import UpdateImageModal from "../create-dynamic-page/UpdateImageModal";
 
 interface Props {
   formik: FormikProps<any>;
@@ -17,6 +18,7 @@ function UpdateContentPage({ formik, isLoading }: Props) {
   const [isOpenTitle, setIsOpenTitle] = useState<boolean>(false);
   const [isOpenDescription, setIsOpenDescription] = useState<boolean>(false);
   const [isOpenImage, setIsOpenImage] = useState<boolean>(false);
+  const [isOpenUpdateImage, setIsOpenUpdateImage] = useState<boolean>(false);
   const [updateValue, setUpdateValue] = useState<any>({});
   const [id, setId] = useState<number>(0);
 
@@ -121,7 +123,7 @@ function UpdateContentPage({ formik, isLoading }: Props) {
                   if (item?.title === "images") {
                     setUpdateValue(item);
                     setId(item._id);
-                    setIsOpenImage(true);
+                    setIsOpenUpdateImage(true);
                   }
                 }}
               >
@@ -184,6 +186,20 @@ function UpdateContentPage({ formik, isLoading }: Props) {
           formik={formik}
           onClose={() => {
             setIsOpenImage(false);
+            setId(0);
+            console.log('after closing >>>> ' , formik.values)
+          }}
+          update={updateValue}
+          id={id}
+        />
+      )}
+
+      {isOpenUpdateImage && (
+        <UpdateImageModal
+          isOpen={isOpenUpdateImage}
+          formik={formik}
+          onClose={() => {
+            setIsOpenUpdateImage(false);
             setId(0);
             console.log('after closing >>>> ' , formik.values)
           }}

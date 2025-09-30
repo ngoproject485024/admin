@@ -13,8 +13,8 @@ interface Props {
 }
 
 function ImageModal({ isOpen, onClose, formik, update, id }: Props) {
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-
+  const [selectedFiles, setSelectedFiles] = useState<any[]>([]);
+  console.log('its a data' , id , update)
   useEffect(() => {
     if (id !== 0 && update.content) {
       setSelectedFiles(update.content);
@@ -22,6 +22,10 @@ function ImageModal({ isOpen, onClose, formik, update, id }: Props) {
   }, [id]);
 
   const onDrop = (acceptedFiles: File[]) => {
+    let makingFile : any = []
+    acceptedFiles.forEach((elem : File)=>{
+      makingFile.push(URL.createObjectURL(elem))
+    })
     setSelectedFiles([...selectedFiles, ...acceptedFiles]);
   };
 
@@ -43,7 +47,7 @@ function ImageModal({ isOpen, onClose, formik, update, id }: Props) {
 
     if (id) {
       const cpItem = [...formik.values.peContent];
-      const index = cpItem.findIndex((item) => item.id === id);
+      const index = cpItem.findIndex((item) => item._id === id);
       if (index !== -1) {
         cpItem[index] = {
           ...cpItem[index],
@@ -80,6 +84,7 @@ function ImageModal({ isOpen, onClose, formik, update, id }: Props) {
       ]);
       console.log("selected", selectedFiles);
     }
+
     setSelectedFiles([]);
     onClose();
   };
@@ -179,8 +184,9 @@ function ImageModal({ isOpen, onClose, formik, update, id }: Props) {
                   حذف
                 </Button>
               </div>
+          
               <img
-                src={URL.createObjectURL(image)}
+                src={image}
                 alt={`Preview ${index}`}
                 className="mb-2 rounded-lg border border-gray-300"
               />

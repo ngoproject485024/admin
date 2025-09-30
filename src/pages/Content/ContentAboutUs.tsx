@@ -248,7 +248,7 @@ function ContentAboutUs() {
           firstBossFile.forEach((file) => {
             firstBossFormData.append("picture", file);
           });
-
+          console.log('type of the firstbosss' , firstBossFormData.getAll("picture"))
           const responseFirstBoss = await uploadFiles(firstBossFormData);
 
           if (responseFirstBoss.success) {
