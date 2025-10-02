@@ -8,6 +8,7 @@ import { UpdateContentPageRequest } from "../../server/dynamic-page";
 import toast from "react-hot-toast";
 import { useFormik } from "formik";
 import { uploadFiles } from "../../server/uploadFiles";
+import convertBlobToFile from "../../utils/convertBlobToFile";
 
 function UpdateDynamicPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -47,9 +48,9 @@ function UpdateDynamicPage() {
             for (let j = 0; j < item.content.length; j++) {
               formData.append("picture", item.content[j]);
             }
-              // till here i had a problem with updating pictures in dynamic pages
-              // till here i had a problem with updating pictures in dynamic pages
-            console.log('it comes till here' , formData.getAll('picture'))
+            // till here i had a problem with updating pictures in dynamic pages
+            // till here i had a problem with updating pictures in dynamic pages
+            // console.log('it comes till here' , formData.getAll('picture'))
             const res = await uploadFiles(formData);  
             setIsLoading(false);
             console.log('its a data'  , res)
@@ -57,6 +58,31 @@ function UpdateDynamicPage() {
               values.peContent[i].content = res?.data;
               values.enContent[i].content = res?.data;
               values.ruContent[i].content = res?.data;
+            } else {
+              toast.error(res?.error);
+              return;
+            }
+          }else if(item.title === "images" && typeof item.id !== "number"){
+            const formData = new FormData();
+            let remainPics = []
+            for (let k of item.content){
+              if (typeof k !== "string"){
+                formData.append("picture", k)
+              }else{
+                remainPics.push(k)
+              }
+              console.log('blob blob',typeof i !== "string")
+            }
+            const res = await uploadFiles(formData);  
+            setIsLoading(false);
+            // console.log('its a data'  , res)
+            if (res?.success) {
+              for (let m of res?.data){
+                remainPics.push(m)
+              }
+              values.peContent[i].content = remainPics;
+              values.enContent[i].content = remainPics;
+              values.ruContent[i].content = remainPics;
             } else {
               toast.error(res?.error);
               return;

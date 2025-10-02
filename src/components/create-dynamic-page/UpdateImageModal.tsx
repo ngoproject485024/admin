@@ -22,10 +22,10 @@ function ImageModal({ isOpen, onClose, formik, update, id }: Props) {
   }, [id]);
 
   const onDrop = (acceptedFiles: File[]) => {
-    let makingFile : any = []
-    acceptedFiles.forEach((elem : File)=>{
-      makingFile.push(URL.createObjectURL(elem))
-    })
+    // let makingFile : any = []
+    // acceptedFiles.forEach((elem : File)=>{
+    //   makingFile.push(URL.createObjectURL(elem))
+    // })
     setSelectedFiles([...selectedFiles, ...acceptedFiles]);
   };
 
