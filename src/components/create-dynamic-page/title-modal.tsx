@@ -16,17 +16,39 @@ function TitleModal({ isOpen, onClose, formik, update, id }: Props) {
   const [peValue, setPeValue] = useState<string>("");
   const [enValue, setEnValue] = useState<string>("");
   const [ruValue, setRuValue] = useState<string>("");
-  console.log('its formik ' , formik.values)
-  let data = formik?.values?.peContent?.find((f: any) => f._id === id)
+  console.log('its formik ' , formik.values , id)
+  
+  let data = formik?.values?.peContent?.find((f: any) => {
+    if (!id){
+      if (f._id){
+        return f._id === update._id    
+      }else{
+        console.log('its heree')
+        return f.id === update.id
+      }
+    }else{
+      if (f._id){
+        return f._id === id    
+      }else{
+        console.log('its heree')
+        return f.id === id
+      }
+    }
+  })
+
+  console.log('index issssss' , data)
   let index = formik.values.peContent.indexOf(data)
+  console.log('indexxxx' , index)
   let englishOne = formik.values.enContent[index]?.content
   let russianOne = formik.values.ruContent[index]?.content
-
+  console.log('index issssss' , englishOne)
+  console.log('index issssss' , russianOne)
+  
 
   useEffect(() => {
      if (id !== 0) {
       setPeValue(
-        formik?.values?.peContent?.find((f: any) => f._id === id)?.content || ""
+        data?.content || ""
       );
       setEnValue(
         englishOne || ""
@@ -58,21 +80,39 @@ function TitleModal({ isOpen, onClose, formik, update, id }: Props) {
       const cpEnContent = [...formik.values.enContent];
       const cpRuContent = [...formik.values.ruContent];
 
-      const updatePeContent = cpPeContent.filter((f) => f.id === update.id);
+      const updatePeContent = cpPeContent.filter((f) => {
+        if (update._id){
+          return f._id === update._id
+        }else{
+          return f.id === update.id
+        }
+      });
 
       if (updatePeContent.length > 0) {
         updatePeContent[0].content = peValue;
         formik.setFieldValue("peContent", cpPeContent);
       }
 
-      const updateEnContent = cpEnContent.filter((f) => f.id === update.id);
+      const updateEnContent = cpEnContent.filter((f) => {
+        if (update._id){
+          return f._id === update._id
+        }else{
+          return f.id === update.id
+        }
+      });
 
       if (updateEnContent.length > 0) {
         updateEnContent[0].content = enValue;
         formik.setFieldValue("enContent", cpEnContent);
       }
 
-      const updateRuContent = cpRuContent.filter((f) => f.id === update.id);
+      const updateRuContent = cpRuContent.filter((f) => {
+        if (update._id){
+          return f._id === update._id
+        }else{
+          return f.id === update.id
+        }
+      });
 
       if (updateRuContent.length > 0) {
         updateRuContent[0].content = ruValue;

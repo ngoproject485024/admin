@@ -17,9 +17,25 @@ function DescriptionModalUpdate({ isOpen, onClose, formik, update, id }: Props) 
   const [enDescription, setEnDescription] = useState("");
   const [ruDescription, setRuDescription] = useState("");
   console.log('its a fucking formik' , update , id)
-
-  let data = formik?.values?.peContent?.find((f: any) => f._id === id)
+  let data = formik?.values?.peContent?.find((f: any) => {
+     if (!id){
+      if (f._id){
+        return f._id === update._id    
+      }else{
+        console.log('its heree')
+        return f.id === update.id
+      }
+    }else{
+      if (f._id){
+        return f._id === id    
+      }else{
+        console.log('its heree')
+        return f.id === id
+      }
+    }
+  })
   let index = formik.values.peContent.indexOf(data)
+  console.log('indexxxx' , index)
   let englishOne = formik.values.enContent[index]?.content
   let russianOne = formik.values.ruContent[index]?.content
   
@@ -27,7 +43,7 @@ function DescriptionModalUpdate({ isOpen, onClose, formik, update, id }: Props) 
   useEffect(() => {
     if (id !== 0) {
       setPeDescription(
-        formik?.values?.peContent?.find((f: any) => f._id === id)?.content || ""
+        data?.content|| ""
       );
       setEnDescription(
         englishOne || ""
@@ -59,21 +75,39 @@ function DescriptionModalUpdate({ isOpen, onClose, formik, update, id }: Props) 
       const cpEnContent = [...formik.values.enContent];
       const cpRuContent = [...formik.values.ruContent];
 
-      const updatePeContent = cpPeContent.filter((f) => f._id === update._id);
+      const updatePeContent = cpPeContent.filter((f) => {
+        if (update._id){
+          return f._id === update._id
+        }else{
+          return f.id === update.id
+        }
+      });
 
       if (updatePeContent.length > 0) {
         updatePeContent[0].content = peDescription;
         formik.setFieldValue("peContent", cpPeContent);
       }
 
-      const updateEnContent = cpEnContent.filter((f) => f._id === update._id);
+      const updateEnContent = cpEnContent.filter((f) => {
+        if (update._id){
+          return f._id === update._id
+        }else{
+          return f.id === update.id
+        }
+      });
 
       if (updateEnContent.length > 0) {
         updateEnContent[0].content = enDescription;
         formik.setFieldValue("enContent", cpEnContent);
       }
 
-      const updateRuContent = cpRuContent.filter((f) => f._id === update._id);
+      const updateRuContent = cpRuContent.filter((f) => {
+        if (update._id){
+          return f._id === update._id
+        }else{
+          return f.id === update.id
+        }
+      });
 
       if (updateRuContent.length > 0) {
         updateRuContent[0].content = ruDescription;

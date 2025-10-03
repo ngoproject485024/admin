@@ -25,6 +25,7 @@ function UpdateContentPage({ formik, isLoading }: Props) {
   return (
     <form onSubmit={formik.handleSubmit}>
       <div className="w-full border-b py-2">
+        <Divider className="py-5" />
         <h1 className="dark:text-white font-bold text-xl">نمایش صفحه</h1>
         <div className="checkbox-wrapper-14 mt-4 flex gap-2 items-center">
           <input
@@ -36,8 +37,8 @@ function UpdateContentPage({ formik, isLoading }: Props) {
             onChange={() => {
               formik.setFieldValue("show", !formik.values.show);
             }}
-          />
-          <Label>این صفحه نمایش داده شود؟</Label>
+            />
+            <Label>این صفحه نمایش داده شود؟</Label>
         </div>
       </div>
       <div className="w-full  py-2">
@@ -69,34 +70,65 @@ function UpdateContentPage({ formik, isLoading }: Props) {
         </div>
       </div>
 
+      <hr />
+      {/* <h2 className="font-bold text-2xl py-5 text-center mb-5">پیش نمایش</h2> */}
       {formik.values.peContent?.length > 0 && (
-        <div className="dark:text-white bg-gray-300 rounded-lg mt-5 flex-col gap-5 flex">
-          <hr />
-          <h2 className="font-bold text-2xl py-5 text-center mb-5">پیش نمایش</h2>
-          <Divider className="flex flex-col border-black py-5"/>
+        <div className="dark:text-white bg-gray-300 rounded-lg mt-5 flex-col flex ">
           {formik.values.peContent?.map((item: any, index: number) => (
-            <div key={index} className="flex items-center gap-2 py-20">
+            <div key={index} className="flex items-center gap-2 py-5 m-5">
               <Button
                 size="sm"
                 className="bg-red-500 hover:bg-red-800"
                 startIcon={<TrashBinIcon />}
                 onClick={() => {
+                  let content = formik.values.peContent.find((f:any)=>{
+                    if (item._id) {
+                      return f._id === item._id
+                    } else {
+                      return f.id === item.id
+                    }
+                  })
+                  let index = formik.values.peContent.indexOf(content)
                   formik.setFieldValue(
                     "peContent",
                     formik.values.peContent.filter(
-                      (f: { _id: string }) => f._id !== item._id
+                      (f : any) => {
+                        if (item._id){
+                          console.log('its here>>')
+                          return f._id !== item._id
+                        }else{
+                          console.log('its here2>>')
+                          return f.id !== item.id
+                        }
+                      }
                     )
                   );
+
                   formik.setFieldValue(
                     "enContent",
                     formik.values.enContent.filter(
-                      (f: { _id: string }) => f._id !== item._id
+                      (f : any) => {
+                        if (item._id){
+                          return formik.values.enContent.indexOf(f) != index 
+                        }else{
+                          console.log('its here>>4444')
+                          return f.id !== item.id
+                        }
+                      }
                     )
                   );
                   formik.setFieldValue(
                     "ruContent",
                     formik.values.ruContent.filter(
-                      (f: { _id: string }) => f._id !== item._id
+                      (f : any) => {
+                        if (item._id){
+                          console.log('its here>>555')
+                          return formik.values.ruContent.indexOf(f) != index
+                        }else{
+                          console.log('its here>>666')
+                          return f.id !== item.id
+                        }
+                      }
                     )
                   );
                 }}
@@ -130,13 +162,30 @@ function UpdateContentPage({ formik, isLoading }: Props) {
                 <span className="sr-only">اصلاح</span>
               </Button>
               {item?.title === "title" && (
-                <h1 className="font-bold text-2xl">{item.content}</h1>
+                <div className="flex flex-row w-full gap-[40%] items-center rounded-md border-black p-2 border-[0.5px]">
+                  <h3 className="text-center text-xl font-bold">
+                    عنوان:
+                  </h3>
+                  <h1 className="flex font-bold text-2xl text-center">{item.content}</h1>
+                  {/* <Divider className="border-black"/> */}
+                </div>
               )}
               {item?.title === "description" && (
-                <div dangerouslySetInnerHTML={{ __html: item.content }} />
+                <div className="flex flex-row w-full gap-[5%] items-center rounded-md border-black border p-2">
+                  <h3 className="text-center text-xl font-bold">
+                    توضیحات:
+                  </h3>
+                  <div dangerouslySetInnerHTML={{ __html: item.content }} />
+                  {/* <Divider className="border-black"/> */}
+                </div>
               )}
               {item?.title === "images" && (
-                <div className="grid grid-cols-3 gap-5">
+                <div className="flex flex-row w-full gap-[10%] items-center rounded-md border-black border p-2">
+                  {/* <Divider className="border-black"/> */}
+                  <h3 className="text-center text-xl font-bold">
+                    عکس:
+                  </h3>
+                  <div className="grid grid-cols-3 gap-5 m-3">
                   {item?.content?.map(
                     (image: File | string, imgIndex: number) => (
                       <div key={imgIndex}>
@@ -152,6 +201,9 @@ function UpdateContentPage({ formik, isLoading }: Props) {
                       </div>
                     )
                   )}
+
+                </div>
+                  {/* <Divider className="border-black"/> */}
                 </div>
               )}
             </div>
@@ -187,7 +239,7 @@ function UpdateContentPage({ formik, isLoading }: Props) {
           onClose={() => {
             setIsOpenImage(false);
             setId(0);
-            console.log('after closing >>>> ' , formik.values)
+            console.log('after closing >>>>' , formik.values)
           }}
           update={updateValue}
           id={id}

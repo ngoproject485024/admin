@@ -8,7 +8,7 @@ import { UpdateContentPageRequest } from "../../server/dynamic-page";
 import toast from "react-hot-toast";
 import { useFormik } from "formik";
 import { uploadFiles } from "../../server/uploadFiles";
-import convertBlobToFile from "../../utils/convertBlobToFile";
+// import convertBlobToFile from "../../utils/convertBlobToFile";
 
 function UpdateDynamicPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -71,21 +71,23 @@ function UpdateDynamicPage() {
               }else{
                 remainPics.push(k)
               }
-              console.log('blob blob',typeof i !== "string")
             }
-            const res = await uploadFiles(formData);  
-            setIsLoading(false);
-            // console.log('its a data'  , res)
-            if (res?.success) {
-              for (let m of res?.data){
-                remainPics.push(m)
+            console.log('blob blob',formData.getAll("picture"))
+            if (formData.getAll("picture").length > 0){
+              const res = await uploadFiles(formData);  
+              setIsLoading(false);
+              // console.log('its a data'  , res)
+              if (res?.success) {
+                for (let m of res?.data){
+                  remainPics.push(m)
+                }
+                values.peContent[i].content = remainPics;
+                values.enContent[i].content = remainPics;
+                values.ruContent[i].content = remainPics;
+              } else {
+                toast.error(res?.error);
+                return;
               }
-              values.peContent[i].content = remainPics;
-              values.enContent[i].content = remainPics;
-              values.ruContent[i].content = remainPics;
-            } else {
-              toast.error(res?.error);
-              return;
             }
           }
         }

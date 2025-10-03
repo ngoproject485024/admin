@@ -186,7 +186,7 @@ function ImageModal({ isOpen, onClose, formik, update, id }: Props) {
               </div>
           
               <img
-                src={image}
+                src={typeof image === 'string' ? image : URL.createObjectURL(image)}
                 alt={`Preview ${index}`}
                 className="mb-2 rounded-lg border border-gray-300"
               />
