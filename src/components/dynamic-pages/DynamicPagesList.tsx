@@ -88,13 +88,15 @@ function DynamicPagesList() {
       field: "Children",
       headerName: "مسیر فرعی",
       cellRenderer: (params: { value: string[] }) => (
-        <div className="checkbox-wrapper-14 mt-3 flex gap-2 items-center justify-center">
+        <div className=" flex gap-2 items-center justify-center">
           <input
             id="s1-14"
-            type="checkbox"
-            className="switch"
+            type="text"
+            className="text-center rounded-xl w-2/3 bg-gray-200" 
+            disabled
             defaultChecked={params.value.length > 0 ? true : false}
-            checked={params.value.length > 0 ? true : false}
+            // checked={params.value.length > 0 ? '' : false}
+            value={params.value.length > 0 ? 'دارد' : 'ندارد'}
           />
         </div>
       ),
@@ -103,13 +105,13 @@ function DynamicPagesList() {
       field: "show",
       headerName: "منوی اصلی",
       cellRenderer: (params: { value: boolean }) => (
-        <div className="checkbox-wrapper-14 mt-3 flex gap-2 items-center justify-center">
+        <div className=" flex gap-2 items-center justify-center">
           <input
             id="s1-14"
-            type="checkbox"
-            className="switch"
+            type="text"
+            className="text-center rounded-xl w-2/3 bg-gray-200"
             defaultChecked={params.value}
-            checked={params.value}
+            value={params.value == false ? 'نمی باشد' : 'می باشد'}
           />
         </div>
       ),
