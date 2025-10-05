@@ -40,18 +40,24 @@ import UpdateDynamicPage from "./pages/UpdateDynamicPage";
 import ContentProjectRegistration from "./pages/Content/ContentProjectRegistration";
 import ContentDocumentRegistration from "./pages/Content/ContentDocumentRegistration";
 import { getCookie } from "./utils/cookie";
+import Splash from "./pages/Dashboard/splash";
+import { useQuery } from "@tanstack/react-query";
+import { checkToken } from "./server/admin";
+import SignInForm from "./components/auth/SignInForm";
 
 export default function App() {
   let allAccess = getCookie("admin-miras-access");
-
+  
+ 
   return (
     <>
       <Router>
         <ScrollToTop />
         <Routes>
           {/* Dashboard Layout */}
+          {/* <Route index path="/" element={<Splash />} /> */}
           <Route element={<AppLayout />}>
-            <Route index path="/" element={<Home />} />
+            <Route index path="/" element={<Home />}/>
             <Route path="/education" element={<EducationPage />} />
             <Route path="/events" element={<EventsPage />} />
             <Route path="/ngos/manage-ngos" element={<ManageNgoPage />} />

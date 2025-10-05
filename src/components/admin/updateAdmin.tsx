@@ -21,7 +21,7 @@ function UpdateAdmin({
   id: string;
 }) {
   const { data } = useQuery({
-    queryKey: ["getSingleAdmin"],
+    queryKey: ["getSingleAdmin" , id],
     queryFn: () => getSingleAdmin(id),
   });
 

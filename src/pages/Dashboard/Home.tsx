@@ -5,37 +5,56 @@ import MonthlyTarget from "../../components/ecommerce/MonthlyTarget";
 import RecentOrders from "../../components/ecommerce/RecentOrders";
 import DemographicCard from "../../components/ecommerce/DemographicCard";
 import PageMeta from "../../components/common/PageMeta";
+import { useQuery } from "@tanstack/react-query";
+import { checkToken } from "../../server/admin";
+import { removeCookie } from "../../utils/cookie";
+import { useNavigate } from "react-router";
 
 export default function Home() {
-  return (
-    <>
-      <PageMeta
-        title="داشبورد"
-        description="داشبورد"
-      />
-      <div className="grid grid-cols-12 gap-4 md:gap-6">
-        <div className="col-span-12 space-y-6 xl:col-span-7">
-          <EcommerceMetrics />
+  const navigate = useNavigate();
+  
+  const { data } = useQuery({
+    queryKey: ["checkToken"],
+    queryFn: checkToken,
+  });
+  console.log('check the api>>>', data)
 
-          <MonthlySalesChart />
-        </div>
+  if (!data){
+    // removeCookie("admin-miras-token")
+    navigate('/signin')
+  }else{
 
-        <div className="col-span-12 xl:col-span-5">
-          <MonthlyTarget />
+    return (
+      <>
+        <PageMeta
+          title="داشبورد"
+          description="داشبورد"
+        />
+        <div className="grid grid-cols-12 gap-4 md:gap-6">
+          <div className="col-span-12 space-y-6 xl:col-span-7">
+            <EcommerceMetrics />
+  
+            <MonthlySalesChart />
+          </div>
+  
+          <div className="col-span-12 xl:col-span-5">
+            <MonthlyTarget />
+          </div>
+  
+          <div className="col-span-12">
+            <StatisticsChart />
+          </div>
+  
+          <div className="col-span-12 xl:col-span-5">
+            <DemographicCard />
+          </div>
+  
+          <div className="col-span-12 xl:col-span-7">
+            <RecentOrders />
+          </div>
         </div>
+      </>
+    );
+  }
 
-        <div className="col-span-12">
-          <StatisticsChart />
-        </div>
-
-        <div className="col-span-12 xl:col-span-5">
-          <DemographicCard />
-        </div>
-
-        <div className="col-span-12 xl:col-span-7">
-          <RecentOrders />
-        </div>
-      </div>
-    </>
-  );
 }

@@ -27,6 +27,7 @@ function NgoProjectDetails() {
         pageTitle="سمن ها"
         subMenu="مدیریت پروژه ها"
         subTwoMenu="جزئیات پروژه"
+        subMenuLink="/ngos/manage-projects"
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">

@@ -78,12 +78,12 @@ const formik = useFormik({
           {formik.values?.pages?.map((page : any, index : any) => (
             <div key={index} className="flex items-center bg-white justify-between p-2 border rounded">
               <div>
-                <span className="font-medium">{page.persianName}</span>
-                <span className="text-gray-500 ml-2">({page.englishName})</span>
+                <span className="font-medium dark:text-black">{page.persianName}</span>
+                <span className="text-gray-500 ml-2 dark:text-black">({page.englishName})</span>
               </div>
               <hr className="border-black" />
               <div className="flex items-center">
-                <label className="inline-flex items-center bg-gray-300 p-2 gap-3 rounded-md cursor-pointer">
+                <label className="inline-flex items-center dark:text-black bg-gray-300 p-2 gap-3 rounded-md cursor-pointer">
                   <input
                     type="checkbox"
                     checked={page.access}

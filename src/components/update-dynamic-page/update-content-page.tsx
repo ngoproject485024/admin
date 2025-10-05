@@ -162,7 +162,7 @@ function UpdateContentPage({ formik, isLoading }: Props) {
                 <span className="sr-only">اصلاح</span>
               </Button>
               {item?.title === "title" && (
-                <div className="flex flex-row w-full gap-[40%] items-center rounded-md border-black p-2 border-[0.5px]">
+                <div className="flex flex-row w-full gap-[40%] dark:text-black items-center rounded-md border-black p-2 border-[0.5px]">
                   <h3 className="text-center text-xl font-bold">
                     عنوان:
                   </h3>
@@ -171,7 +171,7 @@ function UpdateContentPage({ formik, isLoading }: Props) {
                 </div>
               )}
               {item?.title === "description" && (
-                <div className="flex flex-row w-full gap-[5%] items-center rounded-md border-black border p-2">
+                <div className="flex flex-row w-full gap-[5%] dark:text-black items-center rounded-md border-black border p-2">
                   <h3 className="text-center text-xl font-bold">
                     توضیحات:
                   </h3>
@@ -180,7 +180,7 @@ function UpdateContentPage({ formik, isLoading }: Props) {
                 </div>
               )}
               {item?.title === "images" && (
-                <div className="flex flex-row w-full gap-[10%] items-center rounded-md border-black border p-2">
+                <div className="flex flex-row w-full gap-[10%] dark:text-black items-center rounded-md border-black border p-2">
                   {/* <Divider className="border-black"/> */}
                   <h3 className="text-center text-xl font-bold">
                     عکس:

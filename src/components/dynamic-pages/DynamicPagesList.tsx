@@ -92,7 +92,7 @@ function DynamicPagesList() {
           <input
             id="s1-14"
             type="text"
-            className="text-center rounded-xl w-2/3 bg-gray-200" 
+            className="text-center rounded-xl dark:text-black w-2/3 bg-gray-200" 
             disabled
             defaultChecked={params.value.length > 0 ? true : false}
             // checked={params.value.length > 0 ? '' : false}
@@ -109,7 +109,7 @@ function DynamicPagesList() {
           <input
             id="s1-14"
             type="text"
-            className="text-center rounded-xl w-2/3 bg-gray-200"
+            className="text-center rounded-xl dark:text-black w-2/3 bg-gray-200"
             defaultChecked={params.value}
             value={params.value == false ? 'نمی باشد' : 'می باشد'}
           />

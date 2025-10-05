@@ -12,6 +12,20 @@ export const getAdmin = async () => {
   }
 };
 
+
+export const checkToken = async () => {
+  try {
+    const { data } = await instance.get("/admin/token/check");
+
+    return true;
+  } catch (err: any) {
+    console.error(err);
+      
+    return false;
+  }
+};
+
+
 export const createAdmin = async (values: any) => {
   try {
     const { data } = await instance.post("/admin/create", values);

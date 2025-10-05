@@ -5,6 +5,7 @@ import ThemeTogglerTwo from "../../components/common/ThemeTogglerTwo";
 import { getCookie } from "../../utils/cookie";
 import Loading from "../../components/loading";
 
+
 export default function AuthLayout({
   children,
 }: {
@@ -36,7 +37,7 @@ export default function AuthLayout({
             {/* <!-- ===== Common Grid Shape Start ===== --> */}
             <GridShape />
             <div className="flex flex-col items-center max-w-xs">
-              <Link to="/" className="block mb-4">
+              <Link to="/dashboard" className="block mb-4">
                 <img
                   width={231}
                   height={48}
