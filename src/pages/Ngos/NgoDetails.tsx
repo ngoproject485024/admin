@@ -126,14 +126,7 @@ function NgoDetails() {
             </div>
           </ComponentCard>
         )}
-        <Button
-          // variant="outline"
-          onClick={() => {
-            console.log('its for testttttt')
-          }}
-        >
-          خروج
-        </Button>
+        
       </div>
       {/* <NgosList /> */}
     </div>
